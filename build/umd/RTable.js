@@ -86,7 +86,7 @@
                         return React.createElement('tbody', null, rows);
                     }
                 });
-            module.exports = RTable;
+            module.exports = RTableBody;
         },
         function (module, exports) {
             module.exports = __external_PubSub;

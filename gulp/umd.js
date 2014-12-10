@@ -28,7 +28,7 @@ gulp.task('build-umd', function  () {
 	if (!fs.existsSync(config.build.umd)){
 	    fs.mkdirSync(config.build.umd);
 	}
-	console.log('Path to build file', config.build.js +'/' +config.build.fileName);
+
 	return gulp.src(config.build.js +'/' +config.build.fileName)
 		.pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %> ")}))
 		.pipe(pure(options))

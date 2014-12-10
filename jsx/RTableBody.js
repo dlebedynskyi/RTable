@@ -14,4 +14,4 @@ var RTableBody = React.createClass({
           }
     });
 
-module.exports = RTable;
+module.exports = RTableBody;

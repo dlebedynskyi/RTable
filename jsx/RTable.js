@@ -6,26 +6,20 @@ var React =  require('react'),
     RTableBody = require('./RTableBody');
 
 var RTable = React.createClass({
-    getDefaultProps : function  () {
+    getInitialState : function(){
         return {
             data : [],
-            definitions : [],
+            definitions : []
+        };
+    },
+    getDefaultProps : function  () {
+        return {  
             dataProp : '.',
             columnFieldValueProp : 'field',
             columnNameProp : 'name'
         };
     },
     propTypes : {
-        //Data array
-        data : React.PropTypes.oneOfType([
-            React.PropTypes.arrayOf(React.PropTypes.string), 
-            React.PropTypes.arrayOf(React.PropTypes.object)]),
-        
-        //columns Definitions array
-        definitions : React.PropTypes.oneOfType([
-            React.PropTypes.arrayOf(React.PropTypes.string), 
-            React.PropTypes.arrayOf(React.PropTypes.object)]),
-
         //Nested property name of each item in data array where to look for column values. Otherwise root object will be used.  
         dataProp : React.PropTypes.string,
         //Property that will be looked for in each column object to use as property name to look for in data item.
@@ -35,7 +29,7 @@ var RTable = React.createClass({
     },
     render : function(){
             return (<table className="table rx-table">
-            		      <RTableBody data={this.props.data}></RTableBody>
+            		      <RTableBody data={this.state.data}></RTableBody>
             	     </table>);
           }
     });
