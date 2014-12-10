@@ -37,26 +37,20 @@
             var React = _require(3), pubsub = _require(2), RTableBody = _require(1);
             var RTable = React.createClass({
                     displayName: 'RTable',
-                    getDefaultProps: function () {
+                    getInitialState: function () {
                         return {
                             data: [],
-                            definitions: [],
+                            definitions: []
+                        };
+                    },
+                    getDefaultProps: function () {
+                        return {
                             dataProp: '.',
                             columnFieldValueProp: 'field',
                             columnNameProp: 'name'
                         };
                     },
                     propTypes: {
-                        //Data array
-                        data: React.PropTypes.oneOfType([
-                            React.PropTypes.arrayOf(React.PropTypes.string),
-                            React.PropTypes.arrayOf(React.PropTypes.object)
-                        ]),
-                        //columns Definitions array
-                        definitions: React.PropTypes.oneOfType([
-                            React.PropTypes.arrayOf(React.PropTypes.string),
-                            React.PropTypes.arrayOf(React.PropTypes.object)
-                        ]),
                         //Nested property name of each item in data array where to look for column values. Otherwise root object will be used.  
                         dataProp: React.PropTypes.string,
                         //Property that will be looked for in each column object to use as property name to look for in data item.
@@ -65,7 +59,7 @@
                         columnNameProp: React.PropTypes.string
                     },
                     render: function () {
-                        return React.createElement('table', { className: 'table rx-table' }, React.createElement(RTableBody, { data: this.props.data }));
+                        return React.createElement('table', { className: 'table rx-table' }, React.createElement(RTableBody, { data: this.state.data }));
                     }
                 });
             module.exports = RTable;
