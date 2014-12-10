@@ -31,6 +31,10 @@
             var  r =  React.createElement(RTable, { data : data});
             var el = document.getElementById('app');
 
+            PubSub.subscribe('RTable', function(msg, data){
+                console.log(msg, data);
+            });
+
             React.render(r, el, function(msg, data){});
         </script>
         

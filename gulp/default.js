@@ -23,7 +23,7 @@ gulp.task('build',  function(callback){
 });
 
 gulp.task('watch', function () {
-	gulp.watch('./jsx/**/**.jsx', ['build-react-compile']);
+	gulp.watch('./jsx/**/**.js', ['build-react-compile']);
 	
 	gulp.watch('./build/**/**.js', ['build-umd']);
 

@@ -19,6 +19,15 @@ var RTable = React.createClass({
             columnNameProp : 'name'
         };
     },
+    componentDidMount : function() {
+        var mediator = {
+            reload : this.reload
+        };
+        pubsub.publish('RTable.Mounted', mediator);
+    },
+    componentWillUnmount : function(){
+        pubsub.unsubscribe('RTable.Mounted');
+    },
     propTypes : {
         //Nested property name of each item in data array where to look for column values. Otherwise root object will be used.  
         dataProp : React.PropTypes.string,
@@ -31,7 +40,14 @@ var RTable = React.createClass({
             return (<table className="table rx-table">
             		      <RTableBody data={this.state.data}></RTableBody>
             	     </table>);
-          }
-    });
+    },
+//custom methods
+    reload : function(newState) {
+        var isreloadRequired = newState && (newState.data  || newState.definitions);
+        if (isreloadRequired) {
+            this.setState(newState);
+        };
+    }
+});
 
 module.exports = RTable;
