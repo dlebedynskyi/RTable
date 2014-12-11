@@ -19,15 +19,12 @@ gulp.task('connect-reload', function(){
 gulp.task('clean', ['build-react-clean', 'build-umd-clean']);
 
 gulp.task('build',  function(callback){
-  return runSequence('clean', 'react', 'umd');
+  return runSequence('react', 'umd');
 });
 
 gulp.task('watch', function () {
-	gulp.watch('./jsx/**/**.js', ['build-react-compile']);
-	
-	gulp.watch('./build/**/**.js', ['build-umd']);
-
+	gulp.watch('./jsx/**/**.js', ['build']);
 	watch('./build/umd/**/**').pipe(connect.reload());
 });
 
-gulp.task('default', ['build', 'watch']);
+gulp.task('default', ['build','watch']);
