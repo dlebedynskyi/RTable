@@ -24,18 +24,28 @@
         <script src="build/umd/RTable.js"></script>
         
         <script type="text/javascript">
-            var data = ['Test', 'Name'];
+            var data = [{Name : 'Test', Surname : 'SurName'},
+                        {Name : 'Test 2', Surname : 'SurName 2'}];
+
             var definition = [{field : 'Name'}, {field : 'Surname'}];
             var settings = {};
 
             var  r =  React.createElement(RTable, { data : data});
             var el = document.getElementById('app');
+            var pointer = null;
 
             PubSub.subscribe('RTable', function(msg, data){
-                console.log(msg, data);
+                console.log('event logged ', msg, data);
+            });
+
+            PubSub.subscribe('RTable.Mounted', function(msg, handler){
+                pointer = handler; 
+                pointer.reload({data : data, definitions : definition});
             });
 
             React.render(r, el, function(msg, data){});
+
+
         </script>
         
      <!--[if lt IE 9]>

@@ -38,7 +38,7 @@ var RTable = React.createClass({
     },
     render : function(){
             return (<table className="table rx-table">
-            		      <RTableBody data={this.state.data}></RTableBody>
+            		      <RTableBody {...this.props} data={this.state.data} definitions={this.state.definitions}></RTableBody>
             	     </table>);
     },
 //custom methods

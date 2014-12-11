@@ -34,7 +34,7 @@
             /**
  * @jsx React.DOM
  */
-            var React = _require(3), pubsub = _require(2), RTableBody = _require(1);
+            var React = _require(4), pubsub = _require(3), RTableBody = _require(1);
             var RTable = React.createClass({
                     displayName: 'RTable',
                     getInitialState: function () {
@@ -66,7 +66,10 @@
                         columnNameProp: React.PropTypes.string
                     },
                     render: function () {
-                        return React.createElement('table', { className: 'table rx-table' }, React.createElement(RTableBody, { data: this.state.data }));
+                        return React.createElement('table', { className: 'table rx-table' }, React.createElement(RTableBody, React.__spread({}, this.props, {
+                            data: this.state.data,
+                            definitions: this.state.definitions
+                        })));
                     },
                     //custom methods
                     reload: function (newState) {
@@ -83,19 +86,65 @@
             /**
  * @jsx React.DOM
  */
-            var React = _require(3), pubsub = _require(2);
+            var React = _require(4), pubsub = _require(3), RTableCell = _require(2);
             var RTableBody = React.createClass({
                     displayName: 'RTableBody',
                     render: function () {
-                        var rows = [];
-                        for (var i = 0; i < this.props.data.length; i++) {
-                            rows.push(React.createElement('td', null, this.props.data[i]));
+                        var rows = [], data = this.props.data && this.props.data.length ? this.props.data : [];
+                        for (var i = 0; i < data.length; i++) {
+                            var cells = [];
+                            for (var j = 0; j < this.props.definitions.length; j++) {
+                                cells.push(React.createElement(RTableCell, {
+                                    key: 'row_' + i + '_cell_' + j,
+                                    data: data[i],
+                                    definition: this.props.definitions[j],
+                                    dataProp: this.props.dataProp,
+                                    columnFieldValueProp: this.props.columnFieldValueProp
+                                }));
+                            }
+                            ;
+                            rows.push(React.createElement('tr', { key: 'row_' + i }, cells));
                         }
                         ;
                         return React.createElement('tbody', null, rows);
                     }
                 });
             module.exports = RTableBody;
+        },
+        function (module, exports) {
+            /**
+ * @jsx React.DOM
+ */
+            var React = _require(4);
+            function warn() {
+                if (console) {
+                    console.warn(arguments);
+                }
+            }
+            var RTableCell = React.createClass({
+                    displayName: 'RTableCell',
+                    render: function () {
+                        var def = null, dataObj = null;
+                        if (typeof this.props.definition === 'object') {
+                            if (!this.props.columnFieldValueProp || !this.props.definition.hasOwnProperty(this.props.columnFieldValueProp)) {
+                                warn('definition property was not found on definition object', this.props.definition, this.props.columnFieldValueProp);
+                            }
+                            def = this.props.definition[this.props.columnFieldValueProp];
+                        } else {
+                            def = this.props.definition;
+                        }
+                        if ('.' !== this.props.dataProp) {
+                            if (!this.props.data.hasOwnProperty(this.props.dataProp)) {
+                                warn('could not find data propety on object', this.props.data, this.props.dataProp);
+                            }
+                            dataObj = this.props.data[this.props.dataProp];
+                        } else {
+                            dataObj = this.props.data;
+                        }
+                        return React.createElement('td', null, dataObj[def]);
+                    }
+                });
+            module.exports = RTableCell;
         },
         function (module, exports) {
             module.exports = __external_PubSub;
