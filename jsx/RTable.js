@@ -3,9 +3,11 @@
  */
 var React =  require('react'),
     pubsub = require('pubsub-js'),
-    RTableBody = require('./RTableBody');
+    RTableBody = require('./RTableBody'),
+    RTableHeader = require('./RTableHeader');
 
 var RTable = React.createClass({
+    displayName : 'RTable',
     getInitialState : function(){
         return {
             data : [],
@@ -37,7 +39,12 @@ var RTable = React.createClass({
         columnNameProp : React.PropTypes.string
     },
     render : function(){
+            var headerRows = [];
+            headerRows.push(<RTableHeader key="RTableHeader" definitions={this.state.definitions} columnNameProp={this.props.columnNameProp}></RTableHeader>);
             return (<table className="table rx-table">
+                          <thead>
+                            {headerRows}
+                          </thead>
             		      <RTableBody {...this.props} data={this.state.data} definitions={this.state.definitions}></RTableBody>
             	     </table>);
     },

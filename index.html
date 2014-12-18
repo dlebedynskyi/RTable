@@ -27,10 +27,10 @@
             var data = [{Name : 'Test', Surname : 'SurName'},
                         {Name : 'Test 2', Surname : 'SurName 2'}];
 
-            var definition = [{field : 'Name'}, {field : 'Surname'}];
-            var settings = {};
+            var definition = [{field : 'Name', title : 'Name'}, {field : 'Surname', title : 'Last Name'}];
+            var settings = { columnFieldValueProp : 'field', columnNameProp : 'title'};
 
-            var  r =  React.createElement(RTable, { data : data});
+            var  r =  React.createElement(RTable, settings);
             var el = document.getElementById('app');
             var pointer = null;
 

@@ -34,7 +34,7 @@
             /**
  * @jsx React.DOM
  */
-            var React = _require(4), pubsub = _require(3), RTableBody = _require(1);
+            var React = _require(5), pubsub = _require(4), RTableBody = _require(1), RTableHeader = _require(3);
             var RTable = React.createClass({
                     displayName: 'RTable',
                     getInitialState: function () {
@@ -66,7 +66,13 @@
                         columnNameProp: React.PropTypes.string
                     },
                     render: function () {
-                        return React.createElement('table', { className: 'table rx-table' }, React.createElement(RTableBody, React.__spread({}, this.props, {
+                        var headerRows = [];
+                        headerRows.push(React.createElement(RTableHeader, {
+                            key: 'RTableHeader',
+                            definitions: this.state.definitions,
+                            columnNameProp: this.props.columnNameProp
+                        }));
+                        return React.createElement('table', { className: 'table rx-table' }, React.createElement('thead', null, headerRows), React.createElement(RTableBody, React.__spread({}, this.props, {
                             data: this.state.data,
                             definitions: this.state.definitions
                         })));
@@ -86,9 +92,22 @@
             /**
  * @jsx React.DOM
  */
-            var React = _require(4), pubsub = _require(3), RTableCell = _require(2);
+            var React = _require(5), pubsub = _require(4), RTableCell = _require(2);
             var RTableBody = React.createClass({
                     displayName: 'RTableBody',
+                    propTypes: {
+                        //Nested property name of each item in data array where to look for column values. Otherwise root object will be used.  
+                        dataProp: React.PropTypes.string,
+                        //Property that will be looked for in each column object to use as property name to look for in data item.
+                        columnFieldValueProp: React.PropTypes.string,
+                        //Definitions for column
+                        definitions: React.PropTypes.oneOfType([
+                            React.PropTypes.arrayOf(React.PropTypes.string),
+                            React.PropTypes.arrayOf(React.PropTypes.object)
+                        ]),
+                        //Data objects
+                        data: React.PropTypes.arrayOf(React.PropTypes.object)
+                    },
                     render: function () {
                         var rows = [], data = this.props.data && this.props.data.length ? this.props.data : [];
                         for (var i = 0; i < data.length; i++) {
@@ -115,7 +134,7 @@
             /**
  * @jsx React.DOM
  */
-            var React = _require(4);
+            var React = _require(5);
             function warn() {
                 if (console) {
                     console.warn(arguments);
@@ -128,8 +147,6 @@
                         dataProp: React.PropTypes.string,
                         //Property that will be looked for in each column object to use as property name to look for in data item.
                         columnFieldValueProp: React.PropTypes.string,
-                        //Property that will be looked for in each column object to use as column title.
-                        columnNameProp: React.PropTypes.string,
                         //Definition for column
                         definition: React.PropTypes.oneOfType([
                             React.PropTypes.string,
@@ -160,6 +177,54 @@
                     }
                 });
             module.exports = RTableCell;
+        },
+        function (module, exports) {
+            /**
+ * @jsx React.DOM
+ */
+            var React = _require(5), pubsub = _require(4);
+            function warn() {
+                if (console) {
+                    console.warn(arguments);
+                }
+            }
+            var RTableHeader = React.createClass({
+                    displayName: 'RTableHeader',
+                    getDefaultProps: function () {
+                        return {
+                            definitions: [],
+                            columnNameProp: 'name'
+                        };
+                    },
+                    propTypes: {
+                        //definitions for table header row
+                        definitions: React.PropTypes.oneOfType([
+                            React.PropTypes.arrayOf(React.PropTypes.string),
+                            React.PropTypes.arrayOf(React.PropTypes.object)
+                        ]),
+                        //Property that will be looked for in each column object to use as column title.
+                        columnNameProp: React.PropTypes.string
+                    },
+                    render: function () {
+                        var rows = [];
+                        for (var j = 0; j < this.props.definitions.length; j++) {
+                            var header = null;
+                            if (typeof this.props.definitions[j] === 'object') {
+                                if (!this.props.columnNameProp || !this.props.definitions[j].hasOwnProperty(this.props.columnNameProp)) {
+                                    warn('Header Name property was not found on definition object', this.props.definition, this.props.columnNameProp);
+                                }
+                                header = this.props.definitions[j][this.props.columnNameProp];
+                            } else {
+                                header = this.props.definitions[j];
+                            }
+                            rows.push(React.createElement('th', { key: 'header_cell_' + j }, header));
+                        }
+                        ;
+                        rows.push();
+                        return React.createElement('tr', null, rows);
+                    }
+                });
+            module.exports = RTableHeader;
         },
         function (module, exports) {
             module.exports = __external_PubSub;
