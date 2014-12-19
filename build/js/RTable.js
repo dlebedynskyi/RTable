@@ -31,6 +31,13 @@ var RTable = React.createClass({
         pubsub.unsubscribe('RTable.Mounted');
     },
     propTypes : {
+        //Definitions for columns
+        definitions : React.PropTypes.oneOfType([
+            React.PropTypes.arrayOf(React.PropTypes.string), 
+            React.PropTypes.arrayOf(React.PropTypes.object)]),
+        //Data objects
+        data : React.PropTypes.arrayOf(React.PropTypes.object),
+
         //Nested property name of each item in data array where to look for column values. Otherwise root object will be used.  
         dataProp : React.PropTypes.string,
         //Property that will be looked for in each column object to use as property name to look for in data item.

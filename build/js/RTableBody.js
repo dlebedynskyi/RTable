@@ -12,7 +12,7 @@ var RTableBody = React.createClass({
         dataProp : React.PropTypes.string,
         //Property that will be looked for in each column object to use as property name to look for in data item.
         columnFieldValueProp : React.PropTypes.string,
-        //Definitions for column
+        //Definitions for columns
         definitions : React.PropTypes.oneOfType([
         	React.PropTypes.arrayOf(React.PropTypes.string), 
         	React.PropTypes.arrayOf(React.PropTypes.object)]),

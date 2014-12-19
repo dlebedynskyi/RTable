@@ -5,6 +5,7 @@ module.exports = {
 		fileName : 'RTable.js'
 	},
 	jsx : './jsx/**/**.js',
+	umd : './build/js/**/**.js',
 	exports: 'RTable',
   	dependencies: [
 	    {name: 'react', exports: 'React'},
