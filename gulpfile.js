@@ -26,8 +26,8 @@ var options = {
 /** Connect **/
  gulp.task('connect', function(){
   return connect.server({
-    port : 1234,
-    livereload : true, 
+    port : config.port,
+    livereload : false, 
     root: [__dirname]
   });
 });
@@ -40,7 +40,7 @@ gulp.task('build', function(callback){
 
 gulp.task('watch', function () {
 	var reactWatch = register(config.jsx, ['react']);
-	var reactWatch = register(config.umd, ['umd']);
+	var umdWatch = register(config.umd, ['umd']);
 });
 
 gulp.task('default', ['build','watch']);
