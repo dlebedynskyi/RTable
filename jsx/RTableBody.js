@@ -17,7 +17,9 @@ var RTableBody = React.createClass({
         	React.PropTypes.arrayOf(React.PropTypes.string), 
         	React.PropTypes.arrayOf(React.PropTypes.object)]),
         //Data objects
-        data : React.PropTypes.arrayOf(React.PropTypes.object)
+        data : React.PropTypes.arrayOf(React.PropTypes.object),
+         //add column for selection row
+        selection : React.PropTypes.bool
     },
     render : function(){
             var rows = [],
@@ -25,8 +27,13 @@ var RTableBody = React.createClass({
             
             for (var i = 0; i < data.length; i++) {
             	var cells = [];
+                if (this.props.selection)
+                {
+                    cells.push(<td key={'row_'+i +'_selection'} className="rtable-selection-row"><input type="checkbox"></input></td>);
+                }
+
             	for (var j = 0; j < this.props.definitions.length; j++) {
-            			cells.push(<RTableCell key={'row_'+i+'_cell_'+j} data={data[i]} definition={this.props.definitions[j]} dataProp={this.props.dataProp} columnFieldValueProp ={this.props.columnFieldValueProp}></RTableCell>)
+        			cells.push(<RTableCell key={'row_'+i+'_cell_'+j} data={data[i]} definition={this.props.definitions[j]} dataProp={this.props.dataProp} columnFieldValueProp ={this.props.columnFieldValueProp}></RTableCell>)
             		};
 
             	rows.push(<tr key={'row_'+i}>{cells}</tr>);

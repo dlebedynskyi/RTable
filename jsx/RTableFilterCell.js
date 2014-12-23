@@ -29,6 +29,9 @@ var RTableFilterCell = React.createClass({
         
         this.setState({definition : e.target.value});
     },
+    componentWillUnmount : function(){
+        pubsub.unsubscribe('RTable.FilterChange');
+    },
     render : function(){
             return (<input type="text" value={this.state.filter} onChange={this.handleChange}></input>);
           }

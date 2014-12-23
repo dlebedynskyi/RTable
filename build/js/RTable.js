@@ -19,7 +19,9 @@ var RTable = React.createClass({
         return {  
             dataProp : '.',
             columnFieldValueProp : 'field',
-            columnNameProp : 'name'
+            columnNameProp : 'name', 
+            enableFilters : true,
+            enableSelection : true
         };
     },
     componentDidMount : function() {
@@ -37,17 +39,23 @@ var RTable = React.createClass({
         //Property that will be looked for in each column object to use as property name to look for in data item.
         columnFieldValueProp : React.PropTypes.string,
         //Property that will be looked for in each column object to use as column title.
-        columnNameProp : React.PropTypes.string
+        columnNameProp : React.PropTypes.string, 
+        //should show filters 
+        enableFilters : React.PropTypes.bool,
+        //should show row selection checkboxes
+        enableSelection : React.PropTypes.bool
     },
     render : function(){
             var headerRows = [];
-            headerRows.push(React.createElement(RTableHeader, {key: "RTableHeader", definitions: this.state.definitions, columnNameProp: this.props.columnNameProp}));
-            headerRows.push(React.createElement(RTableFilter, {key: "RTableFilter", definitions: this.state.definitions}));
+            headerRows.push(React.createElement(RTableHeader, {key: "RTableHeader", definitions: this.state.definitions, columnNameProp: this.props.columnNameProp, selection: this.props.enableSelection}));
+            if (this.props.enableFilters){
+                headerRows.push(React.createElement(RTableFilter, {key: "RTableFilter", definitions: this.state.definitions, selection: this.props.enableSelection}));
+            }
             return (React.createElement("table", {className: "table rx-table"}, 
                           React.createElement("thead", null, 
                             headerRows
                           ), 
-            		      React.createElement(RTableBody, React.__spread({},  this.props, {data: this.state.data, definitions: this.state.definitions}))
+            		      React.createElement(RTableBody, React.__spread({},  this.props, {selection: this.props.enableSelection, data: this.state.data, definitions: this.state.definitions}))
             	     ));
     },
 //custom methods

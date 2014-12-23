@@ -3,13 +3,33 @@ var gulp = require('gulp'),
    connect = require('gulp-connect'),
    react = require('gulp-react')
    plumber = require('gulp-plumber'),
-   notify =  require('gulp-notify')
-   config = require('./gulp-config'),
+   notify =  require('gulp-notify'),
    jest = require('gulp-jest'),
    del = require('del'),
-   uglify = require('gulp-uglify'),
+   uglify = require('gulp-uglifyjs'),
    pure = require('gulp-pure-cjs'),
+   rename = require("gulp-rename")
    fs = require('fs');
+
+var config = {
+  build : {
+    js : './build/js',
+    umd : './build/umd',
+    fileName : 'rtable.js',
+    minFileName : 'rtable.min.js'
+  },
+  jsxSource : './jsx/**/**.js',
+  umdSource : './build/js/**/**.js',
+  distSource  : './build/umd/**/**.js',
+  dist : './dist',
+  exports: 'RTable',
+  sourceMap : true,
+  port : 1234,
+    dependencies: [
+      {name: 'react', exports: 'React'},
+      {name: 'pubsub-js', exports : 'PubSub'}
+    ]
+};
 
 // Umd options
 var options = {
@@ -33,29 +53,36 @@ var options = {
   });
 });
 
-gulp.task('clean', ['react-clean', 'umd-clean']);
+gulp.task('clean', ['react-clean', 'umd-clean', 'dist-clean']);
 
 gulp.task('build', function(callback){
-  runSequence('react', 'umd');
+  runSequence('react', 'umd', 'dist');
 });
 
 gulp.task('watch', function () {
-	var reactWatch = register(config.jsx, ['react']);
-	var umdWatch = register(config.umd, ['umd']);
+	var reactWatch = register(config.jsxSource, ['react']);
+	var umdWatch = register(config.umdSource, ['umd']);
+  //var distWatch = register(config.distSource, ['dist']);
 });
 
 gulp.task('default', ['build','watch']);
 
+gulp.task('dist-clean', function(){
+  del(config.dist);
+});
 
-gulp.task('compress', function(){
-  return gulp.src('./build/umd/**/**.js')
-    .pipe(uglify())
-    .pipe(gulp.dest('./build/dist'));
+gulp.task('dist', function(){
+  return gulp.src(config.build.umd +"/"+config.build.fileName)
+    .pipe(uglify(config.build.minFileName, 
+    {
+      outSourceMap : config.sourceMap
+    }))
+    .pipe(gulp.dest(config.dist));
 });
 
 /** React **/
 gulp.task('react', function(){
-  return gulp.src(config.jsx)
+  return gulp.src(config.jsxSource)
     .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %> ")}))
     .pipe(react())
     .pipe(gulp.dest(config.build.js))
@@ -102,6 +129,7 @@ gulp.task('umd', function  () {
 		.pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %> ")}))
 		.pipe(pure(options))
 		.pipe(gulp.dest(config.build.umd))
+    .pipe(gulp.dest(config.dist))
 		.on('error', notify.onError("Error: <%= error.message %>"));;
 });
 
