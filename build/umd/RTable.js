@@ -34,7 +34,7 @@
             /**
  * @jsx React.DOM
  */
-            var React = _require(5), pubsub = _require(4), RTableBody = _require(1), RTableHeader = _require(3);
+            var React = _require(7), pubsub = _require(6), RTableBody = _require(1), RTableHeader = _require(5), RTableFilter = _require(3);
             var RTable = React.createClass({
                     displayName: 'RTable',
                     getInitialState: function () {
@@ -58,13 +58,6 @@
                         pubsub.unsubscribe('RTable.Mounted');
                     },
                     propTypes: {
-                        //Definitions for columns
-                        definitions: React.PropTypes.oneOfType([
-                            React.PropTypes.arrayOf(React.PropTypes.string),
-                            React.PropTypes.arrayOf(React.PropTypes.object)
-                        ]),
-                        //Data objects
-                        data: React.PropTypes.arrayOf(React.PropTypes.object),
                         //Nested property name of each item in data array where to look for column values. Otherwise root object will be used.  
                         dataProp: React.PropTypes.string,
                         //Property that will be looked for in each column object to use as property name to look for in data item.
@@ -78,6 +71,10 @@
                             key: 'RTableHeader',
                             definitions: this.state.definitions,
                             columnNameProp: this.props.columnNameProp
+                        }));
+                        headerRows.push(React.createElement(RTableFilter, {
+                            key: 'RTableFilter',
+                            definitions: this.state.definitions
                         }));
                         return React.createElement('table', { className: 'table rx-table' }, React.createElement('thead', null, headerRows), React.createElement(RTableBody, React.__spread({}, this.props, {
                             data: this.state.data,
@@ -99,7 +96,7 @@
             /**
  * @jsx React.DOM
  */
-            var React = _require(5), pubsub = _require(4), RTableCell = _require(2);
+            var React = _require(7), pubsub = _require(6), RTableCell = _require(2);
             var RTableBody = React.createClass({
                     displayName: 'RTableBody',
                     propTypes: {
@@ -141,7 +138,7 @@
             /**
  * @jsx React.DOM
  */
-            var React = _require(5);
+            var React = _require(7);
             function warn() {
                 if (console) {
                     console.warn(arguments);
@@ -189,7 +186,77 @@
             /**
  * @jsx React.DOM
  */
-            var React = _require(5), pubsub = _require(4);
+            var React = _require(7), pubsub = _require(6), RTableFilterCell = _require(4);
+            function warn() {
+                if (console) {
+                    console.warn(arguments);
+                }
+            }
+            var RTableFilter = React.createClass({
+                    displayName: 'RTableFilter',
+                    getDefaultProps: function () {
+                        return { definitions: [] };
+                    },
+                    propTypes: {
+                        //definitions for table filter row
+                        definitions: React.PropTypes.oneOfType([
+                            React.PropTypes.arrayOf(React.PropTypes.string),
+                            React.PropTypes.arrayOf(React.PropTypes.object)
+                        ])
+                    },
+                    render: function () {
+                        var rows = [];
+                        for (var j = 0; j < this.props.definitions.length; j++) {
+                            rows.push(React.createElement('th', { key: 'filter_cell_' + j }, React.createElement(RTableFilterCell, { definition: this.props.definitions[j] })));
+                        }
+                        ;
+                        return React.createElement('tr', null, rows);
+                    }
+                });
+            module.exports = RTableFilter;
+        },
+        function (module, exports) {
+            /**
+ * @jsx React.DOM
+ */
+            var React = _require(7), pubsub = _require(6);
+            var RTableFilterCell = React.createClass({
+                    displayName: 'RTableFilterCell',
+                    getInitialState: function () {
+                        return { filter: null };
+                    },
+                    getDefaultProps: function () {
+                        return { definition: {} };
+                    },
+                    propTypes: {
+                        //definitions for table filter row
+                        definition: React.PropTypes.oneOfType([
+                            React.PropTypes.arrayOf(React.PropTypes.string),
+                            React.PropTypes.arrayOf(React.PropTypes.object)
+                        ])
+                    },
+                    handleChange: function (e) {
+                        pubsub.publish('RTable.FilterChange', {
+                            definition: this.props.definition,
+                            value: e.target.value
+                        });
+                        this.setState({ definition: e.target.value });
+                    },
+                    render: function () {
+                        return React.createElement('input', {
+                            type: 'text',
+                            value: this.state.filter,
+                            onChange: this.handleChange
+                        });
+                    }
+                });
+            module.exports = RTableFilterCell;
+        },
+        function (module, exports) {
+            /**
+ * @jsx React.DOM
+ */
+            var React = _require(7), pubsub = _require(6);
             function warn() {
                 if (console) {
                     console.warn(arguments);

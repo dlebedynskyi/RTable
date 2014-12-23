@@ -7,6 +7,7 @@ var gulp = require('gulp'),
    config = require('./gulp-config'),
    jest = require('gulp-jest'),
    del = require('del'),
+   uglify = require('gulp-uglify'),
    pure = require('gulp-pure-cjs'),
    fs = require('fs');
 
@@ -45,6 +46,12 @@ gulp.task('watch', function () {
 
 gulp.task('default', ['build','watch']);
 
+
+gulp.task('compress', function(){
+  return gulp.src('./build/umd/**/**.js')
+    .pipe(uglify())
+    .pipe(gulp.dest('./build/dist'));
+});
 
 /** React **/
 gulp.task('react', function(){
