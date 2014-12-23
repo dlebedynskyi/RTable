@@ -17,8 +17,8 @@ var RTableFilterCell = React.createClass({
     propTypes : {
         //definitions for table filter row
         definition : React.PropTypes.oneOfType([
-            React.PropTypes.arrayOf(React.PropTypes.string), 
-            React.PropTypes.arrayOf(React.PropTypes.object)])
+            React.PropTypes.string, 
+            React.PropTypes.object])
     },
     handleChange : function (e){
         pubsub.publish('RTable.FilterChange', 

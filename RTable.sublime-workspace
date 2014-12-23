@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"Pro",
+				"PropTypes"
+			],
+			[
+				"Pr",
+				"PropTypes"
+			],
+			[
 				"R",
 				"RTableFilterCell"
 			],
@@ -507,30 +515,6 @@
 	},
 	"buffers":
 	[
-		{
-			"file": "jsx/RTable.js",
-			"settings":
-			{
-				"buffer_size": 2260,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "jsx/RTableFilter.js",
-			"settings":
-			{
-				"buffer_size": 993,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "jsx/RTableFilterCell.js",
-			"settings":
-			{
-				"buffer_size": 1032,
-				"line_ending": "Windows"
-			}
-		}
 	],
 	"build_system": "",
 	"command_palette":
@@ -580,28 +564,47 @@
 	"expanded_folders":
 	[
 		"/C/Users/dlebedynsky/Documents/Git/RTable",
-		"/C/Users/dlebedynsky/Documents/Git/RTable/build",
-		"/C/Users/dlebedynsky/Documents/Git/RTable/build/umd",
-		"/C/Users/dlebedynsky/Documents/Git/RTable/jsx"
+		"/C/Users/dlebedynsky/Documents/Git/RTable/build/dist",
+		"/C/Users/dlebedynsky/Documents/Git/RTable/dist",
+		"/C/Users/dlebedynsky/Documents/Git/RTable/jsx",
+		"/C/Users/dlebedynsky/Documents/Git/RTable/node_modules",
+		"/C/Users/dlebedynsky/Documents/Git/RTable/node_modules/gulp-uglifyjs"
 	],
 	"file_history":
 	[
-		"/C/Users/dlebedynsky/Documents/Git/RTable/build/umd/RTable.js",
+		"/C/Users/dlebedynsky/Documents/Git/RTable/jsx/RTableSelect.js",
+		"/C/Users/dlebedynsky/Documents/Git/RTable/jsx/RTableFilterCell.js",
+		"/C/Users/dlebedynsky/Documents/Git/RTable/build/js/RTableFilter.js",
+		"/C/Users/dlebedynsky/Documents/Git/RTable/jsx/RTableFilter.js",
+		"/C/Users/dlebedynsky/Documents/Git/RTable/jsx/RTable.js",
+		"/C/Users/dlebedynsky/Documents/Git/RTable/RTable.sublime-project",
+		"/C/Users/dlebedynsky/Documents/Git/RTable/node_modules/bower/node_modules/lockfile/test/retry-time.js",
+		"/C/Users/dlebedynsky/Documents/Git/RTable/jsx/RTableBody.js",
+		"/C/Users/dlebedynsky/Documents/Git/RTable/jsx/RTableCell.js",
+		"/C/Users/dlebedynsky/Documents/Git/RTable/node_modules/react-tools/node_modules/commoner/node_modules/iconv-lite/encodings/tables/shiftjis.json",
+		"/C/Users/dlebedynsky/Documents/Git/RTable/dist/rtable.min.js",
+		"/C/Users/dlebedynsky/Documents/Git/RTable/jsx/RTableHeader.js",
 		"/C/Users/dlebedynsky/Documents/Git/RTable/gulpfile.js",
+		"/C/Users/dlebedynsky/Documents/Git/RTable/dist/rtable.js",
+		"/C/Users/dlebedynsky/Documents/Git/RTable/node_modules/react/lib/traverseAllChildren.js",
+		"/C/Users/dlebedynsky/Documents/Git/RTable/node_modules/gulp-pure-cjs/gulp-pure-cjs.js",
+		"/C/Users/dlebedynsky/Documents/Git/RTable/gulp-config.js",
+		"/C/Users/dlebedynsky/Documents/Git/RTable/build/dist/rtable.js",
+		"/C/Users/dlebedynsky/Documents/Git/RTable/node_modules/bower/node_modules/mout/lang/createObject.js",
+		"/C/Users/dlebedynsky/Documents/Git/RTable/build/js/umd.js",
+		"/C/Users/dlebedynsky/Documents/Git/RTable/build/js/umd.js.map",
+		"/C/Users/dlebedynsky/Documents/Git/RTable/node_modules/gulp-jest/node_modules/react-tools/src/utils/keyMirror.js",
+		"/C/Users/dlebedynsky/Documents/Git/RTable/index.html",
+		"/C/Users/dlebedynsky/Documents/Git/RTable/node_modules/react/lib/isNode.js",
+		"/C/Users/dlebedynsky/Documents/Git/RTable/node_modules/gulp-uglify/node_modules/.bin/uglifyjs",
+		"/C/Users/dlebedynsky/Documents/Git/RTable/node_modules/gulp-jest/node_modules/jest-cli/src/lib/__tests__/utils-normalizeConfig-test.js",
+		"/C/Users/dlebedynsky/Documents/Git/RTable/build/umd/RTable.js",
 		"/C/Users/dlebedynsky/Documents/Git/RTable/build/dist/RTable.min.js",
 		"/C/Users/dlebedynsky/Documents/Git/RTable/build/dist/RTable.js",
-		"/C/Users/dlebedynsky/Documents/Git/RTable/jsx/RTableFilterCell.js",
 		"/C/Users/dlebedynsky/Documents/Git/RTable/node_modules/bower/node_modules/graceful-fs/graceful-fs.js",
 		"/C/Users/dlebedynsky/Documents/Git/RTable/node_modules/gulp-connect/node_modules/connect/node_modules/multiparty/test/fixture/file/funkyfilename.txt",
-		"/C/Users/dlebedynsky/Documents/Git/RTable/RTable.sublime-project",
-		"/C/Users/dlebedynsky/Documents/Git/RTable/node_modules/react/lib/traverseAllChildren.js",
-		"/C/Users/dlebedynsky/Documents/Git/RTable/node_modules/bower/node_modules/lockfile/test/retry-time.js",
 		"/C/Users/dlebedynsky/Documents/Git/RTable/README.md",
-		"/C/Users/dlebedynsky/Documents/Git/RTable/jsx/RTable.js",
-		"/C/Users/dlebedynsky/Documents/Git/RTable/jsx/RTableBody.js",
-		"/C/Users/dlebedynsky/Documents/Git/RTable/gulp-config.js",
 		"/C/Users/dlebedynsky/Documents/Git/RTable/jsx/RTableFilters.js",
-		"/C/Users/dlebedynsky/Documents/Git/RTable/jsx/RTableCell.js",
 		"/C/Users/dlebedynsky/Documents/Git/RTable/gulp/default.js",
 		"/C/Users/dlebedynsky/Documents/Git/RTable/gulp/umd.js",
 		"/C/Users/dlebedynsky/Documents/Git/RTable/gulp/react.js",
@@ -696,24 +699,7 @@
 		"/C/Users/dlebedynsky/Documents/Git/LX/enformatic.lx2/Lx2/App/common/directives/lxTableItem.drct.js",
 		"/C/Users/dlebedynsky/Documents/Git/LX/enformatic.lx2/Lx2/App/common/directives/lxTable.drct.js",
 		"/C/Users/dlebedynsky/Documents/Git/LX/enformatic.lx2/Lx2/App/templates/common/lxtablePagination.tmpl.html",
-		"/C/Users/dlebedynsky/Documents/Git/LX/enformatic.lx2/Lx2/bower.json",
-		"/C/Users/dlebedynsky/Documents/Git/LX/enformatic.lx2/Lx2/App/common/directives/directives.js",
-		"/C/Users/dlebedynsky/Documents/Git/LX/enformatic.lx2/Lx2/App/templates/common/rightSideAction.tmpl.html",
-		"/C/Users/dlebedynsky/Documents/Git/LX/enformatic.lx2/Lx2/node_modules/bower/node_modules/opn/xdg-open",
-		"/C/Users/dlebedynsky/Documents/Git/LX/enformatic.lx2/Lx2/App/documents/controllers/documents.ctrl.js",
-		"/C/Users/dlebedynsky/Documents/Git/LX/enformatic.lx2/Lx2/Content/global.css",
-		"/C/Users/dlebedynsky/Documents/Git/LX/enformatic.lx2/Lx2/App/templates/document/documents.tmpl.html",
-		"/C/Users/dlebedynsky/Documents/Git/LX/enformatic.lx2/Lx2/App/documents/controllers/documentdetails.ctrl.js",
-		"/C/Users/dlebedynsky/Documents/Git/LX/enformatic.lx2/Lx2/Views/Home/DocumentsUpload.cshtml",
-		"/C/Users/dlebedynsky/Documents/Git/LX/enformatic.lx2/Lx2/App/documents/documents.mdl.js",
-		"/C/Users/dlebedynsky/Documents/Git/LX/enformatic.lx2/Lx2/Views/Home/Documents.cshtml",
-		"/C/Users/dlebedynsky/Documents/Git/LX/enformatic.lx2/Lx2/Controllers/DocumentsController.cs",
-		"/C/Users/dlebedynsky/Documents/Git/LX/enformatic.lx2/Lx2/Content/documents.css",
-		"/C/Users/dlebedynsky/Documents/Git/LX/enformatic.lx2/Lx2/Views/Home/Dashboard.cshtml",
-		"/C/Users/dlebedynsky/Documents/Git/LX/enformatic.lx2/Lx2/App/react/dist/rxTable/ng-rxTable.js",
-		"/C/Users/dlebedynsky/Documents/Git/LX/enformatic.lx2/Lx2/App/documents/services/documents.srvc.js",
-		"/C/Users/dlebedynsky/Documents/Git/LX/enformatic.lx2/Lx2/App/react/jsx/rxTable/rxTableRow.jsx",
-		"/C/Users/dlebedynsky/Documents/Git/LX/enformatic.lx2/Lx2/App/react/jsx/rxTable/rxTableFilters.jsx"
+		"/C/Users/dlebedynsky/Documents/Git/LX/enformatic.lx2/Lx2/bower.json"
 	],
 	"find":
 	{
@@ -749,6 +735,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			" ]);",
 			"__external_PubSub",
 			"b2",
 			"rxTableRow",
@@ -875,8 +862,7 @@
 			"pagination",
 			"\"searchMatch",
 			"initExtraColumns",
-			"categoryService",
-			"mainMenuCtrl"
+			"categoryService"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -896,100 +882,8 @@
 	"groups":
 	[
 		{
-			"selected": 0,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "jsx/RTable.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2260,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								408,
-								408
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": -0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "jsx/RTableFilter.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 993,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								557,
-								557
-							]
-						],
-						"settings":
-						{
-							"open_with_edit": true,
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "jsx/RTableFilterCell.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1032,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								680,
-								680
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				}
 			]
 		}
 	],
@@ -1040,8 +934,48 @@
 		"selected_items":
 		[
 			[
+				"rtablefil",
+				"jsx\\RTableFilterCell.js"
+			],
+			[
+				"rtablefiltercell",
+				"jsx\\RTableFilterCell.js"
+			],
+			[
+				"rtablefir",
+				"jsx\\RTableFilter.js"
+			],
+			[
+				"rtablefilter",
+				"jsx\\RTableFilter.js"
+			],
+			[
+				"rtablecell",
+				"jsx\\RTableCell.js"
+			],
+			[
+				"rtablebo",
+				"jsx\\RTableBody.js"
+			],
+			[
+				"rtalb",
+				"jsx\\RTableFilter.js"
+			],
+			[
 				"gulp",
 				"gulpfile.js"
+			],
+			[
+				"rtableheader",
+				"jsx\\RTableHeader.js"
+			],
+			[
+				"con",
+				"gulp-config.js"
+			],
+			[
+				"ind",
+				"index.html"
 			],
 			[
 				"rtable",
@@ -1510,46 +1444,6 @@
 			[
 				"directives",
 				"App\\common\\directives\\directives.js"
-			],
-			[
-				"controllers",
-				"App\\common\\controllers\\controllers.js"
-			],
-			[
-				"categore",
-				"App\\common\\controllers\\categoriesmenu.ctrl.js"
-			],
-			[
-				"list",
-				"App\\settings\\controllers\\listDetails.ctrl.js"
-			],
-			[
-				"setting",
-				"App\\settings\\controllers\\settings.ctrl.js"
-			],
-			[
-				"leftpan",
-				"App\\settings\\directives\\leftPanel.drct.js"
-			],
-			[
-				"setin",
-				"App\\settings\\controllers\\settings.ctrl.js"
-			],
-			[
-				"cust",
-				"App\\settings\\directives\\customFields.drct.js"
-			],
-			[
-				"documents.",
-				"Views\\Home\\Documents.cshtml"
-			],
-			[
-				"document.ct",
-				"App\\documents\\controllers\\documents.ctrl.js"
-			],
-			[
-				"documents.ct",
-				"App\\documents\\controllers\\documents.ctrl.js"
 			]
 		],
 		"width": 0.0

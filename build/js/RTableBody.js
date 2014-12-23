@@ -3,10 +3,20 @@
  */
 var React =  require('react'),
     pubsub = require('pubsub-js'),
-    RTableCell = require('./RTableCell');
+    RTableCell = require('./RTableCell')
+    RTableSelect = require('./RTableSelect');
 
 var RTableBody = React.createClass({
 	displayName : 'RTableBody',
+     getDefaultProps : function  () {
+        return {  
+            dataProp : '.',
+            columnFieldValueProp : 'field',
+            selection : true,
+            data : [],
+            definitions : []
+        };
+    },
 	propTypes : {
         //Nested property name of each item in data array where to look for column values. Otherwise root object will be used.  
         dataProp : React.PropTypes.string,
@@ -22,18 +32,17 @@ var RTableBody = React.createClass({
         selection : React.PropTypes.bool
     },
     render : function(){
-            var rows = [],
-            	data = this.props.data && this.props.data.length ? this.props.data : [];
+            var rows = [];
             
-            for (var i = 0; i < data.length; i++) {
+            for (var i = 0; i < this.props.data.length; i++) {
             	var cells = [];
                 if (this.props.selection)
                 {
-                    cells.push(React.createElement("td", {key: 'row_'+i +'_selection', className: "rtable-selection-row"}, React.createElement("input", {type: "checkbox"})));
+                    cells.push(React.createElement(RTableSelect, {key: 'row_'+i +'_selection', data: this.props.data[i]}));
                 }
 
             	for (var j = 0; j < this.props.definitions.length; j++) {
-        			cells.push(React.createElement(RTableCell, {key: 'row_'+i+'_cell_'+j, data: data[i], definition: this.props.definitions[j], dataProp: this.props.dataProp, columnFieldValueProp: this.props.columnFieldValueProp}))
+        			cells.push(React.createElement(RTableCell, {key: 'row_'+i+'_cell_'+j, data: this.props.data[i], definition: this.props.definitions[j], dataProp: this.props.dataProp, columnFieldValueProp: this.props.columnFieldValueProp}))
             		};
 
             	rows.push(React.createElement("tr", {key: 'row_'+i}, cells));

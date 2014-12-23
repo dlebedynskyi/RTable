@@ -34,9 +34,19 @@
             /**
  * @jsx React.DOM
  */
-            var React = _require(7), pubsub = _require(6), RTableCell = _require(1);
+            var React = _require(8), pubsub = _require(7), RTableCell = _require(1);
+            RTableSelect = _require(5);
             var RTableBody = React.createClass({
                     displayName: 'RTableBody',
+                    getDefaultProps: function () {
+                        return {
+                            dataProp: '.',
+                            columnFieldValueProp: 'field',
+                            selection: true,
+                            data: [],
+                            definitions: []
+                        };
+                    },
                     propTypes: {
                         //Nested property name of each item in data array where to look for column values. Otherwise root object will be used.  
                         dataProp: React.PropTypes.string,
@@ -53,19 +63,19 @@
                         selection: React.PropTypes.bool
                     },
                     render: function () {
-                        var rows = [], data = this.props.data && this.props.data.length ? this.props.data : [];
-                        for (var i = 0; i < data.length; i++) {
+                        var rows = [];
+                        for (var i = 0; i < this.props.data.length; i++) {
                             var cells = [];
                             if (this.props.selection) {
-                                cells.push(React.createElement('td', {
+                                cells.push(React.createElement(RTableSelect, {
                                     key: 'row_' + i + '_selection',
-                                    className: 'rtable-selection-row'
-                                }, React.createElement('input', { type: 'checkbox' })));
+                                    data: this.props.data[i]
+                                }));
                             }
                             for (var j = 0; j < this.props.definitions.length; j++) {
                                 cells.push(React.createElement(RTableCell, {
                                     key: 'row_' + i + '_cell_' + j,
-                                    data: data[i],
+                                    data: this.props.data[i],
                                     definition: this.props.definitions[j],
                                     dataProp: this.props.dataProp,
                                     columnFieldValueProp: this.props.columnFieldValueProp
@@ -84,7 +94,7 @@
             /**
  * @jsx React.DOM
  */
-            var React = _require(7);
+            var React = _require(8);
             function warn() {
                 if (console) {
                     console.warn(arguments);
@@ -132,7 +142,7 @@
             /**
  * @jsx React.DOM
  */
-            var React = _require(7), pubsub = _require(6), RTableFilterCell = _require(3);
+            var React = _require(8), pubsub = _require(7), RTableFilterCell = _require(3);
             function warn() {
                 if (console) {
                     console.warn(arguments);
@@ -176,7 +186,7 @@
             /**
  * @jsx React.DOM
  */
-            var React = _require(7), pubsub = _require(6);
+            var React = _require(8), pubsub = _require(7);
             var RTableFilterCell = React.createClass({
                     displayName: 'RTableFilterCell',
                     getInitialState: function () {
@@ -188,8 +198,8 @@
                     propTypes: {
                         //definitions for table filter row
                         definition: React.PropTypes.oneOfType([
-                            React.PropTypes.arrayOf(React.PropTypes.string),
-                            React.PropTypes.arrayOf(React.PropTypes.object)
+                            React.PropTypes.string,
+                            React.PropTypes.object
                         ])
                     },
                     handleChange: function (e) {
@@ -216,7 +226,7 @@
             /**
  * @jsx React.DOM
  */
-            var React = _require(7), pubsub = _require(6);
+            var React = _require(8), pubsub = _require(7);
             function warn() {
                 if (console) {
                     console.warn(arguments);
@@ -272,7 +282,45 @@
             /**
  * @jsx React.DOM
  */
-            var React = _require(7), pubsub = _require(6), RTableBody = _require(0), RTableHeader = _require(4), RTableFilter = _require(2);
+            var React = _require(8), pubsub = _require(7);
+            var RTableSelect = React.createClass({
+                    displayName: 'RTableSelect',
+                    getInitialState: function () {
+                        return { isChecked: false };
+                    },
+                    getDefaultProps: function () {
+                        return { data: {} };
+                    },
+                    propTypes: {
+                        //Data object. will use dataProp to look for display values. Value will be taken based on columnFieldValueProp value of definition object
+                        data: React.PropTypes.object
+                    },
+                    onChange: function (e) {
+                        var checked = !this.state.isChecked;
+                        pubsub.publish('RTable.RowChecked', {
+                            data: this.props.data,
+                            value: checked
+                        });
+                        this.setState({ isChecked: checked });
+                    },
+                    render: function () {
+                        return React.createElement('td', { className: 'rtable-selection-row' }, React.createElement('input', {
+                            type: 'checkbox',
+                            checked: this.state.isChecked,
+                            onChange: this.onChange
+                        }));
+                    },
+                    componentWillUnmount: function () {
+                        pubsub.unsubscribe('RTable.RowSelected');
+                    }
+                });
+            module.exports = RTableSelect;
+        },
+        function (module, exports) {
+            /**
+ * @jsx React.DOM
+ */
+            var React = _require(8), pubsub = _require(7), RTableBody = _require(0), RTableHeader = _require(4), RTableFilter = _require(2);
             var RTable = React.createClass({
                     displayName: 'RTable',
                     getInitialState: function () {
@@ -348,5 +396,5 @@
             module.exports = __external_React;
         }
     ];
-    return _require(5);
+    return _require(6);
 }));

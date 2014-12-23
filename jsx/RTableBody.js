@@ -3,10 +3,20 @@
  */
 var React =  require('react'),
     pubsub = require('pubsub-js'),
-    RTableCell = require('./RTableCell');
+    RTableCell = require('./RTableCell')
+    RTableSelect = require('./RTableSelect');
 
 var RTableBody = React.createClass({
 	displayName : 'RTableBody',
+     getDefaultProps : function  () {
+        return {  
+            dataProp : '.',
+            columnFieldValueProp : 'field',
+            selection : true,
+            data : [],
+            definitions : []
+        };
+    },
 	propTypes : {
         //Nested property name of each item in data array where to look for column values. Otherwise root object will be used.  
         dataProp : React.PropTypes.string,
@@ -22,18 +32,17 @@ var RTableBody = React.createClass({
         selection : React.PropTypes.bool
     },
     render : function(){
-            var rows = [],
-            	data = this.props.data && this.props.data.length ? this.props.data : [];
+            var rows = [];
             
-            for (var i = 0; i < data.length; i++) {
+            for (var i = 0; i < this.props.data.length; i++) {
             	var cells = [];
                 if (this.props.selection)
                 {
-                    cells.push(<td key={'row_'+i +'_selection'} className="rtable-selection-row"><input type="checkbox"></input></td>);
+                    cells.push(<RTableSelect key={'row_'+i +'_selection'} data={this.props.data[i]}></RTableSelect>);
                 }
 
             	for (var j = 0; j < this.props.definitions.length; j++) {
-        			cells.push(<RTableCell key={'row_'+i+'_cell_'+j} data={data[i]} definition={this.props.definitions[j]} dataProp={this.props.dataProp} columnFieldValueProp ={this.props.columnFieldValueProp}></RTableCell>)
+        			cells.push(<RTableCell key={'row_'+i+'_cell_'+j} data={this.props.data[i]} definition={this.props.definitions[j]} dataProp={this.props.dataProp} columnFieldValueProp ={this.props.columnFieldValueProp}></RTableCell>)
             		};
 
             	rows.push(<tr key={'row_'+i}>{cells}</tr>);
