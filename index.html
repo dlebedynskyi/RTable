@@ -38,7 +38,7 @@
                 definition = [],
                 settings = { columnFieldValueProp : 'field', columnNameProp : 'title', classes : 'table table-striped'},
                 columnIndex = 0,
-                r =  React.createElement(RTable, settings),
+                r =  null,
                 el = document.getElementById('app'),
                 mediator = null,
                 renderBtn = document.getElementById('renderBtn'),
@@ -65,8 +65,10 @@
             PubSub.subscribe('RTable.Mounted', function(msg, handler){
                 mediator = handler;
             });
-
+            //default render and mount to dom 
+            r = React.createElement(RTable, settings);
             React.render(r, el, function(msg, data){});
+            
             // demo events 
             renderBtn.addEventListener('click', function(e){
                 var diff = new Date().getTime();
