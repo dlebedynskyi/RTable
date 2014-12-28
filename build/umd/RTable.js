@@ -361,18 +361,20 @@
                     },
                     render: function () {
                         var headerRows = [];
-                        headerRows.push(React.createElement(RTableHeader, {
-                            key: 'RTableHeader',
-                            definitions: this.state.definitions,
-                            columnNameProp: this.props.columnNameProp,
-                            selection: this.props.enableSelection
-                        }));
-                        if (this.props.enableFilters) {
-                            headerRows.push(React.createElement(RTableFilter, {
-                                key: 'RTableFilter',
+                        if (this.state.data && this.state.data.length) {
+                            headerRows.push(React.createElement(RTableHeader, {
+                                key: 'RTableHeader',
                                 definitions: this.state.definitions,
+                                columnNameProp: this.props.columnNameProp,
                                 selection: this.props.enableSelection
                             }));
+                            if (this.props.enableFilters) {
+                                headerRows.push(React.createElement(RTableFilter, {
+                                    key: 'RTableFilter',
+                                    definitions: this.state.definitions,
+                                    selection: this.props.enableSelection
+                                }));
+                            }
                         }
                         return React.createElement('table', { className: 'rx-table ' + this.props.classes }, React.createElement('thead', null, headerRows), React.createElement(RTableBody, React.__spread({}, this.props, {
                             selection: this.props.enableSelection,

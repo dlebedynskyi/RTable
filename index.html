@@ -20,8 +20,12 @@
         <![endif]-->
         <h1> R Table demo page </h1> 
         <div class="row">
+        <div class="col-md-4">
             <button type="button" id="renderBtn" class="btn btn-success"> Render Table 200x2</button>
             <button type="button" id="addColumnBtn" class="btn btn-default"> Display one more column</button>
+        </div>
+        <div class="col-md-4">
+        </div>
         </div>
 
         <div id="app"></div>
@@ -30,7 +34,17 @@
         <script src="build/umd/RTable.js"></script>
         
         <script type="text/javascript">
-            var data = [];
+            var data = [],
+                definition = [],
+                settings = { columnFieldValueProp : 'field', columnNameProp : 'title', classes : 'table table-striped'},
+                columnIndex = 0,
+                r =  React.createElement(RTable, settings),
+                el = document.getElementById('app'),
+                mediator = null,
+                renderBtn = document.getElementById('renderBtn'),
+                addColumn = document.getElementById('addColumnBtn');
+
+            //create some data
             for (var i = 0; i < 200; i++) {
                 var d = {};
                 for (var j = 0; j < 100; j++) {
@@ -38,35 +52,36 @@
                 };
                 data.push(d);
             };
-    
-            var definition = [{field : 'col_0', title : 'Column 0 '}, {field : 'col_1', title : 'Column 1'}];
-            var settings = { columnFieldValueProp : 'field', columnNameProp : 'title', classes : 'table table-striped'};
-
-            var  r =  React.createElement(RTable, settings);
-            var el = document.getElementById('app');
-            var pointer = null;
-
+            //default definitions 
+            definition.push({field : 'col_0', title : 'Column 0 '});
+            definition.push({field : 'col_1', title : 'Column 1'});
+            columnIndex = 1;
+            
+            // logging events to console
             PubSub.subscribe('RTable', function(msg, data){
                 console.log('event logged ', msg, data);
             });
-
+            //saving reload mediator
             PubSub.subscribe('RTable.Mounted', function(msg, handler){
-                pointer = handler;
+                mediator = handler;
             });
 
             React.render(r, el, function(msg, data){});
-            
-            var renderBtn = document.getElementById('renderBtn');
+            // demo events 
             renderBtn.addEventListener('click', function(e){
-                if (pointer){ pointer.reload({data : data, definitions : definition}); }
+                var diff = new Date().getTime();
+                if (mediator){ mediator.reload({data : data, definitions : definition}); }
+                diff = (new Date().getTime() - diff)/1000;
+                console.log('default render in sec',   diff);
             });
-            
-            var columnIndex = 1;
-            var addColumn = document.getElementById('addColumnBtn');
+          
             addColumn.addEventListener('click', function(){
                 columnIndex+= 1;
                 definition.push({field : 'col_' + columnIndex, title : 'Column '+columnIndex});
-                pointer.reload({definitions : definition});
+                var diff = new Date().getTime();
+                mediator.reload({definitions : definition});
+                diff = (new Date().getTime() - diff)/1000;
+                console.log('add new column render in sec',   diff);
             });
 
         </script>

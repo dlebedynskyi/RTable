@@ -49,11 +49,13 @@ var RTable = React.createClass({
     },
     render : function(){
             var headerRows = [];
-            headerRows.push(<RTableHeader key="RTableHeader" definitions={this.state.definitions} columnNameProp={this.props.columnNameProp} selection={this.props.enableSelection}></RTableHeader>);
-            if (this.props.enableFilters){
-                headerRows.push(<RTableFilter key="RTableFilter" definitions={this.state.definitions} selection={this.props.enableSelection}></RTableFilter>);
+            if (this.state.data && this.state.data.length){
+                headerRows.push(<RTableHeader key="RTableHeader" definitions={this.state.definitions} columnNameProp={this.props.columnNameProp} selection={this.props.enableSelection}></RTableHeader>);
+                if (this.props.enableFilters){
+                    headerRows.push(<RTableFilter key="RTableFilter" definitions={this.state.definitions} selection={this.props.enableSelection}></RTableFilter>);
+                }
             }
-
+            
             return (<table className= {"rx-table " + this.props.classes}>
                           <thead>
                             {headerRows}
