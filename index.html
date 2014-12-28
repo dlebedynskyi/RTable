@@ -5,30 +5,42 @@
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
     <head>
         <meta charset="utf-8">
-        <title>rx Table samle demo</title>
+        <title>RTable samle demo</title>
         <meta name="description" content="">
-        <meta name="viewport" content="width=device-width">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
         <!-- Optional theme -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
 
     </head>
-    <body>
+    <body class="container-fluid">
         <!--[if lt IE 10]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
+        <h1> R Table demo page </h1> 
+        <div class="row">
+            <button type="button" id="renderBtn" class="btn btn-success"> Render Table 200x2</button>
+            <button type="button" id="addColumnBtn" class="btn btn-default"> Display one more column</button>
+        </div>
+
         <div id="app"></div>
         <script src="external/react/react-with-addons.js"></script>
         <script src="external/pubsub-js/src/pubsub.js"></script>
         <script src="build/umd/RTable.js"></script>
         
         <script type="text/javascript">
-            var data = [{Name : 'Test', Surname : 'SurName'},
-                        {Name : 'Test 2', Surname : 'SurName 2'}];
-
-            var definition = [{field : 'Name', title : 'Name'}, {field : 'Surname', title : 'Last Name'}];
-            var settings = { columnFieldValueProp : 'field', columnNameProp : 'title'};
+            var data = [];
+            for (var i = 0; i < 200; i++) {
+                var d = {};
+                for (var j = 0; j < 100; j++) {
+                    d['col_'+j] = 'Row '+i + ' Column ' +j;
+                };
+                data.push(d);
+            };
+    
+            var definition = [{field : 'col_0', title : 'Column 0 '}, {field : 'col_1', title : 'Column 1'}];
+            var settings = { columnFieldValueProp : 'field', columnNameProp : 'title', classes : 'table table-striped'};
 
             var  r =  React.createElement(RTable, settings);
             var el = document.getElementById('app');
@@ -39,12 +51,23 @@
             });
 
             PubSub.subscribe('RTable.Mounted', function(msg, handler){
-                pointer = handler; 
-                pointer.reload({data : data, definitions : definition});
+                pointer = handler;
             });
 
             React.render(r, el, function(msg, data){});
-
+            
+            var renderBtn = document.getElementById('renderBtn');
+            renderBtn.addEventListener('click', function(e){
+                if (pointer){ pointer.reload({data : data, definitions : definition}); }
+            });
+            
+            var columnIndex = 1;
+            var addColumn = document.getElementById('addColumnBtn');
+            addColumn.addEventListener('click', function(){
+                columnIndex+= 1;
+                definition.push({field : 'col_' + columnIndex, title : 'Column '+columnIndex});
+                pointer.reload({definitions : definition});
+            });
 
         </script>
         

@@ -335,7 +335,8 @@
                             columnFieldValueProp: 'field',
                             columnNameProp: 'name',
                             enableFilters: true,
-                            enableSelection: true
+                            enableSelection: true,
+                            className: ''
                         };
                     },
                     componentDidMount: function () {
@@ -355,7 +356,8 @@
                         //should show filters 
                         enableFilters: React.PropTypes.bool,
                         //should show row selection checkboxes
-                        enableSelection: React.PropTypes.bool
+                        enableSelection: React.PropTypes.bool,
+                        className: React.PropTypes.string
                     },
                     render: function () {
                         var headerRows = [];
@@ -372,7 +374,7 @@
                                 selection: this.props.enableSelection
                             }));
                         }
-                        return React.createElement('table', { className: 'table rx-table' }, React.createElement('thead', null, headerRows), React.createElement(RTableBody, React.__spread({}, this.props, {
+                        return React.createElement('table', { className: 'rx-table ' + this.props.classes }, React.createElement('thead', null, headerRows), React.createElement(RTableBody, React.__spread({}, this.props, {
                             selection: this.props.enableSelection,
                             data: this.state.data,
                             definitions: this.state.definitions

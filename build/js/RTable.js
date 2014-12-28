@@ -21,7 +21,8 @@ var RTable = React.createClass({
             columnFieldValueProp : 'field',
             columnNameProp : 'name', 
             enableFilters : true,
-            enableSelection : true
+            enableSelection : true,
+            className : ''
         };
     },
     componentDidMount : function() {
@@ -43,7 +44,8 @@ var RTable = React.createClass({
         //should show filters 
         enableFilters : React.PropTypes.bool,
         //should show row selection checkboxes
-        enableSelection : React.PropTypes.bool
+        enableSelection : React.PropTypes.bool,
+        className : React.PropTypes.string
     },
     render : function(){
             var headerRows = [];
@@ -51,7 +53,8 @@ var RTable = React.createClass({
             if (this.props.enableFilters){
                 headerRows.push(React.createElement(RTableFilter, {key: "RTableFilter", definitions: this.state.definitions, selection: this.props.enableSelection}));
             }
-            return (React.createElement("table", {className: "table rx-table"}, 
+
+            return (React.createElement("table", {className: "rx-table " + this.props.classes}, 
                           React.createElement("thead", null, 
                             headerRows
                           ), 
