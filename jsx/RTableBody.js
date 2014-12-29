@@ -4,16 +4,8 @@
 var React =  require('react'),
     pubsub = require('pubsub-js'),
     RTableCell = require('./RTableCell')
-    RTableSelect = require('./RTableSelect');
-
-function cloneProps(oldObject)
-{
-    return JSON.parse(JSON.stringify(oldObject));
-}
-function equalProps(oldObj, newObj)
-{
-    return JSON.stringify(oldObj) === JSON.stringify(newObj);
-}
+    RTableSelect = require('./RTableSelect'),
+    utils = require('./utils');
 
 var RTableBody = React.createClass({
 	displayName : 'RTableBody',
@@ -47,8 +39,9 @@ var RTableBody = React.createClass({
         selection : React.PropTypes.bool
     },
     componentWillReceiveProps : function(newProps){
-        var shouldUpdate = !equalProps(this.state.oldProps, newProps);
-        this.setState({shouldUpdate : shouldUpdate, oldProps : cloneProps(newProps)});
+        var newPropsStr = utils.stringify(newProps),
+            shouldUpdate = this.state.oldProps !== newPropsStr;
+        this.setState({shouldUpdate : shouldUpdate, oldProps : newPropsStr});
     },
     shouldComponentUpdate : function(newProps, newState){
         return this.state.shouldUpdate;

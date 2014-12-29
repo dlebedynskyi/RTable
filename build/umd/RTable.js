@@ -34,14 +34,8 @@
             /**
  * @jsx React.DOM
  */
-            var React = _require(8), pubsub = _require(7), RTableCell = _require(1);
-            RTableSelect = _require(5);
-            function cloneProps(oldObject) {
-                return JSON.parse(JSON.stringify(oldObject));
-            }
-            function equalProps(oldObj, newObj) {
-                return JSON.stringify(oldObj) === JSON.stringify(newObj);
-            }
+            var React = _require(9), pubsub = _require(8), RTableCell = _require(1);
+            RTableSelect = _require(5), utils = _require(7);
             var RTableBody = React.createClass({
                     displayName: 'RTableBody',
                     getInitialState: function () {
@@ -75,10 +69,10 @@
                         selection: React.PropTypes.bool
                     },
                     componentWillReceiveProps: function (newProps) {
-                        var shouldUpdate = !equalProps(this.state.oldProps, newProps);
+                        var newPropsStr = utils.stringify(newProps), shouldUpdate = this.state.oldProps !== newPropsStr;
                         this.setState({
                             shouldUpdate: shouldUpdate,
-                            oldProps: cloneProps(newProps)
+                            oldProps: newPropsStr
                         });
                     },
                     shouldComponentUpdate: function (newProps, newState) {
@@ -116,12 +110,7 @@
             /**
  * @jsx React.DOM
  */
-            var React = _require(8);
-            function warn() {
-                if (console) {
-                    console.warn(arguments);
-                }
-            }
+            var React = _require(9), utils = _require(7);
             var RTableCell = React.createClass({
                     displayName: 'RTableCell',
                     getDefaultProps: function () {
@@ -149,7 +138,7 @@
                         var def = null, dataObj = null;
                         if (typeof this.props.definition === 'object') {
                             if (!this.props.columnFieldValueProp || !this.props.definition.hasOwnProperty(this.props.columnFieldValueProp)) {
-                                warn('definition property was not found on definition object', this.props.definition, this.props.columnFieldValueProp);
+                                utils.warn('definition property was not found on definition object', this.props.definition, this.props.columnFieldValueProp);
                             }
                             def = this.props.definition[this.props.columnFieldValueProp];
                         } else {
@@ -157,7 +146,7 @@
                         }
                         if ('.' !== this.props.dataProp) {
                             if (!this.props.data.hasOwnProperty(this.props.dataProp)) {
-                                warn('could not find data propety on object', this.props.data, this.props.dataProp);
+                                utils.warn('could not find data propety on object', this.props.data, this.props.dataProp);
                             }
                             dataObj = this.props.data[this.props.dataProp];
                         } else {
@@ -172,7 +161,7 @@
             /**
  * @jsx React.DOM
  */
-            var React = _require(8), pubsub = _require(7), RTableFilterCell = _require(3);
+            var React = _require(9), pubsub = _require(8), RTableFilterCell = _require(3);
             function warn() {
                 if (console) {
                     console.warn(arguments);
@@ -216,7 +205,7 @@
             /**
  * @jsx React.DOM
  */
-            var React = _require(8), pubsub = _require(7);
+            var React = _require(9), pubsub = _require(8);
             var RTableFilterCell = React.createClass({
                     displayName: 'RTableFilterCell',
                     getInitialState: function () {
@@ -256,12 +245,7 @@
             /**
  * @jsx React.DOM
  */
-            var React = _require(8), pubsub = _require(7);
-            function warn() {
-                if (console) {
-                    console.warn(arguments);
-                }
-            }
+            var React = _require(9), utils = _require(7);
             var RTableHeader = React.createClass({
                     displayName: 'RTableHeader',
                     getDefaultProps: function () {
@@ -294,7 +278,7 @@
                             var header = null;
                             if (typeof this.props.definitions[j] === 'object') {
                                 if (!this.props.columnNameProp || !this.props.definitions[j].hasOwnProperty(this.props.columnNameProp)) {
-                                    warn('Header Name property was not found on definition object', this.props.definition, this.props.columnNameProp);
+                                    utils.warn('Header Name property was not found on definition object', this.props.definition, this.props.columnNameProp);
                                 }
                                 header = this.props.definitions[j][this.props.columnNameProp];
                             } else {
@@ -312,7 +296,7 @@
             /**
  * @jsx React.DOM
  */
-            var React = _require(8), pubsub = _require(7);
+            var React = _require(9), pubsub = _require(8);
             var RTableSelect = React.createClass({
                     displayName: 'RTableSelect',
                     getInitialState: function () {
@@ -350,7 +334,7 @@
             /**
  * @jsx React.DOM
  */
-            var React = _require(8), pubsub = _require(7), RTableBody = _require(0), RTableHeader = _require(4), RTableFilter = _require(2);
+            var React = _require(9), pubsub = _require(8), RTableBody = _require(0), RTableHeader = _require(4), RTableFilter = _require(2);
             var RTable = React.createClass({
                     displayName: 'RTable',
                     getDefaultProps: function () {
@@ -417,6 +401,24 @@
                     }
                 });
             module.exports = RTable;
+        },
+        function (module, exports) {
+            var utils = {};
+            utils.stringify = function (oldObj) {
+                return JSON.stringify(oldObj);
+            };
+            utils.cloneProps = function (oldObj) {
+                return JSON.parse(JSON.stringify(oldObj));
+            };
+            utils.equalProps = function (oldObj, newObj) {
+                return JSON.stringify(oldObj) === JSON.stringify(newObj);
+            };
+            utils.warn = function () {
+                if (console) {
+                    console.warn(arguments);
+                }
+            };
+            module.exports = utils;
         },
         function (module, exports) {
             module.exports = __external_PubSub;

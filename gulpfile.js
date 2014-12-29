@@ -13,13 +13,13 @@ var gulp = require('gulp'),
 
 var config = {
   build : {
-    js : './build/js',
+    js : './build/cjs',
     umd : './build/umd',
     fileName : 'rtable.js',
     minFileName : 'rtable.min.js'
   },
   jsxSource : './jsx/**/**.js',
-  umdSource : './build/js/**/**.js',
+  umdSource : './build/cjs/**/**.js',
   distSource  : './build/umd/**/**.js',
   dist : './dist',
   exports: 'RTable',
@@ -61,8 +61,8 @@ gulp.task('build', function(callback){
 
 gulp.task('watch', function () {
 	var reactWatch = register(config.jsxSource, ['react']);
-	var umdWatch = register(config.umdSource, ['umd']);
-  //var distWatch = register(config.distSource, ['dist']);
+	var umdWatch = register(config.umdSource, ['umd', 'dist']);
+ // var distWatch = register(config.distSource, ['dist']);
 });
 
 gulp.task('default', ['build','watch']);

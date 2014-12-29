@@ -2,12 +2,8 @@
  * @jsx React.DOM
  */
 var React =  require('react'),
-    pubsub = require('pubsub-js');
-
-function warn(){
-    if (console){console.warn(arguments);}
-}
-
+    utils = require('./utils');
+    
 var RTableHeader = React.createClass({
     displayName : 'RTableHeader',
     getDefaultProps : function  () {
@@ -39,7 +35,7 @@ var RTableHeader = React.createClass({
                     if (typeof this.props.definitions[j]  === 'object') {
                         if (!this.props.columnNameProp ||
                             !this.props.definitions[j].hasOwnProperty(this.props.columnNameProp)){ 
-                            warn('Header Name property was not found on definition object', this.props.definition, this.props.columnNameProp);   
+                            utils.warn('Header Name property was not found on definition object', this.props.definition, this.props.columnNameProp);   
                         }
                         header = this.props.definitions[j][this.props.columnNameProp];
                     } else  { header = this.props.definitions[j]; }
