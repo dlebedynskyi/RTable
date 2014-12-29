@@ -36,8 +36,20 @@
  */
             var React = _require(8), pubsub = _require(7), RTableCell = _require(1);
             RTableSelect = _require(5);
+            function cloneProps(oldObject) {
+                return JSON.parse(JSON.stringify(oldObject));
+            }
+            function equalProps(oldObj, newObj) {
+                return JSON.stringify(oldObj) === JSON.stringify(newObj);
+            }
             var RTableBody = React.createClass({
                     displayName: 'RTableBody',
+                    getInitialState: function () {
+                        return {
+                            shouldUpdate: true,
+                            oldProps: {}
+                        };
+                    },
                     getDefaultProps: function () {
                         return {
                             dataProp: '.',
@@ -61,6 +73,16 @@
                         data: React.PropTypes.arrayOf(React.PropTypes.object),
                         //add column for selection row
                         selection: React.PropTypes.bool
+                    },
+                    componentWillReceiveProps: function (newProps) {
+                        var shouldUpdate = !equalProps(this.state.oldProps, newProps);
+                        this.setState({
+                            shouldUpdate: shouldUpdate,
+                            oldProps: cloneProps(newProps)
+                        });
+                    },
+                    shouldComponentUpdate: function (newProps, newState) {
+                        return this.state.shouldUpdate;
                     },
                     render: function () {
                         var rows = [];
