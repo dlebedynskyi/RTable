@@ -17,6 +17,8 @@ var RTable = React.createClass({
     },
     getDefaultProps : function  () {
         return {  
+        	data : [],
+        	definitions : [],
             dataProp : '.',
             columnFieldValueProp : 'field',
             columnNameProp : 'name', 
@@ -26,15 +28,18 @@ var RTable = React.createClass({
         };
     },
     componentDidMount : function() {
-        var mediator = {
-            reload : this.reload
-        };
-        pubsub.publish('RTable.Mounted', mediator);
+        pubsub.publish('RTable.Mounted', null);
     },
     componentWillUnmount : function(){
         pubsub.unsubscribe('RTable.Mounted');
     },
     propTypes : {
+    	 //Definitions for columns
+        definitions : React.PropTypes.oneOfType([
+        	React.PropTypes.arrayOf(React.PropTypes.string), 
+        	React.PropTypes.arrayOf(React.PropTypes.object)]),
+        //Data objects
+        data : React.PropTypes.arrayOf(React.PropTypes.object),
         //Nested property name of each item in data array where to look for column values. Otherwise root object will be used.  
         dataProp : React.PropTypes.string,
         //Property that will be looked for in each column object to use as property name to look for in data item.
@@ -45,14 +50,16 @@ var RTable = React.createClass({
         enableFilters : React.PropTypes.bool,
         //should show row selection checkboxes
         enableSelection : React.PropTypes.bool,
+        //css class names to be added
         className : React.PropTypes.string
     },
     render : function(){
+
             var headerRows = [];
-            if (this.state.data && this.state.data.length){
-                headerRows.push(React.createElement(RTableHeader, {key: "RTableHeader", definitions: this.state.definitions, columnNameProp: this.props.columnNameProp, selection: this.props.enableSelection}));
+            if (this.props.data && this.props.data.length){
+                headerRows.push(React.createElement(RTableHeader, {key: "RTableHeader", definitions: this.props.definitions, columnNameProp: this.props.columnNameProp, selection: this.props.enableSelection}));
                 if (this.props.enableFilters){
-                    headerRows.push(React.createElement(RTableFilter, {key: "RTableFilter", definitions: this.state.definitions, selection: this.props.enableSelection}));
+                    headerRows.push(React.createElement(RTableFilter, {key: "RTableFilter", definitions: this.props.definitions, selection: this.props.enableSelection}));
                 }
             }
             
@@ -60,15 +67,8 @@ var RTable = React.createClass({
                           React.createElement("thead", null, 
                             headerRows
                           ), 
-            		      React.createElement(RTableBody, React.__spread({},  this.props, {selection: this.props.enableSelection, data: this.state.data, definitions: this.state.definitions}))
+            		      React.createElement(RTableBody, React.__spread({},  this.props, {selection: this.props.enableSelection, data: this.props.data, definitions: this.props.definitions}))
             	     ));
-    },
-//custom methods
-    reload : function(newState) {
-        var isreloadRequired = newState && (newState.data  || newState.definitions);
-        if (isreloadRequired) {
-            this.setState(newState);
-        };
     }
 });
 

@@ -38,9 +38,9 @@
                 definition = [],
                 settings = { columnFieldValueProp : 'field', columnNameProp : 'title', classes : 'table table-striped'},
                 columnIndex = 0,
+                component = null,
                 r =  null,
                 el = document.getElementById('app'),
-                mediator = null,
                 renderBtn = document.getElementById('renderBtn'),
                 addColumn = document.getElementById('addColumnBtn');
 
@@ -62,17 +62,17 @@
                 console.log('event logged ', msg, data);
             });
             //saving reload mediator
-            PubSub.subscribe('RTable.Mounted', function(msg, handler){
-                mediator = handler;
+            PubSub.subscribe('RTable.Mounted', function(msg, data){
             });
+
             //default render and mount to dom 
             r = React.createElement(RTable, settings);
-            React.render(r, el, function(msg, data){});
+            component = React.render(r, el);
             
             // demo events 
             renderBtn.addEventListener('click', function(e){
                 var diff = new Date().getTime();
-                if (mediator){ mediator.reload({data : data, definitions : definition}); }
+                component.setProps({data : data, definitions : definition});
                 diff = (new Date().getTime() - diff)/1000;
                 console.log('default render in sec',   diff);
             });
@@ -81,7 +81,9 @@
                 columnIndex+= 1;
                 definition.push({field : 'col_' + columnIndex, title : 'Column '+columnIndex});
                 var diff = new Date().getTime();
-                mediator.reload({definitions : definition});
+                
+                component.setProps({definitions : definition});
+
                 diff = (new Date().getTime() - diff)/1000;
                 console.log('add new column render in sec',   diff);
             });
