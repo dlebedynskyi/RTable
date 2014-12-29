@@ -9,12 +9,6 @@ var React =  require('react'),
 
 var RTable = React.createClass({
     displayName : 'RTable',
-    getInitialState : function(){
-        return {
-            data : [],
-            definitions : []
-        };
-    },
     getDefaultProps : function  () {
         return {  
         	data : [],

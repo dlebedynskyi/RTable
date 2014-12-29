@@ -102,6 +102,14 @@
             }
             var RTableCell = React.createClass({
                     displayName: 'RTableCell',
+                    getDefaultProps: function () {
+                        return {
+                            data: {},
+                            definition: {},
+                            columnFieldValueProp: 'field',
+                            dataProp: '.'
+                        };
+                    },
                     propTypes: {
                         //Nested property name of each item in data array where to look for column values. Otherwise root object will be used.  
                         dataProp: React.PropTypes.string,
@@ -323,12 +331,6 @@
             var React = _require(8), pubsub = _require(7), RTableBody = _require(0), RTableHeader = _require(4), RTableFilter = _require(2);
             var RTable = React.createClass({
                     displayName: 'RTable',
-                    getInitialState: function () {
-                        return {
-                            data: [],
-                            definitions: []
-                        };
-                    },
                     getDefaultProps: function () {
                         return {
                             data: [],

@@ -9,6 +9,14 @@ function warn(){
 
 var RTableCell = React.createClass({
 	displayName : 'RTableCell',
+  getDefaultProps : function(){
+    return {  
+          data : {},
+          definition : {},
+          columnFieldValueProp : 'field',
+          dataProp : '.'
+        };
+  },
 	propTypes : {
         //Nested property name of each item in data array where to look for column values. Otherwise root object will be used.  
         dataProp : React.PropTypes.string,
