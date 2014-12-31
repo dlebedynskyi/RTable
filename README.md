@@ -64,6 +64,6 @@ $ gulp test
  - Write documentation 
  - Add Code Comments
  - Write Angular directive wrapper
- - Rethink pubsub to a simpler one or annother approach
+ - Rethink pubsub
  - Impliment columns resize and variable width
 
