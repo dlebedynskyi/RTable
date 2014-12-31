@@ -1,11 +1,11 @@
 {
   "name": "RTable",
-  "main": "build/umd/rtable.js",
-  "version": "0.0.1",
+  "main": "build/dist/rtable.min.js",
+  "version": "0.5.2",
   "authors": [
     "Dima Lebedynskyi <dima.lebedinsky@gmail.com>"
   ],
-  "description": "React table",
+  "description": "React js table component",
   "license": "GNU V2.0",
   "private": false,
   "ignore": [
