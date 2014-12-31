@@ -34,16 +34,10 @@
             /**
  * @jsx React.DOM
  */
-            var React = _require(9), pubsub = _require(8), RTableCell = _require(1);
-            RTableSelect = _require(5), utils = _require(7);
+            var React = _require(10), pubsub = _require(9), RTableCell = _require(1);
+            RTableSelect = _require(6), RTableRow = _require(5), utils = _require(8);
             var RTableBody = React.createClass({
                     displayName: 'RTableBody',
-                    getInitialState: function () {
-                        return {
-                            shouldUpdate: true,
-                            oldProps: {}
-                        };
-                    },
                     getDefaultProps: function () {
                         return {
                             dataProp: '.',
@@ -71,42 +65,18 @@
                         //optimization flag. Default is true. Uses memory
                         optimization: React.PropTypes.bool
                     },
-                    componentWillReceiveProps: function (newProps) {
-                        var shouldUpdate = true, newPropsStr = null;
-                        if (this.props.optimization) {
-                            newPropsStr = utils.stringify(newProps);
-                            shouldUpdate = this.state.oldProps !== newPropsStr;
-                        }
-                        this.setState({
-                            shouldUpdate: shouldUpdate,
-                            oldProps: newPropsStr
-                        });
-                    },
-                    shouldComponentUpdate: function (newProps, newState) {
-                        return this.state.shouldUpdate;
-                    },
                     render: function () {
                         var rows = [];
                         for (var i = 0; i < this.props.data.length; i++) {
-                            var cells = [];
-                            if (this.props.selection) {
-                                cells.push(React.createElement(RTableSelect, {
-                                    key: 'row_' + i + '_selection',
-                                    data: this.props.data[i]
-                                }));
-                            }
-                            for (var j = 0; j < this.props.definitions.length; j++) {
-                                cells.push(React.createElement(RTableCell, {
-                                    key: 'row_' + i + '_cell_' + j,
-                                    data: this.props.data[i],
-                                    definition: this.props.definitions[j],
-                                    dataProp: this.props.dataProp,
-                                    columnFieldValueProp: this.props.columnFieldValueProp,
-                                    optimisation: this.props.optimisation
-                                }));
-                            }
-                            ;
-                            rows.push(React.createElement('tr', { key: 'row_' + i }, cells));
+                            rows.push(React.createElement(RTableRow, {
+                                key: 'RTableRow_' + i,
+                                rowCount: i,
+                                data: this.props.data[i],
+                                definitions: this.props.definitions,
+                                dataProp: this.props.dataProp,
+                                columnFieldValueProp: this.props.columnFieldValueProp,
+                                optimisation: this.props.optimisation
+                            }));
                         }
                         ;
                         return React.createElement('tbody', null, rows);
@@ -118,7 +88,7 @@
             /**
  * @jsx React.DOM
  */
-            var React = _require(9), utils = _require(7);
+            var React = _require(10), utils = _require(8);
             var RTableCell = React.createClass({
                     displayName: 'RTableCell',
                     getInitialState: function () {
@@ -192,7 +162,7 @@
             /**
  * @jsx React.DOM
  */
-            var React = _require(9), pubsub = _require(8), RTableFilterCell = _require(3);
+            var React = _require(10), pubsub = _require(9), RTableFilterCell = _require(3);
             function warn() {
                 if (console) {
                     console.warn(arguments);
@@ -236,7 +206,7 @@
             /**
  * @jsx React.DOM
  */
-            var React = _require(9), pubsub = _require(8);
+            var React = _require(10), pubsub = _require(9);
             var RTableFilterCell = React.createClass({
                     displayName: 'RTableFilterCell',
                     getInitialState: function () {
@@ -276,7 +246,7 @@
             /**
  * @jsx React.DOM
  */
-            var React = _require(9), utils = _require(7);
+            var React = _require(10), utils = _require(8);
             var RTableHeader = React.createClass({
                     displayName: 'RTableHeader',
                     getDefaultProps: function () {
@@ -327,7 +297,88 @@
             /**
  * @jsx React.DOM
  */
-            var React = _require(9), pubsub = _require(8);
+            var React = _require(10), pubsub = _require(9), RTableCell = _require(1);
+            RTableSelect = _require(6), utils = _require(8);
+            var RTableRow = React.createClass({
+                    displayName: 'RTableRow',
+                    getInitialState: function () {
+                        return {
+                            shouldUpdate: true,
+                            oldProps: {}
+                        };
+                    },
+                    getDefaultProps: function () {
+                        return {
+                            dataProp: '.',
+                            columnFieldValueProp: 'field',
+                            selection: true,
+                            data: {},
+                            definitions: [],
+                            optimization: true
+                        };
+                    },
+                    propTypes: {
+                        //Nested property name of each item in data array where to look for column values. Otherwise root object will be used.  
+                        dataProp: React.PropTypes.string,
+                        //Property that will be looked for in each column object to use as property name to look for in data item.
+                        columnFieldValueProp: React.PropTypes.string,
+                        //Definitions for columns
+                        definitions: React.PropTypes.oneOfType([
+                            React.PropTypes.arrayOf(React.PropTypes.string),
+                            React.PropTypes.arrayOf(React.PropTypes.object)
+                        ]),
+                        //Data objects
+                        data: React.PropTypes.object,
+                        //add column for selection row
+                        selection: React.PropTypes.bool,
+                        //optimization flag. Default is true. Uses memory
+                        optimization: React.PropTypes.bool,
+                        //row count 
+                        rowCount: React.PropTypes.number
+                    },
+                    componentWillReceiveProps: function (newProps) {
+                        var shouldUpdate = true, newPropsStr = null;
+                        if (this.props.optimization) {
+                            newPropsStr = utils.stringify(newProps);
+                            shouldUpdate = this.state.oldProps !== newPropsStr;
+                        }
+                        this.setState({
+                            shouldUpdate: shouldUpdate,
+                            oldProps: newPropsStr
+                        });
+                    },
+                    shouldComponentUpdate: function (newProps, newState) {
+                        return this.state.shouldUpdate;
+                    },
+                    render: function () {
+                        var cells = [];
+                        if (this.props.selection) {
+                            cells.push(React.createElement(RTableSelect, {
+                                key: 'row_' + this.props.rowCount + '_selection',
+                                data: this.props.data
+                            }));
+                        }
+                        for (var j = 0; j < this.props.definitions.length; j++) {
+                            cells.push(React.createElement(RTableCell, {
+                                key: 'row_' + this.props.rowCount + '_cell_' + j,
+                                data: this.props.data,
+                                definition: this.props.definitions[j],
+                                dataProp: this.props.dataProp,
+                                columnFieldValueProp: this.props.columnFieldValueProp,
+                                optimisation: this.props.optimisation
+                            }));
+                        }
+                        ;
+                        return React.createElement('tr', null, cells);
+                    }
+                });
+            module.exports = RTableRow;
+        },
+        function (module, exports) {
+            /**
+ * @jsx React.DOM
+ */
+            var React = _require(10), pubsub = _require(9);
             var RTableSelect = React.createClass({
                     displayName: 'RTableSelect',
                     getInitialState: function () {
@@ -365,7 +416,7 @@
             /**
  * @jsx React.DOM
  */
-            var React = _require(9), pubsub = _require(8), RTableBody = _require(0), RTableHeader = _require(4), RTableFilter = _require(2);
+            var React = _require(10), pubsub = _require(9), RTableBody = _require(0), RTableHeader = _require(4), RTableFilter = _require(2);
             var RTable = React.createClass({
                     displayName: 'RTable',
                     getDefaultProps: function () {
@@ -461,5 +512,5 @@
             module.exports = __external_React;
         }
     ];
-    return _require(6);
+    return _require(7);
 }));

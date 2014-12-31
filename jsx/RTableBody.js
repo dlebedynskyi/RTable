@@ -5,16 +5,11 @@ var React =  require('react'),
     pubsub = require('pubsub-js'),
     RTableCell = require('./RTableCell')
     RTableSelect = require('./RTableSelect'),
+    RTableRow = require('./RTableRow'),
     utils = require('./utils');
 
 var RTableBody = React.createClass({
 	displayName : 'RTableBody',
-    getInitialState : function(){
-        return {
-            shouldUpdate : true, 
-            oldProps : {}
-        };
-    },
     getDefaultProps : function  () {
         return {  
             dataProp : '.',
@@ -41,38 +36,18 @@ var RTableBody = React.createClass({
          //optimization flag. Default is true. Uses memory
         optimization : React.PropTypes.bool
     },
-    componentWillReceiveProps : function(newProps){
-        var shouldUpdate = true,
-            newPropsStr = null;
-        if (this.props.optimization){
-            newPropsStr = utils.stringify(newProps);
-            shouldUpdate =  this.state.oldProps !== newPropsStr;
-        }
-
-        this.setState({shouldUpdate : shouldUpdate, oldProps : newPropsStr});
-    },
-    shouldComponentUpdate : function(newProps, newState){
-        return this.state.shouldUpdate;
-    },
     render : function(){
             var rows = [];
             
             for (var i = 0; i < this.props.data.length; i++) {
-            	var cells = [];
-                if (this.props.selection){
-                    cells.push(<RTableSelect key={'row_'+i +'_selection'} data={this.props.data[i]}></RTableSelect>);
-                }
-
-            	for (var j = 0; j < this.props.definitions.length; j++) {
-        			cells.push(<RTableCell key={'row_'+i+'_cell_'+j} 
-                                           data={this.props.data[i]} 
-                                           definition={this.props.definitions[j]} 
-                                           dataProp={this.props.dataProp} 
-                                           columnFieldValueProp ={this.props.columnFieldValueProp}
-                                           optimisation ={this.props.optimisation}></RTableCell>)
-        		};
-
-            	rows.push(<tr key={'row_'+i}>{cells}</tr>);
+            	
+            	rows.push(<RTableRow key={'RTableRow_'+i}
+                                     rowCount={i} 
+                                     data={this.props.data[i]} 
+                                     definitions={this.props.definitions} 
+                                     dataProp={this.props.dataProp} 
+                                     columnFieldValueProp ={this.props.columnFieldValueProp}
+                                     optimisation ={this.props.optimisation}></RTableRow>);
             };
 
             return (<tbody>{rows}</tbody>);
