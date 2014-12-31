@@ -3,7 +3,7 @@
  */
 var React =  require('react'),
     pubsub = require('pubsub-js'),
-    RTableCell = require('./RTableCell')
+    RTableCell = require('./RTableCell'),
     RTableSelect = require('./RTableSelect'),
     utils = require('./utils');
 
@@ -57,22 +57,22 @@ var RTableRow = React.createClass({
         return this.state.shouldUpdate;
     },
     render : function(){
-            
-            	var cells = [];
-                if (this.props.selection){
-                    cells.push(<RTableSelect key={'row_'+this.props.rowCount +'_selection'} data={this.props.data}></RTableSelect>);
-                }
+        	var cells = [];
+            if (this.props.selection){
+                cells.push(<RTableSelect key={'row_'+this.props.rowCount +'_selection'} data={this.props.data}></RTableSelect>);
+            }
 
-            	for (var j = 0; j < this.props.definitions.length; j++) {
-        			cells.push(<RTableCell key={'row_'+this.props.rowCount+'_cell_'+j} 
-                                           data={this.props.data} 
-                                           definition={this.props.definitions[j]} 
-                                           dataProp={this.props.dataProp} 
-                                           columnFieldValueProp ={this.props.columnFieldValueProp}
-                                           optimisation ={this.props.optimisation}></RTableCell>)
-        		};
-            return (<tr>{cells}</tr>)
-          }
-    });
+        	for (var j = 0; j < this.props.definitions.length; j++) {
+    			cells.push(<RTableCell key={'row_'+this.props.rowCount+'_cell_'+j} 
+                                       data={this.props.data} 
+                                       definition={this.props.definitions[j]} 
+                                       dataProp={this.props.dataProp} 
+                                       columnFieldValueProp ={this.props.columnFieldValueProp}
+                                       optimisation ={this.props.optimisation}></RTableCell>);
+    		}
+
+        return (<tr>{cells}</tr>);
+      }
+});
 
 module.exports = RTableRow;

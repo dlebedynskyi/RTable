@@ -26,18 +26,18 @@ var RTableFilter = React.createClass({
         selection : React.PropTypes.bool
     },
     render : function(){
-            var rows = [];
-             if (this.props.selection)
-            {
-                rows.push(<th key="filter_cell_selection" className="rtable-selection-filter"></th>);
-            }
+        var rows = [];
+        if (this.props.selection)
+        {
+            rows.push(<th key="filter_cell_selection" className="rtable-selection-filter"></th>);
+        }
+        
+    	for (var j = 0; j < this.props.definitions.length; j++) {
+    			rows.push(<th key={'filter_cell_'+j}><RTableFilterCell definition={this.props.definitions[j]}></RTableFilterCell></th>);
+		}
             
-        	for (var j = 0; j < this.props.definitions.length; j++) {
-        			rows.push(<th key={'filter_cell_'+j}><RTableFilterCell definition={this.props.definitions[j]}></RTableFilterCell></th>)
-        		};
-                
-            return (<tr>{rows}</tr>);
-          }
-    });
+        return (<tr>{rows}</tr>);
+    }
+});
 
 module.exports = RTableFilter;

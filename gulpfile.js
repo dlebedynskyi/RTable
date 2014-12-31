@@ -8,7 +8,9 @@ var gulp = require('gulp'),
    del = require('del'),
    uglify = require('gulp-uglifyjs'),
    pure = require('gulp-pure-cjs'),
-   rename = require("gulp-rename")
+   rename = require("gulp-rename"),
+   jshint = require('gulp-jshint'),
+   stylish = require('jshint-stylish'),
    fs = require('fs');
 
 var config = {
@@ -133,6 +135,16 @@ gulp.task('umd', function  () {
 		.on('error', notify.onError("Error: <%= error.message %>"));;
 });
 
+//linter
+
+gulp.task('lint', ['react'], function(){
+  console.log ('LINT REPORT');
+  return gulp.src(config.umdSource)
+    .pipe(jshint())
+    .pipe(jshint.reporter(stylish));
+});
+
+//functions
 
 function register(path, tasks){
 	var watch  = gulp.watch(path,{}, tasks, function(event) {
@@ -154,3 +166,4 @@ function register(path, tasks){
 
 	return watch;
 }
+

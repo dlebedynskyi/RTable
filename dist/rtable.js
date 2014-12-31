@@ -34,8 +34,7 @@
             /**
  * @jsx React.DOM
  */
-            var React = _require(10), pubsub = _require(9), RTableCell = _require(1);
-            RTableSelect = _require(6), RTableRow = _require(5), utils = _require(8);
+            var React = _require(10), pubsub = _require(9), RTableCell = _require(1), RTableSelect = _require(6), RTableRow = _require(5), utils = _require(8);
             var RTableBody = React.createClass({
                     displayName: 'RTableBody',
                     getDefaultProps: function () {
@@ -78,7 +77,6 @@
                                 optimisation: this.props.optimisation
                             }));
                         }
-                        ;
                         return React.createElement('tbody', null, rows);
                     }
                 });
@@ -196,7 +194,6 @@
                         for (var j = 0; j < this.props.definitions.length; j++) {
                             rows.push(React.createElement('th', { key: 'filter_cell_' + j }, React.createElement(RTableFilterCell, { definition: this.props.definitions[j] })));
                         }
-                        ;
                         return React.createElement('tr', null, rows);
                     }
                 });
@@ -287,7 +284,6 @@
                             }
                             rows.push(React.createElement('th', { key: 'header_cell_' + j }, header));
                         }
-                        ;
                         return React.createElement('tr', null, rows);
                     }
                 });
@@ -297,8 +293,7 @@
             /**
  * @jsx React.DOM
  */
-            var React = _require(10), pubsub = _require(9), RTableCell = _require(1);
-            RTableSelect = _require(6), utils = _require(8);
+            var React = _require(10), pubsub = _require(9), RTableCell = _require(1), RTableSelect = _require(6), utils = _require(8);
             var RTableRow = React.createClass({
                     displayName: 'RTableRow',
                     getInitialState: function () {
@@ -368,7 +363,6 @@
                                 optimisation: this.props.optimisation
                             }));
                         }
-                        ;
                         return React.createElement('tr', null, cells);
                     }
                 });

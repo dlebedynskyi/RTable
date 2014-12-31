@@ -3,7 +3,7 @@
  */
 var React =  require('react'),
     pubsub = require('pubsub-js'),
-    RTableCell = require('./RTableCell')
+    RTableCell = require('./RTableCell'),
     RTableSelect = require('./RTableSelect'),
     RTableRow = require('./RTableRow'),
     utils = require('./utils');
@@ -38,9 +38,7 @@ var RTableBody = React.createClass({
     },
     render : function(){
             var rows = [];
-            
-            for (var i = 0; i < this.props.data.length; i++) {
-            	
+            for (var i = 0; i < this.props.data.length; i++) {	
             	rows.push(<RTableRow key={'RTableRow_'+i}
                                      rowCount={i} 
                                      data={this.props.data[i]} 
@@ -48,7 +46,7 @@ var RTableBody = React.createClass({
                                      dataProp={this.props.dataProp} 
                                      columnFieldValueProp ={this.props.columnFieldValueProp}
                                      optimisation ={this.props.optimisation}></RTableRow>);
-            };
+            }
 
             return (<tbody>{rows}</tbody>);
           }
