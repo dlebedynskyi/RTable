@@ -18,7 +18,8 @@ var RTable = React.createClass({
             columnNameProp : 'name', 
             enableFilters : true,
             enableSelection : true,
-            className : ''
+            className : '',
+            optimisation : true
         };
     },
     componentDidMount : function() {
@@ -45,7 +46,9 @@ var RTable = React.createClass({
         //should show row selection checkboxes
         enableSelection : React.PropTypes.bool,
         //css class names to be added
-        className : React.PropTypes.string
+        className : React.PropTypes.string,
+        //optimisation flag. Default is true. Uses memory
+        optimisation : React.PropTypes.bool
     },
     render : function(){
 

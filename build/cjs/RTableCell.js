@@ -6,12 +6,19 @@ var React =  require('react'),
 
 var RTableCell = React.createClass({
 	displayName : 'RTableCell',
+  getInitialState : function(){
+        return {
+            shouldUpdate : true, 
+            oldProps : {}
+        };
+    },
   getDefaultProps : function(){
     return {  
           data : {},
           definition : {},
           columnFieldValueProp : 'field',
-          dataProp : '.'
+          dataProp : '.',
+          optimisation : true
         };
   },
 	propTypes : {
@@ -24,7 +31,22 @@ var RTableCell = React.createClass({
         	React.PropTypes.string, 
         	React.PropTypes.object]),
         //Data object. will use dataProp to look for display values. Value will be taken based on columnFieldValueProp value of definition object
-        data : React.PropTypes.object
+        data : React.PropTypes.object,
+        //optimisation flag. Default is true. Uses memory
+        optimisation : React.PropTypes.bool
+    },
+    componentWillReceiveProps : function(newProps){
+        var shouldUpdate = true,
+            newPropsStr = null;
+        if (this.props.optimisation){
+            newPropsStr = utils.stringify(newProps);
+            shouldUpdate =  this.state.oldProps !== newPropsStr;
+        }
+
+        this.setState({shouldUpdate : shouldUpdate, oldProps : newPropsStr});
+    },
+    shouldComponentUpdate : function(newProps, newState){
+        return this.state.shouldUpdate;
     },
     render : function(){ 
     		var def = null,

@@ -23,6 +23,7 @@
         <div class="col-md-4">
             <button type="button" id="renderBtn" class="btn btn-success"> Render Table 200x2</button>
             <button type="button" id="addColumnBtn" class="btn btn-default"> Display one more column</button>
+            <button type="button" id="rndColumnBtn" class="btn btn-default"> Random change cell</button>
         </div>
         <div class="col-md-4">
         </div>
@@ -42,7 +43,8 @@
                 r =  null,
                 el = document.getElementById('app'),
                 renderBtn = document.getElementById('renderBtn'),
-                addColumn = document.getElementById('addColumnBtn');
+                addColumn = document.getElementById('addColumnBtn'),
+                rndColumnBtn = document.getElementById('rndColumnBtn');
 
             //create some data
             for (var i = 0; i < 200; i++) {
@@ -87,6 +89,21 @@
                 diff = (new Date().getTime() - diff)/1000;
                 console.log('add new column render in sec',   diff);
             });
+
+            rndColumnBtn.addEventListener('click', function(){
+                var row = Math.floor(Math.random() * (data.length-1));
+                var cell = Math.floor(Math.random() * (definition.length-1));
+                var defCol = definition[cell][settings.columnFieldValueProp];
+                data[row][defCol]  = data[row][defCol] + ' randomised ';
+                var diff = new Date().getTime();
+                
+                component.setProps({data : data});
+
+                diff = (new Date().getTime() - diff)/1000;
+                console.log('random change render in sec',   diff);
+            });
+
+
 
         </script>
         

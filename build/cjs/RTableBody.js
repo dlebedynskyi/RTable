@@ -21,7 +21,8 @@ var RTableBody = React.createClass({
             columnFieldValueProp : 'field',
             selection : true,
             data : [],
-            definitions : []
+            definitions : [],
+            optimisation : true
         };
     },
 	propTypes : {
@@ -36,11 +37,18 @@ var RTableBody = React.createClass({
         //Data objects
         data : React.PropTypes.arrayOf(React.PropTypes.object),
          //add column for selection row
-        selection : React.PropTypes.bool
+        selection : React.PropTypes.bool,
+         //optimisation flag. Default is true. Uses memory
+        optimisation : React.PropTypes.bool
     },
     componentWillReceiveProps : function(newProps){
-        var newPropsStr = utils.stringify(newProps),
-            shouldUpdate = this.state.oldProps !== newPropsStr;
+        var shouldUpdate = true,
+            newPropsStr = null;
+        if (this.props.optimisation){
+            newPropsStr = utils.stringify(newProps);
+            shouldUpdate =  this.state.oldProps !== newPropsStr;
+        }
+
         this.setState({shouldUpdate : shouldUpdate, oldProps : newPropsStr});
     },
     shouldComponentUpdate : function(newProps, newState){
@@ -51,14 +59,18 @@ var RTableBody = React.createClass({
             
             for (var i = 0; i < this.props.data.length; i++) {
             	var cells = [];
-                if (this.props.selection)
-                {
+                if (this.props.selection){
                     cells.push(React.createElement(RTableSelect, {key: 'row_'+i +'_selection', data: this.props.data[i]}));
                 }
 
             	for (var j = 0; j < this.props.definitions.length; j++) {
-        			cells.push(React.createElement(RTableCell, {key: 'row_'+i+'_cell_'+j, data: this.props.data[i], definition: this.props.definitions[j], dataProp: this.props.dataProp, columnFieldValueProp: this.props.columnFieldValueProp}))
-            		};
+        			cells.push(React.createElement(RTableCell, {key: 'row_'+i+'_cell_'+j, 
+                                           data: this.props.data[i], 
+                                           definition: this.props.definitions[j], 
+                                           dataProp: this.props.dataProp, 
+                                           columnFieldValueProp: this.props.columnFieldValueProp, 
+                                           optimisation: this.props.optimisation}))
+        		};
 
             	rows.push(React.createElement("tr", {key: 'row_'+i}, cells));
             };

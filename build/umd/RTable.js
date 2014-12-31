@@ -50,7 +50,8 @@
                             columnFieldValueProp: 'field',
                             selection: true,
                             data: [],
-                            definitions: []
+                            definitions: [],
+                            optimisation: true
                         };
                     },
                     propTypes: {
@@ -66,10 +67,16 @@
                         //Data objects
                         data: React.PropTypes.arrayOf(React.PropTypes.object),
                         //add column for selection row
-                        selection: React.PropTypes.bool
+                        selection: React.PropTypes.bool,
+                        //optimisation flag. Default is true. Uses memory
+                        optimisation: React.PropTypes.bool
                     },
                     componentWillReceiveProps: function (newProps) {
-                        var newPropsStr = utils.stringify(newProps), shouldUpdate = this.state.oldProps !== newPropsStr;
+                        var shouldUpdate = true, newPropsStr = null;
+                        if (this.props.optimisation) {
+                            newPropsStr = utils.stringify(newProps);
+                            shouldUpdate = this.state.oldProps !== newPropsStr;
+                        }
                         this.setState({
                             shouldUpdate: shouldUpdate,
                             oldProps: newPropsStr
@@ -94,7 +101,8 @@
                                     data: this.props.data[i],
                                     definition: this.props.definitions[j],
                                     dataProp: this.props.dataProp,
-                                    columnFieldValueProp: this.props.columnFieldValueProp
+                                    columnFieldValueProp: this.props.columnFieldValueProp,
+                                    optimisation: this.props.optimisation
                                 }));
                             }
                             ;
@@ -113,12 +121,19 @@
             var React = _require(9), utils = _require(7);
             var RTableCell = React.createClass({
                     displayName: 'RTableCell',
+                    getInitialState: function () {
+                        return {
+                            shouldUpdate: true,
+                            oldProps: {}
+                        };
+                    },
                     getDefaultProps: function () {
                         return {
                             data: {},
                             definition: {},
                             columnFieldValueProp: 'field',
-                            dataProp: '.'
+                            dataProp: '.',
+                            optimisation: true
                         };
                     },
                     propTypes: {
@@ -132,7 +147,23 @@
                             React.PropTypes.object
                         ]),
                         //Data object. will use dataProp to look for display values. Value will be taken based on columnFieldValueProp value of definition object
-                        data: React.PropTypes.object
+                        data: React.PropTypes.object,
+                        //optimisation flag. Default is true. Uses memory
+                        optimisation: React.PropTypes.bool
+                    },
+                    componentWillReceiveProps: function (newProps) {
+                        var shouldUpdate = true, newPropsStr = null;
+                        if (this.props.optimisation) {
+                            newPropsStr = utils.stringify(newProps);
+                            shouldUpdate = this.state.oldProps !== newPropsStr;
+                        }
+                        this.setState({
+                            shouldUpdate: shouldUpdate,
+                            oldProps: newPropsStr
+                        });
+                    },
+                    shouldComponentUpdate: function (newProps, newState) {
+                        return this.state.shouldUpdate;
                     },
                     render: function () {
                         var def = null, dataObj = null;
@@ -346,7 +377,8 @@
                             columnNameProp: 'name',
                             enableFilters: true,
                             enableSelection: true,
-                            className: ''
+                            className: '',
+                            optimisation: true
                         };
                     },
                     componentDidMount: function () {
@@ -374,7 +406,9 @@
                         //should show row selection checkboxes
                         enableSelection: React.PropTypes.bool,
                         //css class names to be added
-                        className: React.PropTypes.string
+                        className: React.PropTypes.string,
+                        //optimisation flag. Default is true. Uses memory
+                        optimisation: React.PropTypes.bool
                     },
                     render: function () {
                         var headerRows = [];
