@@ -51,7 +51,7 @@
                             selection: true,
                             data: [],
                             definitions: [],
-                            optimisation: true
+                            optimization: true
                         };
                     },
                     propTypes: {
@@ -68,12 +68,12 @@
                         data: React.PropTypes.arrayOf(React.PropTypes.object),
                         //add column for selection row
                         selection: React.PropTypes.bool,
-                        //optimisation flag. Default is true. Uses memory
-                        optimisation: React.PropTypes.bool
+                        //optimization flag. Default is true. Uses memory
+                        optimization: React.PropTypes.bool
                     },
                     componentWillReceiveProps: function (newProps) {
                         var shouldUpdate = true, newPropsStr = null;
-                        if (this.props.optimisation) {
+                        if (this.props.optimization) {
                             newPropsStr = utils.stringify(newProps);
                             shouldUpdate = this.state.oldProps !== newPropsStr;
                         }
@@ -133,7 +133,7 @@
                             definition: {},
                             columnFieldValueProp: 'field',
                             dataProp: '.',
-                            optimisation: true
+                            optimization: true
                         };
                     },
                     propTypes: {
@@ -149,7 +149,7 @@
                         //Data object. will use dataProp to look for display values. Value will be taken based on columnFieldValueProp value of definition object
                         data: React.PropTypes.object,
                         //optimisation flag. Default is true. Uses memory
-                        optimisation: React.PropTypes.bool
+                        optimization: React.PropTypes.bool
                     },
                     componentWillReceiveProps: function (newProps) {
                         var shouldUpdate = true, newPropsStr = null;
@@ -378,7 +378,7 @@
                             enableFilters: true,
                             enableSelection: true,
                             className: '',
-                            optimisation: true
+                            optimization: true
                         };
                     },
                     componentDidMount: function () {
@@ -407,8 +407,8 @@
                         enableSelection: React.PropTypes.bool,
                         //css class names to be added
                         className: React.PropTypes.string,
-                        //optimisation flag. Default is true. Uses memory
-                        optimisation: React.PropTypes.bool
+                        //optimization flag. Default is true. Uses memory
+                        optimization: React.PropTypes.bool
                     },
                     render: function () {
                         var headerRows = [];

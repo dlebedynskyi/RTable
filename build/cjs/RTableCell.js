@@ -18,7 +18,7 @@ var RTableCell = React.createClass({
           definition : {},
           columnFieldValueProp : 'field',
           dataProp : '.',
-          optimisation : true
+          optimization : true
         };
   },
 	propTypes : {
@@ -33,7 +33,7 @@ var RTableCell = React.createClass({
         //Data object. will use dataProp to look for display values. Value will be taken based on columnFieldValueProp value of definition object
         data : React.PropTypes.object,
         //optimisation flag. Default is true. Uses memory
-        optimisation : React.PropTypes.bool
+        optimization : React.PropTypes.bool
     },
     componentWillReceiveProps : function(newProps){
         var shouldUpdate = true,

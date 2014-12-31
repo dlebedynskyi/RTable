@@ -22,7 +22,7 @@ var RTableBody = React.createClass({
             selection : true,
             data : [],
             definitions : [],
-            optimisation : true
+            optimization : true
         };
     },
 	propTypes : {
@@ -38,13 +38,13 @@ var RTableBody = React.createClass({
         data : React.PropTypes.arrayOf(React.PropTypes.object),
          //add column for selection row
         selection : React.PropTypes.bool,
-         //optimisation flag. Default is true. Uses memory
-        optimisation : React.PropTypes.bool
+         //optimization flag. Default is true. Uses memory
+        optimization : React.PropTypes.bool
     },
     componentWillReceiveProps : function(newProps){
         var shouldUpdate = true,
             newPropsStr = null;
-        if (this.props.optimisation){
+        if (this.props.optimization){
             newPropsStr = utils.stringify(newProps);
             shouldUpdate =  this.state.oldProps !== newPropsStr;
         }
