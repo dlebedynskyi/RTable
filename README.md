@@ -9,6 +9,8 @@ RTable is [React](http://facebook.github.io/react/) component for fast rendering
 ### Version
 0.5.2
 
+[![Build Status](https://travis-ci.org/dlebedynskyi/RTable.svg)](https://travis-ci.org/dlebedynskyi/RTable)
+
 ### Dependencies
 
 RTable has only following dependancies 
