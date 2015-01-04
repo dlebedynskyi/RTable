@@ -17,9 +17,12 @@ describe('RxTable', function() {
     expect(props.dataProp).toBe('.');
     expect(props.columnFieldValueProp).toBe('field');
     expect(props.columnNameProp).toBe('name');
-
-    var state = elRTable.state;
-    expect(state.data).toEqual([]);
-    expect(state.definitions).toEqual([]);
+    
+    expect(props.enableSelection).toBe(true);
+    expect(props.optimization).toBe(true);
+    expect(props.enableFilters).toBe(true);
+    expect(props.className).toBe('');    
+    expect(props.data.length).toBe(0);
+    expect(props.definitions.length).toBe(0);
   });
 });

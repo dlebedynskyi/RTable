@@ -16,9 +16,12 @@ var config = {
     fileName : 'rtable.js',
     minFileName : 'rtable.min.js'
   },
+  
   jsxSource : './jsx/**/**.js',
   umdSource : './build/cjs/**/**.js',
   distSource  : './build/umd/**/**.js',
+  testSource : './test/**/**.spec.js',
+
   dist : './dist',
   exports: 'RTable',
   sourceMap : true,
@@ -109,6 +112,10 @@ gulp.task('test', function(){
             "react"
         ]
     }));
+});
+
+gulp.task('watch-test',function(){
+  var watch = register([config.testSource, config.jsxSource],['test']);
 });
 
 /** UMD **/
