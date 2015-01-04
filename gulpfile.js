@@ -58,7 +58,7 @@ var options = {
 
 gulp.task('clean', ['react-clean', 'umd-clean', 'dist-clean']);
 
-gulp.task('build', function(callback){
+gulp.task('build', function(){
   runSequence('react', 'umd', 'dist');
 });
 
@@ -153,7 +153,6 @@ gulp.task('lint', ['react'], function(){
 
 function register(path, tasks){
 	var watch  = gulp.watch(path,{}, tasks, function(event) {
-		console.log(' callback');
 	  console.log('File ' + event.path + ' was ' + event.type + ', running tasks...');
 	});
 	
