@@ -39,15 +39,18 @@
     "gulp-load-plugins": "~0.8.0",
     "bower": "^1.3.12",
     "pubsub-js": "^1.5.0",
-    "react": "^0.12.1"
+    "react": "^0.12.1",
+    "jest-cli": "~0.2.1"
   },
   "jest": {
-    "testDirectoryName" : "tests",
+    "testDirectoryName": "tests",
     "scriptPreprocessor": "<rootDir>/tests/support/preprocessor.js",
-    "unmockedModulePathPatterns": ["<rootDir>/node_modules/react"],
+    "unmockedModulePathPatterns": [
+      "<rootDir>/node_modules/react"
+    ],
     "testPathIgnorePatterns": [
-            "<rootDir>/node_modules",
-            "<rootDir>/tests/support"
-        ]
+      "<rootDir>/node_modules",
+      "<rootDir>/tests/support"
+    ]
   }
 }
