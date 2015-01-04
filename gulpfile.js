@@ -1,17 +1,13 @@
 var gulp = require('gulp'),
-   runSequence = require('run-sequence').use(gulp),
-   connect = require('gulp-connect'),
-   react = require('gulp-react')
-   plumber = require('gulp-plumber'),
-   notify =  require('gulp-notify'),
-   jest = require('gulp-jest'),
+   runSequence = require('run-sequence').use(gulp) 
    del = require('del'),
-   uglify = require('gulp-uglifyjs'),
-   pure = require('gulp-pure-cjs'),
-   rename = require("gulp-rename"),
-   jshint = require('gulp-jshint'),
-   stylish = require('jshint-stylish'),
-   fs = require('fs');
+   fs = require('fs'),
+   g = require('gulp-load-plugins')({
+      scope: ['dependencies', 'devDependencies', 'peerDependencies'],
+      rename : {
+        'gulp-pure-cjs' : 'pure',
+        'gulp-uglifyjs' : 'uglify'
+      }});
 
 var config = {
   build : {
@@ -48,7 +44,7 @@ var options = {
 
 /** Connect **/
  gulp.task('connect', function(){
-  return connect.server({
+  return g.connect.server({
     port : config.port,
     livereload : false, 
     root: [__dirname]
@@ -64,7 +60,6 @@ gulp.task('build', function(callback){
 gulp.task('watch', function () {
 	var reactWatch = register(config.jsxSource, ['react']);
 	var umdWatch = register(config.umdSource, ['umd', 'dist']);
- // var distWatch = register(config.distSource, ['dist']);
 });
 
 gulp.task('default', ['build','watch']);
@@ -75,7 +70,7 @@ gulp.task('dist-clean', function(){
 
 gulp.task('dist', function(){
   return gulp.src(config.build.umd +"/"+config.build.fileName)
-    .pipe(uglify(config.build.minFileName, 
+    .pipe(g.uglify(config.build.minFileName, 
     {
       outSourceMap : config.sourceMap
     }))
@@ -85,10 +80,10 @@ gulp.task('dist', function(){
 /** React **/
 gulp.task('react', function(){
   return gulp.src(config.jsxSource)
-    .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %> ")}))
-    .pipe(react())
+    .pipe(g.plumber({errorHandler: g.notify.onError("Error: <%= error.message %> ")}))
+    .pipe(g.react())
     .pipe(gulp.dest(config.build.js))
-    .on('error', notify.onError("Error: <%= error.message %>"));
+    .on('error', g.notify.onError("Error: <%= error.message %>"));
 });
 
 gulp.task('react-clean', function(){
@@ -98,7 +93,7 @@ gulp.task('react-clean', function(){
 /** Test **/
 
 gulp.task('test', function(){
-	return gulp.src('./test/').pipe(jest({
+	return gulp.src('./test/').pipe(g.jest({
         scriptPreprocessor: "./support/preprocessor.js",
         unmockedModulePathPatterns: [
             "node_modules/react"
@@ -128,11 +123,11 @@ gulp.task('umd', function  () {
 	}
 
 	return gulp.src(config.build.js +'/' +config.build.fileName)
-		.pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %> ")}))
-		.pipe(pure(options))
+		.pipe(g.plumber({errorHandler: g.notify.onError("Error: <%= error.message %> ")}))
+		.pipe(g.pure(options))
 		.pipe(gulp.dest(config.build.umd))
     .pipe(gulp.dest(config.dist))
-		.on('error', notify.onError("Error: <%= error.message %>"));;
+		.on('error', g.notify.onError("Error: <%= error.message %>"));;
 });
 
 //linter
@@ -140,8 +135,8 @@ gulp.task('umd', function  () {
 gulp.task('lint', ['react'], function(){
   console.log ('LINT REPORT');
   return gulp.src(config.umdSource)
-    .pipe(jshint())
-    .pipe(jshint.reporter(stylish));
+    .pipe(g.jshint())
+    .pipe(g.jshint.reporter(stylish));
 });
 
 //functions
@@ -161,7 +156,7 @@ function register(path, tasks){
 	});
 
 	watch.on('error', function(error){
-		notify.onError("Error: <%= error.message %> ")
+		g.notify.onError("Error: <%= error.message %> ")
 	});
 
 	return watch;
