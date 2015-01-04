@@ -4,10 +4,6 @@
 		{
 			"follow_symlinks": true,
 			"path": "."
-		},
-		{
-			"follow_symlinks": true,
-			"path": "/Users/Leo/Documents/Git/so-jest-react-mock-example"
 		}
 	]
 }
