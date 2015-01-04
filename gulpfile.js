@@ -2,6 +2,7 @@ var gulp = require('gulp'),
    runSequence = require('run-sequence').use(gulp) 
    del = require('del'),
    fs = require('fs'),
+   jest = require('jest-cli'),
    g = require('gulp-load-plugins')({
       scope: ['dependencies', 'devDependencies', 'peerDependencies'],
       rename : {
@@ -20,7 +21,7 @@ var config = {
   jsxSource : './jsx/**/**.js',
   umdSource : './build/cjs/**/**.js',
   distSource  : './build/umd/**/**.js',
-  testSource : './test/**/**.spec.js',
+  testSource : './tests/**/**.spec.js',
 
   dist : './dist',
   exports: 'RTable',
@@ -31,6 +32,7 @@ var config = {
       {name: 'pubsub-js', exports : 'PubSub'}
     ]
 };
+
 
 // Umd options
 var options = {
@@ -95,16 +97,17 @@ gulp.task('react-clean', function(){
 
 /** Test **/
 
-gulp.task('test', function(){
-	return gulp.src('./test/').pipe(g.jest({
-        scriptPreprocessor: "./support/preprocessor.js",
+gulp.task('jest', function () {
+    return gulp.src(__dirname).pipe(
+      g.jest({
+        scriptPreprocessor: "./tests/support/preprocessor.js",
         unmockedModulePathPatterns: [
             "node_modules/react"
         ],
-        testDirectoryName: "test",
+        testDirectoryName: "tests",
         testPathIgnorePatterns: [
             "node_modules",
-            "test/support"
+            "tests/support"
         ],
         moduleFileExtensions: [
             "js",
@@ -115,7 +118,7 @@ gulp.task('test', function(){
 });
 
 gulp.task('watch-test',function(){
-  var watch = register([config.testSource, config.jsxSource],['test']);
+  var watch = register([config.testSource, config.jsxSource],['jest']);
 });
 
 /** UMD **/
