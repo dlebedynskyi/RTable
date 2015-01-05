@@ -102,7 +102,7 @@ gulp.task('jest', function () {
       g.jest({
         scriptPreprocessor: "./tests/support/preprocessor.js",
         unmockedModulePathPatterns: [
-            "node_modules/react"
+            "react"
         ],
         testDirectoryName: "tests",
         testPathIgnorePatterns: [
