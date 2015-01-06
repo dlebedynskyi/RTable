@@ -50,14 +50,15 @@ If your React component's render function is "pure" (in other words, it renders 
             var PropRenderMixin = {
                     componentWillMount: function () {
                         this.shouldUpdate = true;
-                        this.oldProps = {};
+                        this.oldProps = null;
                     },
                     componentWillReceiveProps: function (newProps) {
                         var shouldUpdate = true, newPropsStr = null;
                         if (this.props.optimization) {
                             newPropsStr = JSON.stringify(newProps);
-                            this.shouldUpdate = this.oldProps !== newPropsStr;
+                            shouldUpdate = this.oldProps !== newPropsStr;
                         }
+                        this.shouldUpdate = shouldUpdate;
                         this.oldProps = newPropsStr;
                     },
                     shouldComponentUpdate: function (newProps, newState) {
@@ -420,7 +421,7 @@ If your React component's render function is "pure" (in other words, it renders 
                             columnNameProp: 'name',
                             enableFilters: true,
                             enableSelection: true,
-                            className: '',
+                            classes: 'rx-table',
                             optimization: true
                         };
                     },
@@ -449,7 +450,7 @@ If your React component's render function is "pure" (in other words, it renders 
                         //should show row selection checkboxes
                         enableSelection: React.PropTypes.bool,
                         //css class names to be added
-                        className: React.PropTypes.string,
+                        classes: React.PropTypes.string,
                         //optimization flag. Default is true. Uses memory
                         optimization: React.PropTypes.bool
                     },
@@ -470,7 +471,8 @@ If your React component's render function is "pure" (in other words, it renders 
                                 }));
                             }
                         }
-                        return React.createElement('table', { className: 'rx-table ' + this.props.classes }, React.createElement('thead', null, headerRows), React.createElement(RTableBody, React.__spread({}, this.props, {
+                        var thead = React.createElement('thead', null, headerRows);
+                        return React.createElement('table', { className: 'rx-table ' + this.props.classes }, thead, React.createElement(RTableBody, React.__spread({}, this.props, {
                             selection: this.props.enableSelection,
                             data: this.props.data,
                             definitions: this.props.definitions

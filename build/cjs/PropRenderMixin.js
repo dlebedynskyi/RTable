@@ -17,15 +17,17 @@ If your React component's render function is "pure" (in other words, it renders 
 var PropRenderMixin = {
  	componentWillMount: function() {
 	    this.shouldUpdate = true;
-	    this.oldProps = {};
+	    this.oldProps = null;
   	},
 	componentWillReceiveProps : function(newProps){
         var shouldUpdate = true,
             newPropsStr = null;
+
         if (this.props.optimization){
             newPropsStr = JSON.stringify(newProps);
-            this.shouldUpdate =  this.oldProps !== newPropsStr;
+            shouldUpdate =  this.oldProps !== newPropsStr;
         }
+        this.shouldUpdate = shouldUpdate;
 
 		this.oldProps = newPropsStr;
     },

@@ -18,7 +18,7 @@ var RTable = React.createClass({
             columnNameProp : 'name', 
             enableFilters : true,
             enableSelection : true,
-            className : '',
+            classes : 'rx-table',
             optimization : true
         };
     },
@@ -46,7 +46,7 @@ var RTable = React.createClass({
         //should show row selection checkboxes
         enableSelection : React.PropTypes.bool,
         //css class names to be added
-        className : React.PropTypes.string,
+        classes : React.PropTypes.string,
         //optimization flag. Default is true. Uses memory
         optimization : React.PropTypes.bool
     },
@@ -60,10 +60,9 @@ var RTable = React.createClass({
                 }
             }
             
-            return (React.createElement("table", {className: "rx-table " + this.props.classes}, 
-                          React.createElement("thead", null, 
-                            headerRows
-                          ), 
+            var thead = (React.createElement("thead", null, headerRows));
+            return (React.createElement("table", {className: 'rx-table '  + this.props.classes}, 
+                          thead, 
             		      React.createElement(RTableBody, React.__spread({},  this.props, {selection: this.props.enableSelection, data: this.props.data, definitions: this.props.definitions}))
             	     ));
     }
