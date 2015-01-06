@@ -46,7 +46,7 @@
     "testDirectoryName": "tests",
     "scriptPreprocessor": "<rootDir>/tests/support/preprocessor.js",
     "unmockedModulePathPatterns": [
-      "<rootDir>/node_modules/react"
+      "react"
     ],
     "testPathIgnorePatterns": [
       "<rootDir>/node_modules",
