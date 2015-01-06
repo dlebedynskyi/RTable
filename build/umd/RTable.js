@@ -31,10 +31,46 @@
     _require.cache = [];
     _require.modules = [
         function (module, exports) {
+            /*
+
+Provides comparation of old and new properties for shouldComponentUpdate method by using JSON.strinify comparation. 
+This provides deep comparation for properties with arrays and objects. 
+
+NOTE ANY METHODs will be ignored
+NOTE  ORDER MATTERS {a :'1', b : '2'} will be FALSE to {b : '2', a : '1'}
+
+Author : Dmytro Lebedynskyi
+
+Why ?
+
+If your React component's render function is "pure" (in other words, it renders the same result given the same props and state),
+ you can use this mixin for a performance boost in some cases.
+
+ */
+            var PropRenderMixin = {
+                    componentWillMount: function () {
+                        this.shouldUpdate = true;
+                        this.oldProps = {};
+                    },
+                    componentWillReceiveProps: function (newProps) {
+                        var shouldUpdate = true, newPropsStr = null;
+                        if (this.props.optimization) {
+                            newPropsStr = JSON.stringify(newProps);
+                            this.shouldUpdate = this.oldProps !== newPropsStr;
+                        }
+                        this.oldProps = newPropsStr;
+                    },
+                    shouldComponentUpdate: function (newProps, newState) {
+                        return this.shouldUpdate;
+                    }
+                };
+            module.exports = PropRenderMixin;
+        },
+        function (module, exports) {
             /**
  * @jsx React.DOM
  */
-            var React = _require(10), pubsub = _require(9), RTableCell = _require(1), RTableSelect = _require(6), RTableRow = _require(5), utils = _require(8);
+            var React = _require(11), pubsub = _require(10), RTableCell = _require(2), RTableSelect = _require(7), RTableRow = _require(6), utils = _require(9);
             var RTableBody = React.createClass({
                     displayName: 'RTableBody',
                     getDefaultProps: function () {
@@ -86,15 +122,10 @@
             /**
  * @jsx React.DOM
  */
-            var React = _require(10), utils = _require(8);
+            var React = _require(11), utils = _require(9), PropRenderMixin = _require(0);
             var RTableCell = React.createClass({
+                    mixins: [PropRenderMixin],
                     displayName: 'RTableCell',
-                    getInitialState: function () {
-                        return {
-                            shouldUpdate: true,
-                            oldProps: {}
-                        };
-                    },
                     getDefaultProps: function () {
                         return {
                             data: {},
@@ -118,20 +149,6 @@
                         data: React.PropTypes.object,
                         //optimisation flag. Default is true. Uses memory
                         optimization: React.PropTypes.bool
-                    },
-                    componentWillReceiveProps: function (newProps) {
-                        var shouldUpdate = true, newPropsStr = null;
-                        if (this.props.optimisation) {
-                            newPropsStr = utils.stringify(newProps);
-                            shouldUpdate = this.state.oldProps !== newPropsStr;
-                        }
-                        this.setState({
-                            shouldUpdate: shouldUpdate,
-                            oldProps: newPropsStr
-                        });
-                    },
-                    shouldComponentUpdate: function (newProps, newState) {
-                        return this.state.shouldUpdate;
                     },
                     render: function () {
                         var def = null, dataObj = null;
@@ -160,7 +177,7 @@
             /**
  * @jsx React.DOM
  */
-            var React = _require(10), pubsub = _require(9), RTableFilterCell = _require(3);
+            var React = _require(11), pubsub = _require(10), RTableFilterCell = _require(4);
             function warn() {
                 if (console) {
                     console.warn(arguments);
@@ -203,7 +220,7 @@
             /**
  * @jsx React.DOM
  */
-            var React = _require(10), pubsub = _require(9);
+            var React = _require(11), pubsub = _require(10);
             var RTableFilterCell = React.createClass({
                     displayName: 'RTableFilterCell',
                     getInitialState: function () {
@@ -243,7 +260,7 @@
             /**
  * @jsx React.DOM
  */
-            var React = _require(10), utils = _require(8);
+            var React = _require(11), utils = _require(9);
             var RTableHeader = React.createClass({
                     displayName: 'RTableHeader',
                     getDefaultProps: function () {
@@ -293,15 +310,10 @@
             /**
  * @jsx React.DOM
  */
-            var React = _require(10), pubsub = _require(9), RTableCell = _require(1), RTableSelect = _require(6), utils = _require(8);
+            var React = _require(11), pubsub = _require(10), RTableCell = _require(2), RTableSelect = _require(7), PropRenderMixin = _require(0);
             var RTableRow = React.createClass({
+                    mixins: [PropRenderMixin],
                     displayName: 'RTableRow',
-                    getInitialState: function () {
-                        return {
-                            shouldUpdate: true,
-                            oldProps: {}
-                        };
-                    },
                     getDefaultProps: function () {
                         return {
                             dataProp: '.',
@@ -331,20 +343,6 @@
                         //row count 
                         rowCount: React.PropTypes.number
                     },
-                    componentWillReceiveProps: function (newProps) {
-                        var shouldUpdate = true, newPropsStr = null;
-                        if (this.props.optimization) {
-                            newPropsStr = utils.stringify(newProps);
-                            shouldUpdate = this.state.oldProps !== newPropsStr;
-                        }
-                        this.setState({
-                            shouldUpdate: shouldUpdate,
-                            oldProps: newPropsStr
-                        });
-                    },
-                    shouldComponentUpdate: function (newProps, newState) {
-                        return this.state.shouldUpdate;
-                    },
                     render: function () {
                         var cells = [];
                         if (this.props.selection) {
@@ -372,7 +370,7 @@
             /**
  * @jsx React.DOM
  */
-            var React = _require(10), pubsub = _require(9);
+            var React = _require(11), pubsub = _require(10);
             var RTableSelect = React.createClass({
                     displayName: 'RTableSelect',
                     getInitialState: function () {
@@ -410,7 +408,7 @@
             /**
  * @jsx React.DOM
  */
-            var React = _require(10), pubsub = _require(9), RTableBody = _require(0), RTableHeader = _require(4), RTableFilter = _require(2);
+            var React = _require(11), pubsub = _require(10), RTableBody = _require(1), RTableHeader = _require(5), RTableFilter = _require(3);
             var RTable = React.createClass({
                     displayName: 'RTable',
                     getDefaultProps: function () {
@@ -506,5 +504,5 @@
             module.exports = __external_React;
         }
     ];
-    return _require(7);
+    return _require(8);
 }));

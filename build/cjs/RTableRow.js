@@ -5,16 +5,11 @@ var React =  require('react'),
     pubsub = require('pubsub-js'),
     RTableCell = require('./RTableCell'),
     RTableSelect = require('./RTableSelect'),
-    utils = require('./utils');
+    PropRenderMixin = require('./PropRenderMixin');
 
 var RTableRow = React.createClass({
+    mixins: [PropRenderMixin],
 	displayName : 'RTableRow',
-    getInitialState : function(){
-        return {
-            shouldUpdate : true, 
-            oldProps : {}
-        };
-    },
     getDefaultProps : function  () {
         return {  
             dataProp : '.',
@@ -42,19 +37,6 @@ var RTableRow = React.createClass({
         optimization : React.PropTypes.bool,
         //row count 
         rowCount : React.PropTypes.number
-    },
-    componentWillReceiveProps : function(newProps){
-        var shouldUpdate = true,
-            newPropsStr = null;
-        if (this.props.optimization){
-            newPropsStr = utils.stringify(newProps);
-            shouldUpdate =  this.state.oldProps !== newPropsStr;
-        }
-
-        this.setState({shouldUpdate : shouldUpdate, oldProps : newPropsStr});
-    },
-    shouldComponentUpdate : function(newProps, newState){
-        return this.state.shouldUpdate;
     },
     render : function(){
         	var cells = [];

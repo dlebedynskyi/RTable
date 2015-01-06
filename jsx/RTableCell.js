@@ -2,16 +2,12 @@
  * @jsx React.DOM
  */
 var React =  require('react'),
-    utils = require('./utils');
+  utils = require('./utils'),
+    PropRenderMixin = require('./PropRenderMixin');
 
 var RTableCell = React.createClass({
+  mixins: [PropRenderMixin],
 	displayName : 'RTableCell',
-  getInitialState : function(){
-        return {
-            shouldUpdate : true, 
-            oldProps : {}
-        };
-    },
   getDefaultProps : function(){
     return {  
           data : {},
@@ -34,19 +30,6 @@ var RTableCell = React.createClass({
         data : React.PropTypes.object,
         //optimisation flag. Default is true. Uses memory
         optimization : React.PropTypes.bool
-    },
-    componentWillReceiveProps : function(newProps){
-        var shouldUpdate = true,
-            newPropsStr = null;
-        if (this.props.optimisation){
-            newPropsStr = utils.stringify(newProps);
-            shouldUpdate =  this.state.oldProps !== newPropsStr;
-        }
-
-        this.setState({shouldUpdate : shouldUpdate, oldProps : newPropsStr});
-    },
-    shouldComponentUpdate : function(newProps, newState){
-        return this.state.shouldUpdate;
     },
     render : function(){ 
     		var def = null,
