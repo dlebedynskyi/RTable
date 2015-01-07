@@ -13,11 +13,11 @@
         <!-- Optional theme -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
         <style type="text/css">
-        .rtable .rtable-col input {
+        .rtable .rtable-header-filters input{
             width:95%;
-            max-width:140px;
         }
         .rtable .rtable-col.rtable-selection{
+            min-width: 25px;
             max-width: 25px;
             width:25px;
         }
@@ -34,11 +34,13 @@
                 overflow-x: hidden;
                 height: 800px;
             }
+        table.rtable.rtable-fixed-header tr, th, td, th{
+            height: 25px;
+        }
         table.rtable.rtable-fixed-header td, th {
-                min-width: 150px;
-                /*width: 150px;*/
-                height: 25px;
-            }
+            min-width: 150px;
+            width: 150px;
+        }
         </style>
     </head>
     <body class="container-fluid">
