@@ -442,6 +442,9 @@ If your React component's render function is "pure" (in other words, it renders 
                             this.refs.rTable.getDOMNode().addEventListener('scroll', this.tableScroll);
                         }
                     },
+                    componentWillUpdate: function () {
+                        pubsub.publish('RTable.BeforeUpdated', null);
+                    },
                     componentDidUpdate: function () {
                         pubsub.publish('RTable.Updated', null);
                     },

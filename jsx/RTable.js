@@ -35,6 +35,9 @@ var RTable = React.createClass({
             .addEventListener('scroll', this.tableScroll);
         }
     },
+    componentWillUpdate : function(){
+        pubsub.publish('RTable.BeforeUpdated', null);
+    },
     componentDidUpdate : function  () {
         pubsub.publish('RTable.Updated', null);
     },
