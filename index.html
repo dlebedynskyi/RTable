@@ -15,13 +15,14 @@
         <style type="text/css">
         .rtable .rtable-col input {
             width:95%;
+            max-width:140px;
         }
         .rtable .rtable-col.rtable-selection{
             max-width: 25px;
             width:25px;
         }
         table.rtable.rtable-fixed-header {
-                width: 800px;
+                width:1200px;
                 overflow-x: scroll;
                 display: block;
             }
@@ -35,7 +36,7 @@
             }
         table.rtable.rtable-fixed-header td, th {
                 min-width: 150px;
-                width: 300px;
+                /*width: 150px;*/
                 height: 25px;
             }
         </style>
@@ -128,7 +129,6 @@
                 diff = (new Date().getTime() - diff)/1000;
                 console.log('random change render in sec',   diff);
             });
-
 
 
         </script>
