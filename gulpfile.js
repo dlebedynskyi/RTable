@@ -143,10 +143,9 @@ gulp.task('umd', function  () {
 //linter
 
 gulp.task('lint', ['react'], function(){
-  console.log ('LINT REPORT');
   return gulp.src(config.umdSource)
     .pipe(g.jshint())
-    .pipe(g.jshint.reporter(stylish));
+    .pipe(g.jshint.reporter(g.stylish));
 });
 
 //functions
@@ -165,7 +164,8 @@ function register(path, tasks){
 	});
 
 	watch.on('error', function(error){
-		g.notify.onError("Error: <%= error.message %> ")
+    console.log("Error: <%= error.message %> ");
+		g.notify.onError("Error: <%= error.message %> ");
 	});
 
 	return watch;
