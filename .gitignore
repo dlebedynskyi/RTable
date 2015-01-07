@@ -28,3 +28,4 @@ external
 # Users Environment Variables
 .lock-wscript
 *.sublime-workspace
+*.sublime-workspace
