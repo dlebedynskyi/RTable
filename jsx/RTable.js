@@ -43,7 +43,11 @@ var RTable = React.createClass({
     },
     componentWillUnmount : function(){
         pubsub.publish('RTable.Unmounted', null);
+        //clean up
         pubsub.unsubscribe('RTable.Mounted');
+        pubsub.unsubscribe('RTable.Updated');
+        pubsub.unsubscribe('RTable.BeforeUpdated');
+        pubsub.unsubscribe('RTable.Unmounted');
 
         this.refs.rTable.getDOMNode()
         .removeEventListener('scroll', this.tableScroll);
