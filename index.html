@@ -13,31 +13,34 @@
         <!-- Optional theme -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
         <style type="text/css">
-        .rtable .rtable-header-filters input{
+        .rtable-fixed-header .rtable-header-filters input{
             width:95%;
         }
         .rtable .rtable-col.rtable-selection{
-            min-width: 25px;
+            width:25px; 
             max-width: 25px;
-            width:25px;
         }
-        table.rtable.rtable-fixed-header {
+        .rtable-fixed-header {
                 width:1200px;
                 overflow-x: scroll;
                 display: block;
             }
-        table.rtable.rtable-fixed-header thead, tbody {
+        .rtable-fixed-header thead, 
+        .rtable-fixed-header tbody {
                 display: block;
             }
-        table.rtable.rtable-fixed-header tbody {
+        .rtable-fixed-header tbody {
                 overflow-y: scroll;
                 overflow-x: hidden;
                 height: 800px;
             }
-        table.rtable.rtable-fixed-header tr, th, td, th{
+        .rtable-fixed-header tr, 
+        .rtable-fixed-header th, 
+        .rtable-fixed-header td, 
+        .rtable-fixed-header th{
             height: 25px;
         }
-        table.rtable.rtable-fixed-header td, th {
+        .rtable-fixed-header td, th {
             min-width: 150px;
             width: 150px;
         }
@@ -66,7 +69,7 @@
         <script type="text/javascript">
             var data = [],
                 definition = [],
-                settings = { columnFieldValueProp : 'field', columnNameProp : 'title', fixedHeader : true, enableFilters: true, classes : 'table table-striped'},
+                settings = { columnFieldValueProp : 'field', columnNameProp : 'title', fixedHeader : false, enableFilters: true, classes : 'table table-striped'},
                 columnIndex = 0,
                 component = null,
                 r =  null,

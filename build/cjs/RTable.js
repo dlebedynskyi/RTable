@@ -43,7 +43,11 @@ var RTable = React.createClass({
     },
     componentWillUnmount : function(){
         pubsub.publish('RTable.Unmounted', null);
+        //clean up
         pubsub.unsubscribe('RTable.Mounted');
+        pubsub.unsubscribe('RTable.Updated');
+        pubsub.unsubscribe('RTable.BeforeUpdated');
+        pubsub.unsubscribe('RTable.Unmounted');
 
         this.refs.rTable.getDOMNode()
         .removeEventListener('scroll', this.tableScroll);
@@ -73,23 +77,36 @@ var RTable = React.createClass({
         fixedHeader : React.PropTypes.bool
     },
     render : function(){
+            var theadRows = [],
+                headerRows = [], 
+                filterRows = [],
+                colGroups = []
+                rows = [],
+                classNames = 'rtable ';
 
-            var headerRows = [];
+            classNames += this.props.fixedHeader ? ' rtable-fixed-header' : '';
+            /*                
             if (this.props.data && this.props.data.length){
-                headerRows.push(React.createElement(RTableHeader, {key: "RTableHeader", definitions: this.props.definitions, columnNameProp: this.props.columnNameProp, selection: this.props.enableSelection}));
+                headerRows.push(<RTableHeader key="RTableHeader" definitions={this.props.definitions} columnNameProp={this.props.columnNameProp} selection={this.props.enableSelection}></RTableHeader>);
                 if (this.props.enableFilters){
-                    headerRows.push(React.createElement(RTableFilter, {key: "RTableFilter", definitions: this.props.definitions, selection: this.props.enableSelection}));
+                    headerRows.push(<RTableFilter key="RTableFilter" definitions={this.props.definitions} selection={this.props.enableSelection}></RTableFilter>);
                 }
             }
             
-            var thead = (React.createElement("thead", {ref: "rHeader"}, headerRows));
+            var thead = (<thead ref='rHeader'>{headerRows}</thead>);
             var classNames = 'rtable '  + this.props.classes;
-            if (this.props.fixedHeader){
-                classNames += ' rtable-fixed-header';
+            */
+            
+            theadRows.push(React.createElement("tr", {key: "rTableHeaderRow"}, headerRows));
+            if (this.props.enableFilters){
+                theadRows.push(React.createElement("tr", {key: "rtableFilterRow"}, filterRows));
             }
             return (React.createElement("table", {className: classNames, ref: "rTable"}, 
-                          thead, 
-            		      React.createElement(RTableBody, React.__spread({ref: "rBody"},  this.props, {selection: this.props.enableSelection, data: this.props.data, definitions: this.props.definitions}))
+
+                          React.createElement("colgroup", null, colGroups), 
+                          React.createElement("thead", {ref: "rHeader"}, theadRows), 
+                          React.createElement("tbody", {ref: "rBody"}, rows)
+
             	     ));
     }
 });

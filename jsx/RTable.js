@@ -77,8 +77,15 @@ var RTable = React.createClass({
         fixedHeader : React.PropTypes.bool
     },
     render : function(){
+            var theadRows = [],
+                headerRows = [], 
+                filterRows = [],
+                colGroups = []
+                rows = [],
+                classNames = 'rtable ';
 
-            var headerRows = [];
+            classNames += this.props.fixedHeader ? ' rtable-fixed-header' : '';
+            /*                
             if (this.props.data && this.props.data.length){
                 headerRows.push(<RTableHeader key="RTableHeader" definitions={this.props.definitions} columnNameProp={this.props.columnNameProp} selection={this.props.enableSelection}></RTableHeader>);
                 if (this.props.enableFilters){
@@ -88,12 +95,18 @@ var RTable = React.createClass({
             
             var thead = (<thead ref='rHeader'>{headerRows}</thead>);
             var classNames = 'rtable '  + this.props.classes;
-            if (this.props.fixedHeader){
-                classNames += ' rtable-fixed-header';
+            */
+            
+            theadRows.push(<tr key="rTableHeaderRow">{headerRows}</tr>);
+            if (this.props.enableFilters){
+                theadRows.push(<tr key='rtableFilterRow'>{filterRows}</tr>);
             }
             return (<table className= {classNames} ref='rTable'>
-                          {thead}
-            		      <RTableBody ref='rBody' {...this.props} selection ={this.props.enableSelection} data={this.props.data} definitions={this.props.definitions}></RTableBody>
+
+                          <colgroup>{colGroups}</colgroup>
+                          <thead ref='rHeader'>{theadRows}</thead>
+                          <tbody ref='rBody'>{rows}</tbody>
+
             	     </table>);
     }
 });
