@@ -29,14 +29,14 @@ var RTableFilter = React.createClass({
         var rows = [];
         if (this.props.selection)
         {
-            rows.push(<th key="filter_cell_selection" className="rtable-selection-filter"></th>);
+            rows.push(<th key="filter_cell_selection" className="rtable-selection rtable-selection-filter rtable-col"></th>);
         }
         
     	for (var j = 0; j < this.props.definitions.length; j++) {
-    			rows.push(<th key={'filter_cell_'+j}><RTableFilterCell definition={this.props.definitions[j]}></RTableFilterCell></th>);
+    			rows.push(<th key={'filter_cell_'+j} className='rtable-col'><RTableFilterCell definition={this.props.definitions[j]}></RTableFilterCell></th>);
 		}
             
-        return (<tr>{rows}</tr>);
+        return (<tr className="rtable-header-filters">{rows}</tr>);
     }
 });
 

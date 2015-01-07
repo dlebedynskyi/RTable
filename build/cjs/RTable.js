@@ -18,15 +18,28 @@ var RTable = React.createClass({
             columnNameProp : 'name', 
             enableFilters : true,
             enableSelection : true,
-            classes : 'rx-table',
-            optimization : true
+            classes : 'rtable',
+            optimization : true, 
+            fixedHeader : false
         };
+    },
+    tableScroll : function(e){
+        this.refs.rHeader.getDOMNode().style.width = this.refs.rTable.getDOMNode().clientWidth + this.refs.rTable.getDOMNode().scrollLeft + 'px';
+        this.refs.rBody.getDOMNode().style.width = this.refs.rTable.getDOMNode().clientWidth + this.refs.rTable.getDOMNode().scrollLeft + 'px';     
     },
     componentDidMount : function() {
         pubsub.publish('RTable.Mounted', null);
+
+        if (this.props.fixedHeader){
+            var dm  = this.refs.rTable.getDOMNode();
+            dm.addEventListener('scroll', this.tableScroll);
+
+        }
     },
     componentWillUnmount : function(){
         pubsub.unsubscribe('RTable.Mounted');
+        var dm  = this.refs.rTable.getDOMNode();
+        dm.removeEventListener('scroll', this.tableScroll);
     },
     propTypes : {
     	 //Definitions for columns
@@ -48,7 +61,9 @@ var RTable = React.createClass({
         //css class names to be added
         classes : React.PropTypes.string,
         //optimization flag. Default is true. Uses memory
-        optimization : React.PropTypes.bool
+        optimization : React.PropTypes.bool, 
+        //should table apply fixed header and only body content scrolling 
+        fixedHeader : React.PropTypes.bool
     },
     render : function(){
 
@@ -60,10 +75,14 @@ var RTable = React.createClass({
                 }
             }
             
-            var thead = (React.createElement("thead", null, headerRows));
-            return (React.createElement("table", {className: 'rx-table '  + this.props.classes}, 
+            var thead = (React.createElement("thead", {ref: "rHeader"}, headerRows));
+            var classNames = 'rtable '  + this.props.classes;
+            if (this.props.fixedHeader){
+                classNames += ' rtable-fixed-header';
+            }
+            return (React.createElement("table", {className: classNames, ref: "rTable"}, 
                           thead, 
-            		      React.createElement(RTableBody, React.__spread({},  this.props, {selection: this.props.enableSelection, data: this.props.data, definitions: this.props.definitions}))
+            		      React.createElement(RTableBody, React.__spread({ref: "rBody"},  this.props, {selection: this.props.enableSelection, data: this.props.data, definitions: this.props.definitions}))
             	     ));
     }
 });

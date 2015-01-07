@@ -12,7 +12,33 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
         <!-- Optional theme -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-
+        <style type="text/css">
+        .rtable .rtable-col input {
+            width:95%;
+        }
+        .rtable .rtable-col.rtable-selection{
+            max-width: 25px;
+            width:25px;
+        }
+        table.rtable.rtable-fixed-header {
+                width: 800px;
+                overflow-x: scroll;
+                display: block;
+            }
+        table.rtable.rtable-fixed-header thead, tbody {
+                display: block;
+            }
+        table.rtable.rtable-fixed-header tbody {
+                overflow-y: scroll;
+                overflow-x: hidden;
+                height: 800px;
+            }
+        table.rtable.rtable-fixed-header td, th {
+                min-width: 150px;
+                width: 300px;
+                height: 25px;
+            }
+        </style>
     </head>
     <body class="container-fluid">
         <!--[if lt IE 10]>
@@ -37,7 +63,7 @@
         <script type="text/javascript">
             var data = [],
                 definition = [],
-                settings = { columnFieldValueProp : 'field', columnNameProp : 'title', classes : 'table table-striped'},
+                settings = { columnFieldValueProp : 'field', columnNameProp : 'title', fixedHeader : true, enableFilters: true, classes : 'table table-striped'},
                 columnIndex = 0,
                 component = null,
                 r =  null,

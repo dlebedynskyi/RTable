@@ -23,7 +23,7 @@ describe('RxTable', function() {
     expect(props.enableSelection).toBe(true);
     expect(props.optimization).toBe(true);
     expect(props.enableFilters).toBe(true);
-    expect(props.classes).toBe('rx-table');    
+    expect(props.classes).toBe('rtable');    
     expect(props.data.length).toBe(0);
     expect(props.definitions.length).toBe(0);
 

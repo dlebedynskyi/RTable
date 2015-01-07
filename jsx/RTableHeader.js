@@ -26,7 +26,7 @@ var RTableHeader = React.createClass({
     render : function(){
             var rows = [];
             if (this.props.selection){
-                rows.push(<th key="header_cell_selection" className="rtable-selection-header"></th>);
+                rows.push(<th key="header_cell_selection" className="rtable-selection rtable-selection-header rtable-col"></th>);
             }
         	
             for (var j = 0; j < this.props.definitions.length; j++) {
@@ -39,7 +39,7 @@ var RTableHeader = React.createClass({
                         header = this.props.definitions[j][this.props.columnNameProp];
                     } else  { header = this.props.definitions[j]; }
 
-        			rows.push(<th key={'header_cell_'+j}>{header}</th>);
+        			rows.push(<th key={'header_cell_'+j} className="rtable-col rtable-header-col">{header}</th>);
         		}
             
             return (<tr>{rows}</tr>);

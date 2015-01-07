@@ -28,7 +28,7 @@ var RTableSelect = React.createClass({
     this.setState({isChecked: checked});
   },
   render : function(){ 
-    		return (React.createElement("td", {className: "rtable-selection-row"}, React.createElement("input", {type: "checkbox", checked: this.state.isChecked, onChange: this.onChange})));
+    		return (React.createElement("td", {className: "rtable-col rtable-selection rtable-selection-row"}, React.createElement("input", {type: "checkbox", checked: this.state.isChecked, onChange: this.onChange})));
     },
   componentWillUnmount : function(){
       pubsub.unsubscribe('RTable.RowSelected');

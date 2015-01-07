@@ -169,7 +169,7 @@ If your React component's render function is "pure" (in other words, it renders 
                         } else {
                             dataObj = this.props.data;
                         }
-                        return React.createElement('td', null, dataObj[def]);
+                        return React.createElement('td', { className: 'rtable-col' }, dataObj[def]);
                     }
                 });
             module.exports = RTableCell;
@@ -206,13 +206,16 @@ If your React component's render function is "pure" (in other words, it renders 
                         if (this.props.selection) {
                             rows.push(React.createElement('th', {
                                 key: 'filter_cell_selection',
-                                className: 'rtable-selection-filter'
+                                className: 'rtable-selection rtable-selection-filter rtable-col'
                             }));
                         }
                         for (var j = 0; j < this.props.definitions.length; j++) {
-                            rows.push(React.createElement('th', { key: 'filter_cell_' + j }, React.createElement(RTableFilterCell, { definition: this.props.definitions[j] })));
+                            rows.push(React.createElement('th', {
+                                key: 'filter_cell_' + j,
+                                className: 'rtable-col'
+                            }, React.createElement(RTableFilterCell, { definition: this.props.definitions[j] })));
                         }
-                        return React.createElement('tr', null, rows);
+                        return React.createElement('tr', { className: 'rtable-header-filters' }, rows);
                     }
                 });
             module.exports = RTableFilter;
@@ -287,7 +290,7 @@ If your React component's render function is "pure" (in other words, it renders 
                         if (this.props.selection) {
                             rows.push(React.createElement('th', {
                                 key: 'header_cell_selection',
-                                className: 'rtable-selection-header'
+                                className: 'rtable-selection rtable-selection-header rtable-col'
                             }));
                         }
                         for (var j = 0; j < this.props.definitions.length; j++) {
@@ -300,7 +303,10 @@ If your React component's render function is "pure" (in other words, it renders 
                             } else {
                                 header = this.props.definitions[j];
                             }
-                            rows.push(React.createElement('th', { key: 'header_cell_' + j }, header));
+                            rows.push(React.createElement('th', {
+                                key: 'header_cell_' + j,
+                                className: 'rtable-col rtable-header-col'
+                            }, header));
                         }
                         return React.createElement('tr', null, rows);
                     }
@@ -393,7 +399,7 @@ If your React component's render function is "pure" (in other words, it renders 
                         this.setState({ isChecked: checked });
                     },
                     render: function () {
-                        return React.createElement('td', { className: 'rtable-selection-row' }, React.createElement('input', {
+                        return React.createElement('td', { className: 'rtable-col rtable-selection rtable-selection-row' }, React.createElement('input', {
                             type: 'checkbox',
                             checked: this.state.isChecked,
                             onChange: this.onChange
@@ -421,15 +427,26 @@ If your React component's render function is "pure" (in other words, it renders 
                             columnNameProp: 'name',
                             enableFilters: true,
                             enableSelection: true,
-                            classes: 'rx-table',
-                            optimization: true
+                            classes: 'rtable',
+                            optimization: true,
+                            fixedHeader: false
                         };
+                    },
+                    tableScroll: function (e) {
+                        this.refs.rHeader.getDOMNode().style.width = this.refs.rTable.getDOMNode().clientWidth + this.refs.rTable.getDOMNode().scrollLeft + 'px';
+                        this.refs.rBody.getDOMNode().style.width = this.refs.rTable.getDOMNode().clientWidth + this.refs.rTable.getDOMNode().scrollLeft + 'px';
                     },
                     componentDidMount: function () {
                         pubsub.publish('RTable.Mounted', null);
+                        if (this.props.fixedHeader) {
+                            var dm = this.refs.rTable.getDOMNode();
+                            dm.addEventListener('scroll', this.tableScroll);
+                        }
                     },
                     componentWillUnmount: function () {
                         pubsub.unsubscribe('RTable.Mounted');
+                        var dm = this.refs.rTable.getDOMNode();
+                        dm.removeEventListener('scroll', this.tableScroll);
                     },
                     propTypes: {
                         //Definitions for columns
@@ -452,7 +469,9 @@ If your React component's render function is "pure" (in other words, it renders 
                         //css class names to be added
                         classes: React.PropTypes.string,
                         //optimization flag. Default is true. Uses memory
-                        optimization: React.PropTypes.bool
+                        optimization: React.PropTypes.bool,
+                        //should table apply fixed header and only body content scrolling 
+                        fixedHeader: React.PropTypes.bool
                     },
                     render: function () {
                         var headerRows = [];
@@ -471,8 +490,15 @@ If your React component's render function is "pure" (in other words, it renders 
                                 }));
                             }
                         }
-                        var thead = React.createElement('thead', null, headerRows);
-                        return React.createElement('table', { className: 'rx-table ' + this.props.classes }, thead, React.createElement(RTableBody, React.__spread({}, this.props, {
+                        var thead = React.createElement('thead', { ref: 'rHeader' }, headerRows);
+                        var classNames = 'rtable ' + this.props.classes;
+                        if (this.props.fixedHeader) {
+                            classNames += ' rtable-fixed-header';
+                        }
+                        return React.createElement('table', {
+                            className: classNames,
+                            ref: 'rTable'
+                        }, thead, React.createElement(RTableBody, React.__spread({ ref: 'rBody' }, this.props, {
                             selection: this.props.enableSelection,
                             data: this.props.data,
                             definitions: this.props.definitions
