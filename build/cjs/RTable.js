@@ -31,15 +31,19 @@ var RTable = React.createClass({
         pubsub.publish('RTable.Mounted', null);
 
         if (this.props.fixedHeader){
-            var dm  = this.refs.rTable.getDOMNode();
-            dm.addEventListener('scroll', this.tableScroll);
-
+            this.refs.rTable.getDOMNode()
+            .addEventListener('scroll', this.tableScroll);
         }
     },
+    componentDidUpdate : function  () {
+        pubsub.publish('RTable.Updated', null);
+    },
     componentWillUnmount : function(){
+        pubsub.publish('RTable.Unmounted', null);
         pubsub.unsubscribe('RTable.Mounted');
-        var dm  = this.refs.rTable.getDOMNode();
-        dm.removeEventListener('scroll', this.tableScroll);
+
+        this.refs.rTable.getDOMNode()
+        .removeEventListener('scroll', this.tableScroll);
     },
     propTypes : {
     	 //Definitions for columns
