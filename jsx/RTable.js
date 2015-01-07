@@ -3,11 +3,12 @@
  */
 var React =  require('react'),
     pubsub = require('pubsub-js'),
-    RTableBody = require('./RTableBody'),
-    RTableHeader = require('./RTableHeader'),
-    RTableFilter = require('./RTableFilter');
+    RTableHeaderCell = require('./RTableHeaderCell'),
+    RTableFilterCell = require('./RTableFilterCell'),
+    RTableSelectCell = require('./RTableSelectCell'),
+    RTableCell = require('./RTableCell');
 
-var RTable = React.createClass({
+var RTable = {
     displayName : 'RTable',
     getDefaultProps : function  () {
         return {  
@@ -78,29 +79,38 @@ var RTable = React.createClass({
     },
     render : function(){
             var theadRows = [],
-                headerRows = [], 
-                filterRows = [],
+                headers = [], 
+                filters = [],
                 colGroups = []
                 rows = [],
                 classNames = 'rtable ';
 
-            classNames += this.props.fixedHeader ? ' rtable-fixed-header' : '';
-            /*                
-            if (this.props.data && this.props.data.length){
-                headerRows.push(<RTableHeader key="RTableHeader" definitions={this.props.definitions} columnNameProp={this.props.columnNameProp} selection={this.props.enableSelection}></RTableHeader>);
+            classNames += this.props.fixedHeader ? ' rtable-fixed-header ' : '';
+            classNames += this.props.classes;
+            if (this.props.data.length){
+                this.renderSelectionColumn(colGroups, headers, filters);
+
+                for (var i = 0; i < this.props.definitions.length; i++) {
+                    //col groups
+                    colGroups.push(<col key={'col_'+i} className={'rtable-col'+i}></col>);
+                    //headers
+                    headers.push(<RTableHeaderCell key={'header_cell_'+i} 
+                                        definition={this.props.definitions[i]} 
+                                        columnNameProp={this.props.columnNameProp}></RTableHeaderCell>);
+                    //filters
+                    filters.push(<RTableFilterCell key={'filter_cell' + i}
+                                    definition={this.props.definitions[i]}></RTableFilterCell>);
+                    //rows
+                    this.renderColumn(rows, i);
+                };
+                
+                theadRows.push(<tr key="rTableHeaderRow">{headers}</tr>);
+                
                 if (this.props.enableFilters){
-                    headerRows.push(<RTableFilter key="RTableFilter" definitions={this.props.definitions} selection={this.props.enableSelection}></RTableFilter>);
+                    theadRows.push(<tr key='rtableFilterRow'>{filters}</tr>);
                 }
             }
-            
-            var thead = (<thead ref='rHeader'>{headerRows}</thead>);
-            var classNames = 'rtable '  + this.props.classes;
-            */
-            
-            theadRows.push(<tr key="rTableHeaderRow">{headerRows}</tr>);
-            if (this.props.enableFilters){
-                theadRows.push(<tr key='rtableFilterRow'>{filterRows}</tr>);
-            }
+
             return (<table className= {classNames} ref='rTable'>
 
                           <colgroup>{colGroups}</colgroup>
@@ -108,7 +118,36 @@ var RTable = React.createClass({
                           <tbody ref='rBody'>{rows}</tbody>
 
             	     </table>);
+    },
+    getInitialRow : function(rowIndex, data){
+        var arr = [];
+        if (this.props.enableSelection){
+            arr.push(<RTableSelectCell key={'row_'+rowIndex+'_select'} data={data}></RTableSelectCell>);
+        }
+        return arr;
+    },
+    renderColumn : function(rows, columnIndex){
+        for (var j = 0; j < this.props.data.length; j++) {
+                        var row = rows[j] = rows[j] || (<tr key={'row_'+j}></tr>);
+                        var cells =  row.props.children = row.props.children || this.getInitialRow(j, this.props.data[j]);
+                        cells.push(<RTableCell key={'row_'+j+'_cell_'+columnIndex} 
+                                        data={this.props.data[j]}
+                                        definition={this.props.definitions[columnIndex]}
+                                        columnFieldValueProp={this.props.columnFieldValueProp}
+                                        dataProp={this.props.dataProp}
+                                        optimization={this.props.optimization}></RTableCell>);
+                    };
+    },
+    renderSelectionColumn : function(cols, headers,  filters){
+        if (this.props.enableSelection){ 
+            cols.push(<col key="col_selection" className="rtable-selection rtable-col"></col>);
+            headers.push(<th key="header_cell_selection" className="rtable-selection rtable-selection-header rtable-col"></th>);
+            filters.push(<th key="filter_cell_selection" className="rtable-selection rtable-selection-filter rtable-col rtable-col"></th>);
+        }
     }
-});
+};
 
-module.exports = RTable;
+module.exports = {
+    class : RTable,
+    Component : React.createClass(RTable)
+};
