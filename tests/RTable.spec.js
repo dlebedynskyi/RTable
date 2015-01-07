@@ -6,7 +6,7 @@ jest.dontMock('../jsx/RTable');
 describe('RxTable', function() {
   it('init default values and declare its is published', function() {
    var React = require('react/addons'),
-       RTable = require('../jsx/RTable'),
+       RTable = require('../jsx/RTable').Component,
        pubsub = require('pubsub-js'),
       TestUtils = React.addons.TestUtils;
 
