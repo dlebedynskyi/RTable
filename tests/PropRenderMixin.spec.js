@@ -1,11 +1,11 @@
 /** @jsx React.DOM */
 
-jest.dontMock('../jsx/PropRenderMixin');
+jest.dontMock('../cjs/PropRenderMixin');
 
 describe('PropsRenderMixin test', function  () {
 	var mix = null;
 	beforeEach(function(){
-		mix = require('../jsx/PropRenderMixin');
+		mix = require('../cjs/PropRenderMixin');
 		mix.props = {optimization : true};
 	});
 
@@ -54,7 +54,6 @@ describe('PropsRenderMixin test', function  () {
 	});
 
 	it('shouldComponentUpdate returns true by default', function(){
-		var mix = require('../jsx/PropRenderMixin');
 		mix.shouldUpdate = true;
 		
 		var result = mix.shouldComponentUpdate();
@@ -62,7 +61,6 @@ describe('PropsRenderMixin test', function  () {
 	});
 
 	it('shouldComponentUpdate returns false if flag is set to false', function(){
-		var mix = require('../jsx/PropRenderMixin');
 		mix.shouldUpdate = false;
 
 		var result = mix.shouldComponentUpdate();
