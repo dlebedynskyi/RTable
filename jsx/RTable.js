@@ -81,7 +81,7 @@ var RTable = {
             var theadRows = [],
                 headers = [], 
                 filters = [],
-                colGroups = []
+                colGroups = [],
                 rows = [],
                 classNames = 'rtable ';
 
@@ -92,7 +92,7 @@ var RTable = {
 
                 for (var i = 0; i < this.props.definitions.length; i++) {
                     //col groups
-                    colGroups.push(<col key={'col_'+i} className={'rtable-col'+i}></col>);
+                    colGroups.push(<col key={'col_'+i} className={'rtable-col rtable-col-'+i}></col>);
                     //headers
                     headers.push(<RTableHeaderCell key={'header_cell_'+i} 
                                         definition={this.props.definitions[i]} 
@@ -102,7 +102,7 @@ var RTable = {
                                     definition={this.props.definitions[i]}></RTableFilterCell>);
                     //rows
                     this.renderColumn(rows, i);
-                };
+                }
                 
                 theadRows.push(<tr key="rTableHeaderRow">{headers}</tr>);
                 
@@ -136,13 +136,13 @@ var RTable = {
                                         columnFieldValueProp={this.props.columnFieldValueProp}
                                         dataProp={this.props.dataProp}
                                         optimization={this.props.optimization}></RTableCell>);
-                    };
+                    }
     },
     renderSelectionColumn : function(cols, headers,  filters){
         if (this.props.enableSelection){ 
-            cols.push(<col key="col_selection" className="rtable-selection rtable-col"></col>);
-            headers.push(<th key="header_cell_selection" className="rtable-selection rtable-selection-header rtable-col"></th>);
-            filters.push(<th key="filter_cell_selection" className="rtable-selection rtable-selection-filter rtable-col rtable-col"></th>);
+            cols.push(<col key="col_selection" className="rtable-col rtable-selection"></col>);
+            headers.push(<th key="header_cell_selection" className="rtable-selection rtable-column-header"></th>);
+            filters.push(<th key="filter_cell_selection" className="rtable-selection rtable-column-filter"></th>);
         }
     }
 };

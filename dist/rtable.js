@@ -117,7 +117,7 @@ If your React component's render function is "pure" (in other words, it renders 
                         } else {
                             dataObj = this.props.data;
                         }
-                        return React.createElement('td', { className: 'rtable-col' }, dataObj[def]);
+                        return React.createElement('td', { className: 'rtable-column-body' }, dataObj[def]);
                     }
                 });
             module.exports = RTableCell;
@@ -153,7 +153,7 @@ If your React component's render function is "pure" (in other words, it renders 
                         pubsub.unsubscribe('RTable.FilterChange');
                     },
                     render: function () {
-                        return React.createElement('th', { className: 'rtable-col rtable-filter' }, React.createElement('input', {
+                        return React.createElement('th', { className: 'rtable-column-filter' }, React.createElement('input', {
                             type: 'text',
                             value: this.state.filter,
                             onChange: this.handleChange
@@ -194,7 +194,7 @@ If your React component's render function is "pure" (in other words, it renders 
                         } else {
                             header = this.props.definition;
                         }
-                        return React.createElement('th', { className: 'rtable-col rtable-header-col' }, header);
+                        return React.createElement('th', { className: 'rtable-column-header' }, header);
                     }
                 });
             module.exports = RTableHeaderCell;
@@ -225,7 +225,7 @@ If your React component's render function is "pure" (in other words, it renders 
                         this.setState({ isChecked: checked });
                     },
                     render: function () {
-                        return React.createElement('td', { className: 'rtable-col rtable-selection rtable-selection-row' }, React.createElement('input', {
+                        return React.createElement('td', { className: 'rtable-selection rtable-column-body' }, React.createElement('input', {
                             type: 'checkbox',
                             checked: this.state.isChecked,
                             onChange: this.onChange
@@ -309,8 +309,7 @@ If your React component's render function is "pure" (in other words, it renders 
                         fixedHeader: React.PropTypes.bool
                     },
                     render: function () {
-                        var theadRows = [], headers = [], filters = [], colGroups = [];
-                        rows = [], classNames = 'rtable ';
+                        var theadRows = [], headers = [], filters = [], colGroups = [], rows = [], classNames = 'rtable ';
                         classNames += this.props.fixedHeader ? ' rtable-fixed-header ' : '';
                         classNames += this.props.classes;
                         if (this.props.data.length) {
@@ -319,7 +318,7 @@ If your React component's render function is "pure" (in other words, it renders 
                                 //col groups
                                 colGroups.push(React.createElement('col', {
                                     key: 'col_' + i,
-                                    className: 'rtable-col' + i
+                                    className: 'rtable-col rtable-col-' + i
                                 }));    //headers
                                 //headers
                                 headers.push(React.createElement(RTableHeaderCell, {
@@ -335,7 +334,6 @@ If your React component's render function is "pure" (in other words, it renders 
                                 //rows
                                 this.renderColumn(rows, i);
                             }
-                            ;
                             theadRows.push(React.createElement('tr', { key: 'rTableHeaderRow' }, headers));
                             if (this.props.enableFilters) {
                                 theadRows.push(React.createElement('tr', { key: 'rtableFilterRow' }, filters));
@@ -369,21 +367,20 @@ If your React component's render function is "pure" (in other words, it renders 
                                 optimization: this.props.optimization
                             }));
                         }
-                        ;
                     },
                     renderSelectionColumn: function (cols, headers, filters) {
                         if (this.props.enableSelection) {
                             cols.push(React.createElement('col', {
                                 key: 'col_selection',
-                                className: 'rtable-selection rtable-col'
+                                className: 'rtable-col rtable-selection'
                             }));
                             headers.push(React.createElement('th', {
                                 key: 'header_cell_selection',
-                                className: 'rtable-selection rtable-selection-header rtable-col'
+                                className: 'rtable-selection rtable-column-header'
                             }));
                             filters.push(React.createElement('th', {
                                 key: 'filter_cell_selection',
-                                className: 'rtable-selection rtable-selection-filter rtable-col rtable-col'
+                                className: 'rtable-selection rtable-column-filter'
                             }));
                         }
                     }

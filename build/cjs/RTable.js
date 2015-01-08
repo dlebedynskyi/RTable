@@ -81,7 +81,7 @@ var RTable = {
             var theadRows = [],
                 headers = [], 
                 filters = [],
-                colGroups = []
+                colGroups = [],
                 rows = [],
                 classNames = 'rtable ';
 
@@ -92,7 +92,7 @@ var RTable = {
 
                 for (var i = 0; i < this.props.definitions.length; i++) {
                     //col groups
-                    colGroups.push(React.createElement("col", {key: 'col_'+i, className: 'rtable-col'+i}));
+                    colGroups.push(React.createElement("col", {key: 'col_'+i, className: 'rtable-col rtable-col-'+i}));
                     //headers
                     headers.push(React.createElement(RTableHeaderCell, {key: 'header_cell_'+i, 
                                         definition: this.props.definitions[i], 
@@ -102,7 +102,7 @@ var RTable = {
                                     definition: this.props.definitions[i]}));
                     //rows
                     this.renderColumn(rows, i);
-                };
+                }
                 
                 theadRows.push(React.createElement("tr", {key: "rTableHeaderRow"}, headers));
                 
@@ -136,13 +136,13 @@ var RTable = {
                                         columnFieldValueProp: this.props.columnFieldValueProp, 
                                         dataProp: this.props.dataProp, 
                                         optimization: this.props.optimization}));
-                    };
+                    }
     },
     renderSelectionColumn : function(cols, headers,  filters){
         if (this.props.enableSelection){ 
-            cols.push(React.createElement("col", {key: "col_selection", className: "rtable-selection rtable-col"}));
-            headers.push(React.createElement("th", {key: "header_cell_selection", className: "rtable-selection rtable-selection-header rtable-col"}));
-            filters.push(React.createElement("th", {key: "filter_cell_selection", className: "rtable-selection rtable-selection-filter rtable-col rtable-col"}));
+            cols.push(React.createElement("col", {key: "col_selection", className: "rtable-col rtable-selection"}));
+            headers.push(React.createElement("th", {key: "header_cell_selection", className: "rtable-selection rtable-column-header"}));
+            filters.push(React.createElement("th", {key: "filter_cell_selection", className: "rtable-selection rtable-column-filter"}));
         }
     }
 };

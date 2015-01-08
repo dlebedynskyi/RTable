@@ -33,7 +33,7 @@ var RTableFilterCell = React.createClass({
         pubsub.unsubscribe('RTable.FilterChange');
     },
     render : function(){
-            return (<th className='rtable-col rtable-filter'><input type="text" value={this.state.filter} onChange={this.handleChange}></input></th>);
+            return (<th className='rtable-column-filter'><input type="text" value={this.state.filter} onChange={this.handleChange}></input></th>);
           }
     });
 

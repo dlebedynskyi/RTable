@@ -13,12 +13,10 @@
         <!-- Optional theme -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
         <style type="text/css">
-        .rtable-fixed-header .rtable-header-filters input{
-            width:95%;
-        }
-        .rtable .rtable-col.rtable-selection{
-            width:25px; 
+        .rtable .rtable-selection{
+            min-width: 25px;
             max-width: 25px;
+            width: 25px;
         }
         .rtable-fixed-header {
                 width:1200px;
@@ -34,16 +32,17 @@
                 overflow-x: hidden;
                 height: 800px;
             }
-        .rtable-fixed-header tr, 
-        .rtable-fixed-header th, 
+ 
         .rtable-fixed-header td, 
         .rtable-fixed-header th{
             height: 25px;
-        }
-        .rtable-fixed-header td, th {
             min-width: 150px;
             width: 150px;
         }
+        .rtable-fixed-header .rtable-column-filter input{
+            width:95%;
+        }
+        
         </style>
     </head>
     <body class="container-fluid">
@@ -69,7 +68,7 @@
         <script type="text/javascript">
             var data = [],
                 definition = [],
-                settings = { columnFieldValueProp : 'field', columnNameProp : 'title', fixedHeader : false, enableFilters: true, classes : 'table table-striped'},
+                settings = { columnFieldValueProp : 'field', columnNameProp : 'title', fixedHeader : true, enableFilters: true, classes : 'table table-striped'},
                 columnIndex = 0,
                 component = null,
                 r =  null,

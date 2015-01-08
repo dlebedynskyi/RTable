@@ -28,7 +28,7 @@ var RTableHeaderCell = React.createClass({
                 header = this.props.definition[this.props.columnNameProp];
             } else  { header = this.props.definition; }
             
-            return (<th className="rtable-col rtable-header-col">{header}</th>);
+            return (<th className="rtable-column-header">{header}</th>);
           }
     });
 
