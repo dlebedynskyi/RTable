@@ -87,6 +87,7 @@ var RTable = {
 
             classNames += this.props.fixedHeader ? ' rtable-fixed-header ' : '';
             classNames += this.props.classes;
+            
             if (this.props.data.length){
                 this.renderSelectionColumn(colGroups, headers, filters);
 
