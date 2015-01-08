@@ -84,7 +84,7 @@ describe('RxTable', function() {
     
       expect(allColsSelection[0].tagName).toBe("COL");
       expect(allColsSelection[1].tagName).toBe("TH");
-      expect(allColsSelection[2].tagName).toBe("TD");
+      expect(allColsSelection[2].tagName).toBe("TH");
       
 
       /*var header = TestUtils.findRenderedDOMComponentWithTag(elRTable, 'thead');
