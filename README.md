@@ -22,11 +22,6 @@ For simple use you only need  to clone git
 $ git clone https://github.com/dlebedynskyi/RTable RTable
 ```
 
-You need npm, Gulp and Bower installed globally:
-
-```sh
-$ npm i -g gulp bower
-```
 
 ### Documentation 
 Please visit [github pages](dlebedynskyi.github.io/RTable)
@@ -39,15 +34,10 @@ Open your favorite Terminal and run these commands.
 
 First Tab:
 ```sh
-$ gulp connect
-```
-
-Second Tab:
-```sh
 $ gulp  build watch
 ```
 
-(optional) Third:
+Second Tab:
 ```sh
 $ gulp test
 ```
@@ -59,4 +49,5 @@ $ gulp test
  - Add Code Comments
  - Write Angular directive wrapper
  - Rethink pubsub to a simpler one or annother approach
+ - Impliment columns resize and variable width
 
