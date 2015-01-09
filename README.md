@@ -59,7 +59,7 @@ $ gulp  build watch
 ```sh
 $ gulp test
 ```
-
+ More documentation and demo on [github pages for RTable](http://dlebedynskyi.github.io/RTable)
 ### Todo's
 
  - Write Tests
