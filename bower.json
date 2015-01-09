@@ -5,9 +5,11 @@
   "authors": [
     "Dima Lebedynskyi <dima.lebedinsky@gmail.com>"
   ],
+  "homepage": "https://github.com/dlebedynskyi/RTable",
   "description": "React js table component",
   "license": "GNU V2.0",
   "private": false,
+   "_source": "git://github.com/dlebedynskyi/RTable.git"
   "ignore": [
     "**/.*",
     "node_modules",
