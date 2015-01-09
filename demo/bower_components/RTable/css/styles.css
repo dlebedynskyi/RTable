@@ -1,0 +1,29 @@
+.rtable .rtable-selection{
+            min-width: 25px;
+            max-width: 25px;
+            width: 25px;
+        }
+        .rtable-fixed-header {
+                width:100%;
+                overflow-x: scroll;
+                display: block;
+            }
+        .rtable-fixed-header thead, 
+        .rtable-fixed-header tbody {
+                display: block;
+            }
+        .rtable-fixed-header tbody {
+                overflow-y: scroll;
+                overflow-x: hidden;
+                height: 500px;
+            }
+ 
+        .rtable-fixed-header td, 
+        .rtable-fixed-header th{
+            height: 25px;
+            min-width: 150px;
+            width: 150px;
+        }
+        .rtable-fixed-header .rtable-column-filter input{
+            width:95%;
+        }

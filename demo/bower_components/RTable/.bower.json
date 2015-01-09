@@ -1,0 +1,27 @@
+{
+  "name": "RTable",
+  "main": "dist/rtable.min.js",
+  "authors": [
+    "Dima Lebedynskyi <dima.lebedinsky@gmail.com>"
+  ],
+  "homepage": "https://github.com/dlebedynskyi/RTable",
+  "description": "React js table component",
+  "license": "GNU V2.0",
+  "private": false,
+  "_source": "git://github.com/dlebedynskyi/RTable.git",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "tests"
+  ],
+  "_release": "193c30d63a",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "193c30d63aa0ae5520db1600e7b6c61d1fddc2b1"
+  },
+  "_target": "*",
+  "_originalSource": "dlebedynskyi/RTable",
+  "_direct": true
+}

@@ -1,0 +1,19 @@
+{
+  "name": "RTable",
+  "main": "dist/rtable.min.js",
+  "version": "0.6.0",
+  "authors": [
+    "Dima Lebedynskyi <dima.lebedinsky@gmail.com>"
+  ],
+  "homepage": "https://github.com/dlebedynskyi/RTable",
+  "description": "React js table component",
+  "license": "GNU V2.0",
+  "private": false,
+   "_source": "git://github.com/dlebedynskyi/RTable.git",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "tests"
+  ]
+}
