@@ -50,7 +50,7 @@ var RTableCell = React.createClass({
            		dataObj = this.props.data[this.props.dataProp];
            	} else {dataObj = this.props.data;}
 
-           	return (React.createElement("td", null, dataObj[def]));
+           	return (React.createElement("td", {className: "rtable-column-body"}, dataObj[def]));
           }
     });
 

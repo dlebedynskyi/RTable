@@ -12,15 +12,15 @@ var gulp = require('gulp'),
 
 var config = {
   build : {
-    js : './build/cjs',
-    umd : './build/umd',
+    js : './cjs',
+    umd : './umd',
     fileName : 'rtable.js',
     minFileName : 'rtable.min.js'
   },
   
   jsxSource : './jsx/**/**.js',
-  umdSource : './build/cjs/**/**.js',
-  distSource  : './build/umd/**/**.js',
+  umdSource : './cjs/**/**.js',
+  distSource  : './umd/**/**.js',
   testSource : './tests/**/**.spec.js',
 
   dist : './dist',
@@ -100,7 +100,7 @@ gulp.task('react-clean', function(){
 gulp.task('jest', function () {
     return gulp.src(__dirname).pipe(
       g.jest({
-        scriptPreprocessor: "./tests/support/preprocessor.js",
+        //scriptPreprocessor: "./tests/support/preprocessor.js",
         unmockedModulePathPatterns: [
             "react"
         ],
@@ -143,10 +143,9 @@ gulp.task('umd', function  () {
 //linter
 
 gulp.task('lint', ['react'], function(){
-  console.log ('LINT REPORT');
   return gulp.src(config.umdSource)
     .pipe(g.jshint())
-    .pipe(g.jshint.reporter(stylish));
+    .pipe(g.jshint.reporter(g.stylish));
 });
 
 //functions
@@ -165,7 +164,8 @@ function register(path, tasks){
 	});
 
 	watch.on('error', function(error){
-		g.notify.onError("Error: <%= error.message %> ")
+    console.log("Error: <%= error.message %> ");
+		g.notify.onError("Error: <%= error.message %> ");
 	});
 
 	return watch;

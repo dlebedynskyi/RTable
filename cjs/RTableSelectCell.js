@@ -4,8 +4,8 @@
 var React = require('react'),
     pubsub = require('pubsub-js');
 
-var RTableSelect = React.createClass({
-	displayName : 'RTableSelect',
+var RTableSelectCell = React.createClass({
+	displayName : 'RTableSelectCell',
   getInitialState : function(){
         return { isChecked : false};
     },
@@ -28,10 +28,10 @@ var RTableSelect = React.createClass({
     this.setState({isChecked: checked});
   },
   render : function(){ 
-    		return (<td className="rtable-selection-row"><input type="checkbox" checked={this.state.isChecked} onChange={this.onChange}></input></td>);
+    		return (React.createElement("td", {className: "rtable-selection rtable-column-body"}, React.createElement("input", {type: "checkbox", checked: this.state.isChecked, onChange: this.onChange})));
     },
   componentWillUnmount : function(){
       pubsub.unsubscribe('RTable.RowSelected');
     }});
 
-module.exports = RTableSelect;
+module.exports = RTableSelectCell;

@@ -12,7 +12,38 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
         <!-- Optional theme -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-
+        <style type="text/css"> 
+        .rtable .rtable-selection{
+            min-width: 25px;
+            max-width: 25px;
+            width: 25px;
+        }
+        .rtable-fixed-header {
+                width:100%;
+                overflow-x: scroll;
+                display: block;
+            }
+        .rtable-fixed-header thead, 
+        .rtable-fixed-header tbody {
+                display: block;
+            }
+        .rtable-fixed-header tbody {
+                overflow-y: scroll;
+                overflow-x: hidden;
+                height: 500px;
+            }
+ 
+        .rtable-fixed-header td, 
+        .rtable-fixed-header th{
+            height: 25px;
+            min-width: 150px;
+            width: 150px;
+        }
+        .rtable-fixed-header .rtable-column-filter input{
+            width:95%;
+        }
+        
+        </style>
     </head>
     <body class="container-fluid">
         <!--[if lt IE 10]>
@@ -20,7 +51,7 @@
         <![endif]-->
         <h1> R Table demo page </h1> 
         <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-6">
             <button type="button" id="renderBtn" class="btn btn-success"> Render Table 200x2</button>
             <button type="button" id="addColumnBtn" class="btn btn-default"> Display one more column</button>
             <button type="button" id="rndColumnBtn" class="btn btn-default"> Random change cell</button>
@@ -37,7 +68,7 @@
         <script type="text/javascript">
             var data = [],
                 definition = [],
-                settings = { columnFieldValueProp : 'field', columnNameProp : 'title', classes : 'table table-striped'},
+                settings = { columnFieldValueProp : 'field', columnNameProp : 'title', fixedHeader : true, enableFilters: true, classes : 'table table-striped'},
                 columnIndex = 0,
                 component = null,
                 r =  null,
@@ -68,7 +99,7 @@
             });
 
             //default render and mount to dom 
-            r = React.createElement(RTable, settings);
+            r = React.createElement(RTable.Component, settings);
             component = React.render(r, el);
             
             // demo events 
@@ -102,7 +133,6 @@
                 diff = (new Date().getTime() - diff)/1000;
                 console.log('random change render in sec',   diff);
             });
-
 
 
         </script>
