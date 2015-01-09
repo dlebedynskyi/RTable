@@ -1,0 +1,19 @@
+{
+  "name": "RTable Demo Site",
+  "version": "0.1.0",
+  "homepage": "http://dlebedynskyi.github.io/RTable",
+  "authors": [
+    "Dima Lebedynskyi <dima.lebedinsky@gmail.com>"
+  ],
+  "description": "Rtable demo site",
+  "main": "index.html",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

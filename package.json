@@ -1,0 +1,14 @@
+{
+  "name": "RTable",
+  "version": "0.5.2",
+  "description": "React Table",
+  "main": "index.html",
+  "scripts": {},
+  "author": "Dima Lebedynskyi",
+  "license": "GNU V2.0",
+  "devDependencies": {
+    "gulp": "^3.8.10",
+    "gulp-connect": "^2.2.0"
+  },
+  "dependencies": {}
+}
