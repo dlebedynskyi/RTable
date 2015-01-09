@@ -1,7 +1,7 @@
 {
   "name": "RTable",
-  "main": "build/dist/rtable.min.js",
-  "version": "0.5.2",
+  "main": "dist/rtable.min.js",
+  "version": "0.6.0",
   "authors": [
     "Dima Lebedynskyi <dima.lebedinsky@gmail.com>"
   ],
@@ -11,12 +11,7 @@
   "ignore": [
     "**/.*",
     "node_modules",
-    "external",
-    "test"
-  ],
-  "dependencies": {
-    "react": "~0.12.*",
-    "pubsub-js": "~1.5.0",
-    "requirejs": "~2.1.15"
-  }
+    "bower_components",
+    "tests"
+  ]
 }

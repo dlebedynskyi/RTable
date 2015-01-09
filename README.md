@@ -1,4 +1,4 @@
-RTable
+# RTable
 ======
 RTable is [React](http://facebook.github.io/react/) component for fast rendering table data. 
   - Fast and simple render or data based on datas and definitions array
@@ -7,9 +7,7 @@ RTable is [React](http://facebook.github.io/react/) component for fast rendering
   - Supplied as UMD module. So that you can use it as plain include, [Require](http://requirejs.org/) or common.js module
 
 ### Version
-0.5.2
-
-[![Build Status](https://travis-ci.org/dlebedynskyi/RTable.svg)](https://travis-ci.org/dlebedynskyi/RTable)
+0.6.0
 
 ### Dependencies
 
@@ -29,15 +27,9 @@ You need npm, Gulp and Bower installed globally:
 ```sh
 $ npm i -g gulp bower
 ```
-To Run demo example 
-```sh
-$ cd RTable
-$ npm install
-$ bower install 
-$ gulp connect
-```
-This will start simple node.js server on 1234 port as default. Simply navigate to [localhost:1234](http://localhost:1234)
 
+### Documentation 
+Please visit [github pages](dlebedynskyi.github.io/RTable)
 ### Development
 
 Want to contribute? Great!
@@ -59,13 +51,12 @@ $ gulp  build watch
 ```sh
 $ gulp test
 ```
- More documentation and demo on [github pages for RTable](http://dlebedynskyi.github.io/RTable)
+
 ### Todo's
 
  - Write Tests
  - Write documentation 
  - Add Code Comments
  - Write Angular directive wrapper
- - Rethink pubsub
- - Impliment columns resize and variable width
+ - Rethink pubsub to a simpler one or annother approach
 
