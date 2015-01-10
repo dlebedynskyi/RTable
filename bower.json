@@ -16,7 +16,7 @@
     "bower_components",
     "tests", 
     "cjs",
-    "jsx",
+    "./jsx",
     "umd",
     "gulpfile.js",
     ".travis.yml",
