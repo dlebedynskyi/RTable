@@ -1,7 +1,7 @@
 {
   "name": "RTable",
   "main": "dist/rtable.min.js",
-  "version": "0.6.0",
+  "version": "0.6.0-alpha",
   "authors": [
     "Dima Lebedynskyi <dima.lebedinsky@gmail.com>"
   ],

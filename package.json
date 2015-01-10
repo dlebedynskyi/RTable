@@ -1,6 +1,6 @@
 {
   "name": "RTable",
-  "version": "0.6.0",
+  "version": "0.6.0-alpha",
   "description": "React Table",
   "main": "dist/rtable.min.js",
   "scripts": {
