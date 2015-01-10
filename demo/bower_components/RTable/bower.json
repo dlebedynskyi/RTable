@@ -1,7 +1,7 @@
 {
-  "name": "RTable",
+  "name": "rtable",
   "main": "dist/rtable.min.js",
-  "version": "0.6.0",
+  "version": "0.6.1-alpha",
   "authors": [
     "Dima Lebedynskyi <dima.lebedinsky@gmail.com>"
   ],
@@ -9,11 +9,22 @@
   "description": "React js table component",
   "license": "GNU V2.0",
   "private": false,
-   "_source": "git://github.com/dlebedynskyi/RTable.git",
+  "_source": "git://github.com/dlebedynskyi/RTable.git",
   "ignore": [
     "**/.*",
     "node_modules",
     "bower_components",
-    "tests"
-  ]
+    "tests", 
+    "cjs",
+    "./jsx",
+    "umd",
+    "gulpfile.js",
+    ".travis.yml",
+    "package.json",
+    "*.sublime-project",
+    "*.html"
+  ],
+  "devDependencies": {
+    "pubsub-js": "~1.5.0"
+  }
 }

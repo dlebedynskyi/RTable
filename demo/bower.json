@@ -1,11 +1,11 @@
 {
-  "name": "RTable Demo Site",
+  "name": "RTableDemo",
   "version": "0.1.0",
-  "homepage": "http://dlebedynskyi.github.io/RTable",
+  "homepage": "dlebedynskyi.github.io/RTable",
   "authors": [
-    "Dima Lebedynskyi <dima.lebedinsky@gmail.com>"
+    "Dmytro Lebedynskyi <dima.lebedinsky@gmail.com>"
   ],
-  "description": "Rtable demo site",
+  "description": "RTable demo pages",
   "main": "index.html",
   "license": "MIT",
   "private": true,
@@ -17,6 +17,6 @@
     "tests"
   ],
   "dependencies": {
-    "RTable": "dlebedynskyi/RTable"
+    "rtable": "~0.6.1-alpha"
   }
 }

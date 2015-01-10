@@ -1,6 +1,7 @@
 {
-  "name": "RTable",
+  "name": "rtable",
   "main": "dist/rtable.min.js",
+  "version": "0.6.1-alpha",
   "authors": [
     "Dima Lebedynskyi <dima.lebedinsky@gmail.com>"
   ],
@@ -13,15 +14,26 @@
     "**/.*",
     "node_modules",
     "bower_components",
-    "tests"
+    "tests",
+    "cjs",
+    "./jsx",
+    "umd",
+    "gulpfile.js",
+    ".travis.yml",
+    "package.json",
+    "*.sublime-project",
+    "*.html"
   ],
-  "_release": "193c30d63a",
-  "_resolution": {
-    "type": "branch",
-    "branch": "master",
-    "commit": "193c30d63aa0ae5520db1600e7b6c61d1fddc2b1"
+  "devDependencies": {
+    "pubsub-js": "~1.5.0"
   },
-  "_target": "*",
-  "_originalSource": "dlebedynskyi/RTable",
+  "_release": "0.6.1-alpha",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.6.1-alpha",
+    "commit": "ab074f7bd2056004411e242b65ff3fada3f20767"
+  },
+  "_target": "~0.6.1-alpha",
+  "_originalSource": "rtable",
   "_direct": true
 }
