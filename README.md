@@ -7,7 +7,7 @@ RTable is [React](http://facebook.github.io/react/) component for fast rendering
   - Supplied as UMD module. So that you can use it as plain include, [Require](http://requirejs.org/) or common.js module
 
 ### Version
-0.6.0
+0.6.1-alpha
 
 ### Dependencies
 
