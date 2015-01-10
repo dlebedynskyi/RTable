@@ -44,7 +44,7 @@ var RTable = {
     },
     componentWillUnmount : function(){
         pubsub.publish('RTable.Unmounted', null);
-        //clean up
+        //clean up.
         pubsub.unsubscribe('RTable.Mounted');
         pubsub.unsubscribe('RTable.Updated');
         pubsub.unsubscribe('RTable.BeforeUpdated');
