@@ -12,38 +12,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
         <!-- Optional theme -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-        <style type="text/css"> 
-        .rtable .rtable-selection{
-            min-width: 25px;
-            max-width: 25px;
-            width: 25px;
-        }
-        .rtable-fixed-header {
-                width:100%;
-                overflow-x: scroll;
-                display: block;
-            }
-        .rtable-fixed-header thead, 
-        .rtable-fixed-header tbody {
-                display: block;
-            }
-        .rtable-fixed-header tbody {
-                overflow-y: scroll;
-                overflow-x: hidden;
-                height: 500px;
-            }
- 
-        .rtable-fixed-header td, 
-        .rtable-fixed-header th{
-            height: 25px;
-            min-width: 150px;
-            width: 150px;
-        }
-        .rtable-fixed-header .rtable-column-filter input{
-            width:95%;
-        }
-        
-        </style>
+        <link rel="stylesheet" type="text/css" href="css/styles.css">
     </head>
     <body class="container-fluid">
         <!--[if lt IE 10]>
@@ -61,8 +30,8 @@
         </div>
 
         <div id="app"></div>
-        <script src="external/react/react-with-addons.js"></script>
-        <script src="external/pubsub-js/src/pubsub.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.12.2/react-with-addons.js"></script>
+        <script src="bower_components/pubsub-js/src/pubsub.js"></script>
         <script src="dist/rtable.js"></script>
         
         <script type="text/javascript">
