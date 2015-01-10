@@ -1,0 +1,114 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <title>RTable samle demo</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" type="text/css" href="css/styles.css">
+    </head>
+    <body class="container-fluid">
+        <!--[if lt IE 10]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <h1> R Table demo page </h1> 
+        <div class="row">
+        <div class="col-md-6">
+            <button type="button" id="renderBtn" class="btn btn-success"> Render Table 200x2</button>
+            <button type="button" id="addColumnBtn" class="btn btn-default"> Display one more column</button>
+            <button type="button" id="rndColumnBtn" class="btn btn-default"> Random change cell</button>
+        </div>
+        <div class="col-md-4">
+        </div>
+        </div>
+
+        <div id="app"></div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.12.2/react-with-addons.js"></script>
+        <script src="bower_components/pubsub-js/src/pubsub.js"></script>
+        <script src="dist/rtable.js"></script>
+        
+        <script type="text/javascript">
+            var data = [],
+                definition = [],
+                settings = { columnFieldValueProp : 'field', columnNameProp : 'title', fixedHeader : true, enableFilters: true, classes : 'table table-striped'},
+                columnIndex = 0,
+                component = null,
+                r =  null,
+                el = document.getElementById('app'),
+                renderBtn = document.getElementById('renderBtn'),
+                addColumn = document.getElementById('addColumnBtn'),
+                rndColumnBtn = document.getElementById('rndColumnBtn');
+
+            //create some data
+            for (var i = 0; i < 200; i++) {
+                var d = {};
+                for (var j = 0; j < 100; j++) {
+                    d['col_'+j] = 'Row '+i + ' Column ' +j;
+                };
+                data.push(d);
+            };
+            //default definitions 
+            definition.push({field : 'col_0', title : 'Column 0 '});
+            definition.push({field : 'col_1', title : 'Column 1'});
+            columnIndex = 1;
+            
+            // logging events to console
+            PubSub.subscribe('RTable', function(msg, data){
+                console.log('event logged ', msg, data);
+            });
+            //saving reload mediator
+            PubSub.subscribe('RTable.Mounted', function(msg, data){
+            });
+
+            //default render and mount to dom 
+            r = React.createElement(RTable.Component, settings);
+            component = React.render(r, el);
+            
+            // demo events 
+            renderBtn.addEventListener('click', function(e){
+                var diff = new Date().getTime();
+                component.setProps({data : data, definitions : definition});
+                diff = (new Date().getTime() - diff)/1000;
+                console.log('default render in sec',   diff);
+            });
+          
+            addColumn.addEventListener('click', function(){
+                columnIndex+= 1;
+                definition.push({field : 'col_' + columnIndex, title : 'Column '+columnIndex});
+                var diff = new Date().getTime();
+                
+                component.setProps({definitions : definition});
+
+                diff = (new Date().getTime() - diff)/1000;
+                console.log('add new column render in sec',   diff);
+            });
+
+            rndColumnBtn.addEventListener('click', function(){
+                var row = Math.floor(Math.random() * (data.length-1));
+                var cell = Math.floor(Math.random() * (definition.length-1));
+                var defCol = definition[cell][settings.columnFieldValueProp];
+                data[row][defCol]  = data[row][defCol] + ' randomised ';
+                var diff = new Date().getTime();
+                
+                component.setProps({data : data});
+
+                diff = (new Date().getTime() - diff)/1000;
+                console.log('random change render in sec',   diff);
+            });
+
+
+        </script>
+        
+     <!--[if lt IE 9]>
+        <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/es5-shim/3.4.0/es5-shim.js"></script>
+      <![endif]-->      
+    </body>
+</html>

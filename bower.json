@@ -9,11 +9,21 @@
   "description": "React js table component",
   "license": "GNU V2.0",
   "private": false,
-   "_source": "git://github.com/dlebedynskyi/RTable.git",
+  "_source": "git://github.com/dlebedynskyi/RTable.git",
   "ignore": [
     "**/.*",
     "node_modules",
     "bower_components",
-    "tests"
-  ]
+    "tests", 
+    "cjs",
+    "jsx",
+    "umd",
+    ".travis.yml",
+    "package.json",
+    "*.sublime-*",
+    "*.html"
+  ],
+  "devDependencies": {
+    "pubsub-js": "~1.5.0"
+  }
 }

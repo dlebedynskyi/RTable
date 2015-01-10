@@ -29,3 +29,7 @@ bower_components
 .lock-wscript
 *.sublime-workspace
 *.sublime-workspace
+
+*.sublime-project
+
+*.sublime-workspace
