@@ -3,7 +3,7 @@ var gulp = require('gulp'),
 	config = require('./config'),
 	fn;
 
-gulp.task('react', function(){
+gulp.task('react', fn = function(){
   return gulp.src(config.src.jsx)
     .pipe(g.plumber({errorHandler: g.notify.onError("Error: <%= error.message %> ")}))
     .pipe(g.react())

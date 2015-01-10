@@ -4,16 +4,32 @@ var gulp = require('gulp'),
 	fs = require('fs'),
 	fn;
 
-gulp.task('umd', function  () {
+
+
+// Umd options
+var options = {
+  input:  config.src.cjsInput,
+  output: config.dist.fileName,
+  exports: config.dist.exportName,
+  map: false,
+  comments : true,
+  external : {
+  	react : {amd : 'react', global : 'React'},
+  	'pubsub-js' : {amd : 'pubsub-js', global : 'PubSub'}
+  }
+};
+
+gulp.task('umd', fn = function  () {
 	//needs umd folder to exist
-	if (!fs.existsSync(config.dist.umd)){
-	    fs.mkdirSync(config.dist.umd);
+	if (!fs.existsSync(config.dist.dist)){
+	    fs.mkdirSync(config.dist.dist);
 	}
 
-	return gulp.src(config.build.js +'/' +config.build.fileName)
+	return gulp.src(config.src.cjs)
 		.pipe(g.plumber({errorHandler: g.notify.onError("Error: <%= error.message %> ")}))
 		.pipe(g.pure(options))
-		.pipe(gulp.dest(config.build.umd))
-    .pipe(gulp.dest(config.dist))
+		.pipe(gulp.dest(config.dist.dist))
 		.on('error', g.notify.onError("Error: <%= error.message %>"));;
 });
+
+module.exports = fn; 
