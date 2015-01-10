@@ -15,12 +15,13 @@
     "node_modules",
     "bower_components",
     "tests", 
-    "cjs",
-    "jsx",
-    "umd",
+    "./cjs",
+    "./jsx",
+    "./umd",
+    "gulpfile.js",
     ".travis.yml",
     "package.json",
-    "*.sublime-*",
+    "*.sublime-project",
     "*.html"
   ],
   "devDependencies": {
