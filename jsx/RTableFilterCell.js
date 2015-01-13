@@ -4,7 +4,7 @@
 var React =  require('react'),
     pubsub = require('pubsub-js');
 
-var RTableFilterCell = React.createClass({
+var RTableFilterCell = {
     displayName : 'RTableFilterCell',
     getInitialState : function(){
         return { filter : null};
@@ -35,6 +35,10 @@ var RTableFilterCell = React.createClass({
     render : function(){
             return (<th className='rtable-column-filter'><input type="text" value={this.state.filter} onChange={this.handleChange}></input></th>);
           }
-    });
+    };
 
-module.exports = RTableFilterCell;
+module.exports = {
+  class : RTableFilterCell,
+  Component : React.createClass(RTableFilterCell)
+};
+

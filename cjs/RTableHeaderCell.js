@@ -4,7 +4,7 @@
 var React =  require('react'),
     utils = require('./utils');
     
-var RTableHeaderCell = React.createClass({
+var RTableHeaderCell = {
     displayName : 'RTableHeaderCell',
     getDefaultProps : function  () {
         return {  
@@ -30,6 +30,9 @@ var RTableHeaderCell = React.createClass({
             
             return (React.createElement("th", {className: "rtable-column-header"}, header));
           }
-    });
+    };
 
-module.exports = RTableHeaderCell;
+module.exports = {
+    class : RTableHeaderCell,
+    Component : React.createClass(RTableHeaderCell)
+};

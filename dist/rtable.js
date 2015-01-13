@@ -71,9 +71,8 @@ If your React component's render function is "pure" (in other words, it renders 
             /**
  * @jsx React.DOM
  */
-            var React = _require(8), utils = _require(6), PropRenderMixin = _require(0);
-            var RTableCell = React.createClass({
-                    mixins: [PropRenderMixin],
+            var React = _require(8), utils = _require(6);
+            var RTableCell = {
                     displayName: 'RTableCell',
                     getDefaultProps: function () {
                         return {
@@ -119,15 +118,18 @@ If your React component's render function is "pure" (in other words, it renders 
                         }
                         return React.createElement('td', { className: 'rtable-column-body' }, dataObj[def]);
                     }
-                });
-            module.exports = RTableCell;
+                };
+            module.exports = {
+                class: RTableCell,
+                Component: React.createClass(RTableCell)
+            };
         },
         function (module, exports) {
             /**
  * @jsx React.DOM
  */
             var React = _require(8), pubsub = _require(7);
-            var RTableFilterCell = React.createClass({
+            var RTableFilterCell = {
                     displayName: 'RTableFilterCell',
                     getInitialState: function () {
                         return { filter: null };
@@ -159,15 +161,18 @@ If your React component's render function is "pure" (in other words, it renders 
                             onChange: this.handleChange
                         }));
                     }
-                });
-            module.exports = RTableFilterCell;
+                };
+            module.exports = {
+                class: RTableFilterCell,
+                Component: React.createClass(RTableFilterCell)
+            };
         },
         function (module, exports) {
             /**
  * @jsx React.DOM
  */
             var React = _require(8), utils = _require(6);
-            var RTableHeaderCell = React.createClass({
+            var RTableHeaderCell = {
                     displayName: 'RTableHeaderCell',
                     getDefaultProps: function () {
                         return {
@@ -196,15 +201,18 @@ If your React component's render function is "pure" (in other words, it renders 
                         }
                         return React.createElement('th', { className: 'rtable-column-header' }, header);
                     }
-                });
-            module.exports = RTableHeaderCell;
+                };
+            module.exports = {
+                class: RTableHeaderCell,
+                Component: React.createClass(RTableHeaderCell)
+            };
         },
         function (module, exports) {
             /**
  * @jsx React.DOM
  */
             var React = _require(8), pubsub = _require(7);
-            var RTableSelectCell = React.createClass({
+            var RTableSelectCell = {
                     displayName: 'RTableSelectCell',
                     getInitialState: function () {
                         return { isChecked: false };
@@ -234,16 +242,20 @@ If your React component's render function is "pure" (in other words, it renders 
                     componentWillUnmount: function () {
                         pubsub.unsubscribe('RTable.RowSelected');
                     }
-                });
-            module.exports = RTableSelectCell;
+                };
+            module.exports = {
+                class: RTableSelectCell,
+                Component: React.createClass(RTableSelectCell)
+            };
         },
         function (module, exports) {
             /**
  * @jsx React.DOM
  */
-            var React = _require(8), pubsub = _require(7), RTableHeaderCell = _require(3), RTableFilterCell = _require(2), RTableSelectCell = _require(4), RTableCell = _require(1);
+            var React = _require(8), pubsub = _require(7), RTableHeaderCell = _require(3).Component, RTableFilterCell = _require(2).Component, RTableSelectCell = _require(4).Component, RTableCell = _require(1).Component, PropRenderMixin = _require(0);
             var RTable = {
                     displayName: 'RTable',
+                    mixins: [PropRenderMixin],
                     getDefaultProps: function () {
                         return {
                             data: [],

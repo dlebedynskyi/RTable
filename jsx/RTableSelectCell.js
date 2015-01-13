@@ -4,8 +4,8 @@
 var React = require('react'),
     pubsub = require('pubsub-js');
 
-var RTableSelectCell = React.createClass({
-	displayName : 'RTableSelectCell',
+var RTableSelectCell ={
+  displayName : 'RTableSelectCell',
   getInitialState : function(){
         return { isChecked : false};
     },
@@ -14,7 +14,7 @@ var RTableSelectCell = React.createClass({
             data : {}
         };
     },
-	propTypes : {
+  propTypes : {
         //Data object. will use dataProp to look for display values. Value will be taken based on columnFieldValueProp value of definition object
         data : React.PropTypes.object
     },
@@ -28,10 +28,11 @@ var RTableSelectCell = React.createClass({
     this.setState({isChecked: checked});
   },
   render : function(){ 
-    		return (<td className="rtable-selection rtable-column-body"><input type="checkbox" checked={this.state.isChecked} onChange={this.onChange}></input></td>);
+        return (<td className="rtable-selection rtable-column-body"><input type="checkbox" checked={this.state.isChecked} onChange={this.onChange}></input></td>);
     },
   componentWillUnmount : function(){
       pubsub.unsubscribe('RTable.RowSelected');
-    }});
+    }
+}; 
 
-module.exports = RTableSelectCell;
+module.exports = { class : RTableSelectCell, Component : React.createClass(RTableSelectCell)};

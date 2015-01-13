@@ -3,13 +3,15 @@
  */
 var React =  require('react'),
     pubsub = require('pubsub-js'),
-    RTableHeaderCell = require('./RTableHeaderCell'),
-    RTableFilterCell = require('./RTableFilterCell'),
-    RTableSelectCell = require('./RTableSelectCell'),
-    RTableCell = require('./RTableCell');
+    RTableHeaderCell = require('./RTableHeaderCell').Component,
+    RTableFilterCell = require('./RTableFilterCell').Component,
+    RTableSelectCell = require('./RTableSelectCell').Component,
+    RTableCell = require('./RTableCell').Component,
+    PropRenderMixin = require('./PropRenderMixin');
 
 var RTable = {
     displayName : 'RTable',
+    mixins: [PropRenderMixin],
     getDefaultProps : function  () {
         return {  
         	data : [],
