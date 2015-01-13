@@ -14,7 +14,7 @@
     "**/.*",
     "node_modules",
     "bower_components",
-    "tests", 
+    "tests",
     "cjs",
     "jsx",
     "umd",
@@ -24,7 +24,8 @@
     "*.sublime-project",
     "*.html"
   ],
-  "devDependencies": {
-    "pubsub-js": "~1.5.0"
+  "dependencies": {
+    "pubsub-js": "~1.5.0",
+    "react": "~0.12.2"
   }
 }

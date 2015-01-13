@@ -4,12 +4,9 @@ var gulp = require('gulp'),
 	fs = require('fs'),
 	fn;
 
-
-
 // Umd options
 var options = {
-  input:  config.src.cjsInput,
-  output: config.dist.fileName,
+  output : config.dist.fileName,
   exports: config.dist.exportName,
   map: false,
   comments : true,
@@ -24,12 +21,11 @@ gulp.task('umd', fn = function  () {
 	if (!fs.existsSync(config.dist.dist)){
 	    fs.mkdirSync(config.dist.dist);
 	}
-
-	return gulp.src(config.src.cjs)
+	gulp.src(config.src.cjsInput)
 		.pipe(g.plumber({errorHandler: g.notify.onError("Error: <%= error.message %> ")}))
 		.pipe(g.pure(options))
 		.pipe(gulp.dest(config.dist.dist))
-		.on('error', g.notify.onError("Error: <%= error.message %>"));;
+		.on('error', g.notify.onError("Error: <%= error.message %>"));
 });
 
 module.exports = fn; 
