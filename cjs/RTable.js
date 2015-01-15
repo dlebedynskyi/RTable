@@ -21,7 +21,7 @@ var RTable = {
             columnNameProp : 'name', 
             enableFilters : true,
             enableSelection : true,
-            classes : 'rtable',
+            classes : '',
             optimization : true, 
             fixedHeader : false
         };

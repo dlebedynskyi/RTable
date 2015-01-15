@@ -3,9 +3,12 @@ var gulp = require('gulp'),
 	config = require('./config'),
 	fn;
 
-gulp.task('test', fn = function () {
+gulp.task('jest',  fn = function () {
     return gulp.src('.').pipe(
       g.jest(config.jest));
 });
+
+gulp.task('test', ['react', 'jest']);
+
 
 module.exports = fn;

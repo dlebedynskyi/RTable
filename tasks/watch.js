@@ -9,7 +9,7 @@ gulp.task('watch', fn.watch = function(){
 });
 
 gulp.task('watch-dev', fn.watchTest = function(){
-	register(config.src.cjs, ['test',['lint']]);
+	register(config.src.cjs, ['jest',['lint']]);
 });
 
 
